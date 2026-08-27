@@ -48,11 +48,7 @@
         "groups": [
           {
             "group": "Get Started",
-            "pages": [
-              "introduction",
-              "quickstart",
-              "plans-and-billing"
-            ]
+            "pages": ["introduction", "quickstart", "plans-and-billing"]
           },
           {
             "group": "Answering",
@@ -74,9 +70,7 @@
           },
           {
             "group": "For members",
-            "pages": [
-              "blacklist/account-blacklisted"
-            ]
+            "pages": ["blacklist/account-blacklisted"]
           },
           {
             "group": "Tickets",
@@ -88,10 +82,7 @@
           },
           {
             "group": "Help Center",
-            "pages": [
-              "help-center/overview",
-              "help-center/custom-domain"
-            ]
+            "pages": ["help-center/overview", "help-center/custom-domain"]
           },
           {
             "group": "Dashboard & Settings",
