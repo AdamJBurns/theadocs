@@ -10,7 +10,9 @@ The global blacklist is an optional, shared signal: a Discord account that has b
 This page is for server staff. If your own account was listed, see [Why your account is blacklisted](/blacklist/account-blacklisted).
 
 <Note>
-  This setting appears under **Settings → AutoMod → Global blacklist** when Thea has enabled it for your server. It is a canary feature: if you do not see the card, it is not available on this install yet.
+  This setting appears under **Settings → AutoMod → Global blacklist** when Thea
+  has enabled it for your server. It is a canary feature: if you do not see the
+  card, it is not available on this install yet.
 </Note>
 
 ## How a listing is created
@@ -29,11 +31,11 @@ Participating servers never see which other servers contributed, and they never 
 
 ## Modes
 
-| Mode | What Thea does when a listed account is already in the server or joins |
-|---|---|
-| **Off** | Ignore the list. This server does not send signals and does not act on listings. |
-| **Review** | Apply a 24-hour timeout and post **Allow** / **Ban** buttons in your AutoMod log channel. **Allow** creates a local exception for that listing. |
-| **Automatic ban** | Ban the account and record that the ban came from the global blacklist. |
+| Mode              | What Thea does when a listed account is already in the server or joins                                                                          |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Off**           | Ignore the list. This server does not send signals and does not act on listings.                                                                |
+| **Review**        | Apply a 24-hour timeout and post **Allow** / **Ban** buttons in your AutoMod log channel. **Allow** creates a local exception for that listing. |
+| **Automatic ban** | Ban the account and record that the ban came from the global blacklist.                                                                         |
 
 Review mode needs an AutoMod [log channel](/moderation/automod). Without one, Thea cannot present the decision buttons.
 
@@ -44,7 +46,7 @@ If Thea lacks **Ban Members** (or **Moderate Members** for the review timeout), 
 Switching to **Off**:
 
 - Withdraws this server's signals from the shared list.
-- Reverses only restrictions Thea can prove *this feature* created (for example, a timeout or ban it applied because of a listing).
+- Reverses only restrictions Thea can prove _this feature_ created (for example, a timeout or ban it applied because of a listing).
 - Never lifts a ban a moderator issued themselves.
 
 ## Privacy

@@ -10,25 +10,25 @@ Commands follow Discord permissions. Members who lack the permission do not see 
 
 ## Commands
 
-| Command | Permission | Notes |
-|---|---|---|
-| `/warn @user reason:` | Moderate Members | DM plus a record. Feeds repeat-offender escalation and `/standing`. |
-| `/timeout @user duration: reason:` | Moderate Members | Examples: `10m`, `2h`, `3d`. Max 28 days. |
-| `/untimeout @user` | Moderate Members | Lift early |
-| `/kick @user reason:` | Kick Members | They can rejoin |
-| `/ban @user` | Ban Members | Permanent or a number of days; optional message purge (1–365 days) |
-| `/unban` | Ban Members | |
-| `/softban @user` | Ban Members | Ban then unban; deletes about a day of messages |
-| `/purge count:` | Manage Messages | 2–100 messages; optional user filter. Discord will not bulk-delete messages older than 14 days. |
-| `/record @user` | Moderate Members | Full moderation record |
-| `/delwarn @user` | Moderate Members | Remove the latest *manual* warn |
-| `/moderations` | Moderate Members | Temporary bans waiting to lift |
-| `/note` / `/notes` / `/delnote` | Moderate Members | Staff-only notes on a member. The member never sees them. |
-| `/watch` / `/unwatch` | Moderate Members | Closer scrutiny, optional expiry. Max **200** watches per server. |
-| `/lock` / `/unlock` | Manage Roles | Lock the current channel; optional notice |
-| `/standing` | Any member | Own record. Staff can pass a user. See [Member standing](/moderation/standing). |
-| `/automod test` | Manage Server | Simulate a message. See [AutoMod](/moderation/automod). |
-| `/raid` | Manage Server | See [Raid protection](/moderation/raid-protection). |
+| Command                            | Permission       | Notes                                                                                           |
+| ---------------------------------- | ---------------- | ----------------------------------------------------------------------------------------------- |
+| `/warn @user reason:`              | Moderate Members | DM plus a record. Feeds repeat-offender escalation and `/standing`.                             |
+| `/timeout @user duration: reason:` | Moderate Members | Examples: `10m`, `2h`, `3d`. Max 28 days.                                                       |
+| `/untimeout @user`                 | Moderate Members | Lift early                                                                                      |
+| `/kick @user reason:`              | Kick Members     | They can rejoin                                                                                 |
+| `/ban @user`                       | Ban Members      | Permanent or a number of days; optional message purge (1–365 days)                              |
+| `/unban`                           | Ban Members      |                                                                                                 |
+| `/softban @user`                   | Ban Members      | Ban then unban; deletes about a day of messages                                                 |
+| `/purge count:`                    | Manage Messages  | 2–100 messages; optional user filter. Discord will not bulk-delete messages older than 14 days. |
+| `/record @user`                    | Moderate Members | Full moderation record                                                                          |
+| `/delwarn @user`                   | Moderate Members | Remove the latest _manual_ warn                                                                 |
+| `/moderations`                     | Moderate Members | Temporary bans waiting to lift                                                                  |
+| `/note` / `/notes` / `/delnote`    | Moderate Members | Staff-only notes on a member. The member never sees them.                                       |
+| `/watch` / `/unwatch`              | Moderate Members | Closer scrutiny, optional expiry. Max **200** watches per server.                               |
+| `/lock` / `/unlock`                | Manage Roles     | Lock the current channel; optional notice                                                       |
+| `/standing`                        | Any member       | Own record. Staff can pass a user. See [Member standing](/moderation/standing).                 |
+| `/automod test`                    | Manage Server    | Simulate a message. See [AutoMod](/moderation/automod).                                         |
+| `/raid`                            | Manage Server    | See [Raid protection](/moderation/raid-protection).                                             |
 
 Reason text on warn, kick, and ban is shown to the member (up to 500 characters).
 
