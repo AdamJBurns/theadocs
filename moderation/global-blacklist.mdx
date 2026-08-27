@@ -1,0 +1,60 @@
+---
+title: "Global blacklist for servers"
+sidebarTitle: "Global blacklist"
+description: "Opt your server into Thea's shared permanent-ban signal, choose review or automatic ban, and understand what gets listed."
+keywords: ["global blacklist", "shared bans", "review mode", "automatic ban"]
+---
+
+The global blacklist is an optional, shared signal: a Discord account that has been permanently banned through Thea by **three different participating servers** within **90 days**. Your server decides whether to use that signal, and how strongly.
+
+This page is for server staff. If your own account was listed, see [Why your account is blacklisted](/blacklist/account-blacklisted).
+
+<Note>
+  This setting appears under **Settings → AutoMod → Global blacklist** when Thea has enabled it for your server. It is a canary feature: if you do not see the card, it is not available on this install yet.
+</Note>
+
+## How a listing is created
+
+An account is listed only when all of these are true:
+
+- Each contributing server has opted in to the global blacklist.
+- Each ban is **permanent**.
+- Each ban was issued **through Thea** — a moderator command or a permanent AutoMod action.
+- The ban was that server's own decision, not a follow-on from an existing listing.
+- The three bans happened in the last **90 days** and came from **different** servers.
+
+Timeouts, kicks, temporary bans, softbans, native Discord bans, bans from another bot, and bans caused by the blacklist itself do **not** count.
+
+Participating servers never see which other servers contributed, and they never see another server's ban reasons.
+
+## Modes
+
+| Mode | What Thea does when a listed account is already in the server or joins |
+|---|---|
+| **Off** | Ignore the list. This server does not send signals and does not act on listings. |
+| **Review** | Apply a 24-hour timeout and post **Allow** / **Ban** buttons in your AutoMod log channel. **Allow** creates a local exception for that listing. |
+| **Automatic ban** | Ban the account and record that the ban came from the global blacklist. |
+
+Review mode needs an AutoMod [log channel](/moderation/automod). Without one, Thea cannot present the decision buttons.
+
+If Thea lacks **Ban Members** (or **Moderate Members** for the review timeout), it logs the failed action and alerts your staff instead of pretending it succeeded.
+
+## Turning the feature off
+
+Switching to **Off**:
+
+- Withdraws this server's signals from the shared list.
+- Reverses only restrictions Thea can prove *this feature* created (for example, a timeout or ban it applied because of a listing).
+- Never lifts a ban a moderator issued themselves.
+
+## Privacy
+
+- Other servers never learn your server identity from a signal you contributed.
+- Members who are listed receive a `BL-` reference and a private appeal link from Thea, not from your server.
+- Appeals go to Thea trust and safety, not to your moderators.
+
+## Related
+
+- [AutoMod](/moderation/automod) — log channel, actions, and exemptions
+- [Account standing](/account/standing) — platform-level restrictions on a Thea account
+- [Acceptable use](https://www.theabot.com/acceptable-use) — how Thea uses this signal

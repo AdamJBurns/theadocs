@@ -1,0 +1,45 @@
+---
+title: "Collaborators and dashboard roles"
+sidebarTitle: "Collaborators"
+description: "Invite staff to the Thea dashboard with Admin, Mod, or Viewer roles. Available when the collaborators beta is enabled for your server."
+keywords: ["collaborators", "dashboard roles", "invite", "permissions"]
+---
+
+**Members** lets you invite people to this server's Thea dashboard without giving them **Manage Server** in Discord. Each collaborator gets a dashboard role: Viewer, Mod, or Admin.
+
+This page appears in the sidebar only when Thea has enabled the **collaborators** beta for your server. If you do not see **Members**, ask Thea support or wait until the flag is on.
+
+## Roles
+
+The Discord owner (and anyone with **Manage Server**) is treated as **Owner**. Owners are not a role you assign; they always have every permission.
+
+| Area | Viewer | Mod | Admin | Owner |
+|---|---|---|---|---|
+| Overview, Activity, Stats, Conversations, Tickets (read) | Yes | Yes | Yes | Yes |
+| Knowledge, Help Center, Announcements (read) | Yes | Yes | Yes | Yes |
+| Flag conversations, work tickets, edit knowledge, use Playground | — | Yes | Yes | Yes |
+| Settings, AutoMod, raid, logs, saved replies, Audit, Members | — | — | Yes | Yes |
+| Billing and API keys | — | — | — | Yes |
+
+A server can have up to **25** collaborators.
+
+## Invite someone
+
+1. Open **Members**.
+2. Invite by Discord user and choose a role.
+3. They accept from their Thea account.
+
+Pending invites stay listed until they are accepted or cancelled. You can change a collaborator's role later, or remove them.
+
+<Warning>
+  Removing someone who created Content API keys does not revoke those keys. Rotate the keys on **Settings → API** if that person should no longer have programmatic access.
+</Warning>
+
+## What this is not
+
+Collaborators do not change Discord permissions. A Viewer can read the dashboard and still have no moderator role in the server. AutoMod commands, `/warn`, and ticket claim still follow Discord permissions.
+
+## Related
+
+- [Content API](/dashboard/content-api) — keys only owners can create
+- [Audit](/dashboard/audit) — every settings change is attributed

@@ -1,61 +1,66 @@
 ---
-title: "Quickstart: Get Thea Running on Your Discord Server"
+title: "Quickstart: get Thea running on your Discord server"
 sidebarTitle: "Quickstart"
-description: "Create your account, connect a knowledge source, set your confidence threshold, rehearse answers in the Playground, and invite Thea to your Discord server."
+description: "Create your account, connect a knowledge source, set your confidence threshold, rehearse answers in the Playground, and invite Thea to Discord."
 ---
 
-This guide walks you through everything you need to go from zero to a live, answering bot in about five minutes. You'll connect a knowledge source you already have — a docs site, a sitemap, or a plain FAQ page — and Thea will index it, start answering questions, and escalate to your team whenever it isn't confident enough to answer on its own.
+This guide takes you from a new account to a live answering bot. You will connect a docs site or FAQ, pick when Thea should speak, and invite it to a server.
 
 <Note>
-  The Pro plan includes a **14-day free trial**. Your card is collected at checkout but is not charged until the trial period ends. You can cancel at any time from the dashboard before the trial expires.
+  The Pro plan includes a **14-day free trial**. Your card is collected at checkout but is not charged until the trial ends. Cancel from **Billing** before then if you do not want to continue.
 </Note>
 
 <Steps>
   <Step title="Create your account">
-    Go to [theabot.com/auth/signup](https://www.theabot.com/auth/signup) and select **Continue with Discord**. Thea uses Discord OAuth so there is no separate password to manage — the account you create is tied directly to your Discord identity.
+    Go to [theabot.com/auth/signup](https://www.theabot.com/auth/signup) and select **Continue with Discord**. There is no separate password — the account is your Discord identity.
   </Step>
 
   <Step title="Add your first knowledge source">
-    After signing in, open the **Knowledge** tab and click **Add source**. Paste in one of the following:
+    Open **Knowledge** and click **Add source**. Paste one of:
 
-    - A documentation URL (Thea will crawl linked pages up to the crawl depth your plan allows)
-    - A sitemap URL (e.g. `https://yourdocs.com/sitemap.xml`)
-    - A direct link to a FAQ or help page
+    - A documentation URL
+    - A sitemap URL (for example `https://yourdocs.com/sitemap.xml`)
+    - A single FAQ or help page
+    - A file (Markdown, PDF, or plain text)
 
-    Thea begins indexing immediately. Indexing typically completes within a few minutes for small sites. You'll see a progress indicator in the Knowledge tab — you can continue setup while indexing runs in the background.
+    Indexing starts immediately. Small sites finish in a few minutes. You can keep going while the source shows **Building**.
 
     <Tip>
-      You can connect up to **3 sources** on the Free plan, **25** on Pro, and **200** on Business. Notion and Zendesk integrations are available on Pro and Business.
+      Free includes **3** sources, Pro **25**, Business **200**. Notion, Zendesk, and the Content API are Pro and Business. See [Knowledge sources](/answering/knowledge-sources).
     </Tip>
   </Step>
 
-  <Step title="Set your confidence threshold and escalation role">
-    Navigate to **Settings → Answering**. Two controls matter here:
+  <Step title="Choose when Thea answers">
+    Open **Settings → Answering**.
 
-    - **Confidence threshold** — a percentage slider (0–100). When Thea's internal confidence for a given answer falls below this value, it escalates instead of replying.
-    - **Escalation role** — the Discord role that gets pinged when an escalation fires. Assign this to your support team or moderators.
+    - Set **When to answer** to **In watched channels** (the usual choice).
+    - Select those channels under **Watched channels**.
 
-    Start with the default threshold (around 70%) and adjust it after you've reviewed a few answers in the Playground. A lower threshold means Thea answers more questions itself; a higher threshold means it escalates more often.
+    Then open **Settings → Handoff**:
+
+    - **Confidence threshold** is a number from **0 to 1** (default **0.35**). Higher means more refusals and fewer guesses. Lower means Thea answers more often.
+    - **Support role** is pinged when someone uses the get-a-human button or a ticket needs a person.
+
+    After you have reviewed a few Playground answers, raise the threshold if Thea is guessing, or lower it if it refuses questions your docs actually cover.
   </Step>
 
   <Step title="Try a question in the Playground">
-    Open the **Playground** from the left sidebar. Type a question your members commonly ask. Thea will return:
+    Open **Playground** in the sidebar. Ask something members actually ask. You will see the reply, the passages cited, and a confidence score. Playground runs use the live knowledge and the same confidence gate — and they count against your AI budget.
 
-    - The answer it would post in Discord
-    - The source passage(s) it cited
-    - Its confidence score for the answer
-    - A diagnostic breakdown showing which sources were searched
-
-    Use the Playground to rehearse your full question set before going live. You can save a run history and revisit past diagnostics at any time.
-
-    <Tip>
-      See [Playground](/answering/playground) for the full guide on running bulk question sets, reading per-answer diagnostics, and interpreting confidence scores.
-    </Tip>
+    See [Playground](/answering/playground) for diagnostics and common errors.
   </Step>
 
-  <Step title="Invite Thea to your Discord server">
-    Go to **Settings → Discord** and click **Add to Server**. Choose the server from the dropdown and grant the requested permissions. Thea needs permission to read messages in the channels you want it to watch and to send messages where it should reply.
+  <Step title="Invite Thea to Discord">
+    Add the bot to the server from the dashboard, then in Discord run:
 
-    Once invited, Thea is live. It will begin answering questions in the channels you've enabled and escalating to your team when confidence is low.
+    ```
+    /setup channel:#support support_role:@Support
+    ```
+
+    Thea needs permission to read the channels you watch and to send messages (and threads) where it should reply. It does not need Administrator. Full permission list: [Discord setup](/dashboard/discord-setup).
   </Step>
 </Steps>
+
+<Check>
+  Ask a real question in a watched channel or with `/ask`. If Thea is confident, it replies in a thread with citations. If it is not, it offers a human instead of guessing.
+</Check>

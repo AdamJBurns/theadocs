@@ -1,37 +1,46 @@
 ---
-title: "Introduction to Thea — Discord AI Support & Moderation"
+title: "Introduction to Thea"
 sidebarTitle: "Introduction"
-description: "Thea answers Discord member questions with cited, grounded responses — and escalates to your team instead of guessing whenever its confidence is low."
+description: "Thea answers Discord questions from your docs with citations, escalates when it is not sure, and runs AutoMod, tickets, and a help center from one dashboard."
 ---
 
-Thea is an AI-powered Discord bot that turns your existing documentation, wikis, and FAQs into an always-on support layer for your community. Every answer Thea gives cites the exact source passage it drew from, so members can verify what they read and your team can trust what went out. When Thea's confidence falls below the threshold you set, it escalates to your staff instead of guessing — keeping your community's trust intact. The same installation also runs layered automatic moderation, a private-channel ticket system with AI triage, and a publicly searchable help center, all powered by the same knowledge base.
+Thea is an AI Discord bot that turns the documentation you already have into an always-on support layer. Every answer cites the passage it used. When confidence is below the threshold you set, Thea hands off to your staff instead of guessing. The same install runs layered AutoMod, private-channel tickets, and a public help center.
 
 ## What Thea does
 
-<CardGroup cols={3}>
+<CardGroup cols={2}>
   <Card title="Answering" icon="comment-dots" href="/answering/how-it-works">
-    Respond to member questions instantly using your connected knowledge sources, with every answer linked back to the exact passage it came from.
+    Cited replies from your sources, with a confidence gate and a get-a-human button.
   </Card>
   <Card title="Moderation" icon="shield-halved" href="/moderation/automod">
-    Layer Discord-native rules, heuristics, a moderation API, and an AI pass to catch spam, scams, raids, and impersonation before they reach your members.
+    Heuristics, scam defense, raid protection, an optional global blacklist, and moderator commands.
   </Card>
-  <Card title="Tickets & Help Center" icon="ticket" href="/tickets/overview">
-    Handle complex requests in private-channel tickets with AI triage and staff routing, and publish your knowledge base as a searchable public help center.
+  <Card title="Tickets" icon="ticket" href="/tickets/overview">
+    Private channels with AI first-answer, triage, transcripts, and CSAT.
+  </Card>
+  <Card title="Help center" icon="circle-question" href="/help-center/overview">
+    A public site of articles you publish — also indexed for Discord answers.
+  </Card>
+  <Card title="Community" icon="users" href="/community/welcome">
+    Welcome, onboarding forms, announcements, saved replies, and server logs.
+  </Card>
+  <Card title="Dashboard" icon="table-columns" href="/dashboard/overview">
+    Knowledge, Playground, conversations, billing, backup, and audit.
   </Card>
 </CardGroup>
 
 ## Why Thea
 
-- **Citation-grounded answers** — every response links to the exact source passage, so members can read the original and your team can audit what was sent.
-- **Confidence-gated escalation** — when Thea's confidence drops below your threshold, it hands off to your team rather than fabricating an answer.
-- **Layered AutoMod** — four complementary layers (Discord-native rules, spam/scam-link heuristics, a moderation API, and an AI pass) work together to cover threats that any single layer would miss.
-- **Scam and raid defense** — link canonicalization, QR-code scanning, identity/impersonation detection, cross-channel campaign detection, join-surge alerts, and an emoji-captcha gate protect your server around the clock.
-- **Ticket triage** — incoming tickets are automatically categorized, scored for urgency, and analyzed for member sentiment before a human ever reads them.
-- **Public help center** — the same knowledge base that powers Discord answers becomes a searchable help site, with support for a custom domain on paid plans.
-- **Analytics** — track answer coverage, escalation rates, ticket response times, and moderation activity from a single dashboard.
+- **Citation-grounded answers** — every reply links to the passage it used.
+- **Confidence-gated escalation** — below your threshold, Thea does not invent an answer.
+- **Layered AutoMod** — Discord rules, heuristics (including QR codes), a moderation screen, name screening, and an optional AI pass.
+- **Scam and raid defense** — community phishing list, join-surge detection, emoji-captcha gate, optional [global blacklist](/moderation/global-blacklist).
+- **Ticket triage** — category, urgency, and sentiment before a human reads the channel.
+- **Public help center** — articles you publish, with a custom domain on paid plans.
+- **Analytics** — Activity, conversations, ticket CSAT, and knowledge-gap clusters.
 
 ## Get started
 
-<Card title="Quickstart — up and running in 5 minutes" icon="rocket" href="/quickstart">
-  Create your account, connect your first knowledge source, set your escalation threshold, and invite Thea to your server.
+<Card title="Quickstart" icon="rocket" href="/quickstart">
+  Create an account, connect a source, set the threshold, and invite Thea.
 </Card>

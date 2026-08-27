@@ -1,0 +1,71 @@
+---
+title: "Server logs"
+sidebarTitle: "Server logs"
+description: "Post message, member, moderation, and ticket events to staff channels. Thea does not store message bodies from these logs."
+keywords: ["server logs", "message log", "ticket log", "audit"]
+---
+
+Server logs post Discord events to staff channels you choose. They are a live feed for moderators, not a second copy of your data in Thea.
+
+Configure them in **Settings → Server logs**, or with `/config logging` in Discord.
+
+## Destinations
+
+Each destination is **Off** or a staff channel:
+
+| Destination | Typical use |
+|---|---|
+| **Message log** | Deletes, edits, and bulk deletes |
+| **Member log** | Joins, leaves, bans, unbans |
+| **Moderation log** | Manual and AutoMod actions you want in Discord |
+| **Ticket log** | Ticket lifecycle events |
+
+Use private staff channels. Message logs can include content you would not want in a public channel.
+
+## Events you can turn on
+
+### Messages
+
+- Message deleted
+- Message edited
+- Bulk delete (purge)
+
+### Members
+
+- Member joined
+- Member left
+- Member banned
+- Member unbanned
+
+### Tickets
+
+- Ticket opened
+- Ticket claimed
+- Ticket assigned
+- Ticket released
+- Ticket escalated
+- Staff note added
+- Ticket closed
+- Ticket survey answered (rating and comment)
+- Ticket reopened
+- Ticket deleted
+
+The ticket log is lifecycle only. It does **not** include ticket message bodies, form answers, or staff note text — except the CSAT rating and comment when that event is on.
+
+## What Thea stores
+
+Message content in these logs is posted **to Discord only**. Thea does not keep a copy of deleted or edited message bodies for this feature.
+
+Deleted content appears only if the bot still had that message cached. If Thea never saw the original message, the log says so instead of inventing the text.
+
+For a durable, searchable record of configuration changes, use the [Audit log](/dashboard/audit). For AutoMod evidence, use the AutoMod log channel under [Settings → AutoMod](/moderation/automod).
+
+## Discord commands
+
+```
+/config logging show
+/config logging channel
+/config logging event
+```
+
+`show` prints the current destinations and enabled events. `channel` and `event` change one destination or one event without opening the dashboard.

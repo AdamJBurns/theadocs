@@ -1,0 +1,96 @@
+---
+title: "Answering settings: when and how Thea replies"
+sidebarTitle: "Answering settings"
+description: "Choose which channels Thea watches, how it handles duplicates, language matching, NSFW channels, and the extra instructions that shape its tone."
+keywords: ["answering settings", "watched channels", "trigger", "duplicate questions", "persona"]
+---
+
+Answering settings control *when* Thea looks for questions and *how* it replies. Confidence and escalation live on a separate page: [Confidence and escalation](/answering/confidence-and-escalation).
+
+Open **Settings → Answering**, **Settings → Handoff**, **Settings → Safety**, or **Settings → General** depending on the control.
+
+## When to answer
+
+In **Settings → Answering**, choose a trigger:
+
+| Mode | Behavior |
+|---|---|
+| **Only when mentioned** | Thea replies only if someone @mentions it. |
+| **In watched channels** | Thea treats questions in the channels you select as in-scope. This is the usual choice. |
+| **Every message** | Thea considers questions in every channel it can see. Busy servers burn through the monthly answer quota quickly. |
+
+The same control is available as `/config set trigger` in Discord.
+
+## Watched channels
+
+When the trigger is **In watched channels**, pick the text and forum channels Thea should watch. This is the same list `/setup` writes when you run it in Discord.
+
+<Tip>
+  Start with one or two help channels. Add more after you have reviewed answers in [Conversations](/answering/conversations) and the [Playground](/answering/playground).
+</Tip>
+
+## Reply in the asker's language
+
+Turn on **Match the asker's language** if members write in languages your docs are not written in. Thea still grounds the answer in your sources; it only changes the language of the reply. This applies to Discord answers and to `/ask`.
+
+## Duplicate questions
+
+When a new question is nearly identical to one Thea already answered, it can link to that thread instead of generating a new answer.
+
+- Redirects **do not** count against your monthly answer quota.
+- Similarity is a number from **0.5 to 1**. Higher is stricter.
+- Lookback is up to **90 days**.
+
+Configure this under **Settings → Answering → Duplicate questions**.
+
+## Tidy resolved threads
+
+When a member marks an answer helpful, Thea can close and archive the thread it opened. Anyone can reopen it by replying. This only applies to threads Thea created for its own answers.
+
+## Extra instructions
+
+**Settings → General → Extra instructions** is trusted persona text (up to 2,000 characters). Use it for tone, support hours, or things you always want mentioned.
+
+These instructions cannot override grounding. If the sources do not contain the answer, Thea still refuses. The same text is available as `/config set persona`.
+
+## Display name
+
+**Settings → General → Display name** is how Thea introduces itself in answers and its nickname in the server. Saving renames the bot in Discord. Thea needs the **Change Nickname** permission. The Discord application name itself is set in the Discord Developer Portal.
+
+## Safety
+
+These live under **Settings → Safety**:
+
+| Setting | What it does |
+|---|---|
+| **Answer in member threads** | Thea always continues threads it opened. This switch controls threads members opened themselves. |
+| **Decline in NSFW channels** | On by default. Thea declines rather than answering in age-restricted channels, even if the channel is watched. |
+| **Maximum question length** | 50–4,000 characters. Longer questions cost more per answer. `/ask` enforces the same cap. |
+
+## Ask privately with `/ask`
+
+Any member can ask Thea a question without posting it in a channel:
+
+```
+/ask question:How do I reset my password?
+```
+
+The reply is ephemeral — only the asker sees it. It still uses your knowledge sources, confidence threshold, language matching, and monthly answer quota.
+
+## Rate limits
+
+Each plan also caps how fast questions can arrive:
+
+| Plan | Per member / min | Per channel / min | Per server / min |
+|---|---|---|---|
+| Free | 2 | 5 | 10 |
+| Pro | 5 | 20 | 60 |
+| Business | 10 | 60 | 240 |
+
+Hitting a rate limit does not consume an answer. The member can try again shortly.
+
+## Related settings
+
+- [Confidence and escalation](/answering/confidence-and-escalation) — threshold, get-a-human button, support role
+- [Weekly digest and status alerts](/dashboard/overview) — **Settings → General**
+- [Discord setup](/dashboard/discord-setup) — permissions and `/setup`

@@ -55,8 +55,10 @@
             "pages": [
               "answering/how-it-works",
               "answering/knowledge-sources",
+              "answering/settings",
               "answering/confidence-and-escalation",
-              "answering/playground"
+              "answering/playground",
+              "answering/conversations"
             ]
           },
           {
@@ -65,7 +67,9 @@
               "moderation/automod",
               "moderation/scam-defense",
               "moderation/raid-protection",
-              "moderation/moderator-commands"
+              "moderation/global-blacklist",
+              "moderation/moderator-commands",
+              "moderation/standing"
             ]
           },
           {
@@ -81,17 +85,39 @@
             ]
           },
           {
+            "group": "Community",
+            "pages": [
+              "community/welcome",
+              "dashboard/onboarding-forms",
+              "community/announcements",
+              "community/saved-replies",
+              "community/server-logs"
+            ]
+          },
+          {
             "group": "Help Center",
             "pages": ["help-center/overview", "help-center/custom-domain"]
           },
           {
-            "group": "Dashboard & Settings",
+            "group": "Dashboard",
             "pages": [
               "dashboard/overview",
               "dashboard/analytics",
               "dashboard/integrations",
-              "dashboard/onboarding-forms"
+              "dashboard/content-api",
+              "dashboard/backup-and-clone",
+              "dashboard/collaborators",
+              "dashboard/audit",
+              "dashboard/discord-setup"
             ]
+          },
+          {
+            "group": "Account",
+            "pages": ["account/standing"]
+          },
+          {
+            "group": "Reference",
+            "pages": ["reference/slash-commands"]
           }
         ]
       }
@@ -117,5 +143,28 @@
       "label": "Get Started",
       "href": "https://www.theabot.com/auth/signup"
     }
+  },
+  "footer": {
+    "socials": {
+      "website": "https://www.theabot.com"
+    },
+    "links": [
+      {
+        "header": "Product",
+        "items": [
+          { "label": "Pricing", "href": "https://www.theabot.com/pricing" },
+          { "label": "Status", "href": "https://www.theabot.com/status" },
+          { "label": "Changelog", "href": "https://www.theabot.com/changelog" }
+        ]
+      },
+      {
+        "header": "Legal",
+        "items": [
+          { "label": "Privacy", "href": "https://www.theabot.com/privacy" },
+          { "label": "Terms", "href": "https://www.theabot.com/terms" },
+          { "label": "Acceptable use", "href": "https://www.theabot.com/acceptable-use" }
+        ]
+      }
+    ]
   }
 }

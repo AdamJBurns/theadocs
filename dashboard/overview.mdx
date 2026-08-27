@@ -1,48 +1,81 @@
 ---
-title: "Thea Dashboard: Your Complete Server Management Hub"
+title: "Thea dashboard"
 sidebarTitle: "Overview"
-description: "A guided tour of every section of the Thea dashboard — from server health at a glance to billing, backups, and multi-server management."
+description: "How the server dashboard is organized — Monitor, Build, Admin — and the Settings sections behind each product area."
 ---
 
-The Thea dashboard is where everything comes together. From here you monitor how your bot is performing, manage the knowledge it draws on, configure AutoMod and ticket handling, test changes before they go live, and adjust every setting that governs Thea's behavior in your server. Each section is purpose-built for a specific part of running a Thea-powered community.
+Each Discord server has its own isolated dashboard: its own knowledge, AutoMod, tickets, and plan. Switch servers from the selector. Account-level pages (all servers, billing overview, [account standing](/account/standing)) live under `/servers`.
 
-## Dashboard sections
+## Server navigation
 
-<CardGroup cols={2}>
-  <Card title="Workspace / Overview" icon="house">
-    Server health at a glance: total answers given, current escalation rate, active tickets, and a summary of recent AutoMod activity. Start here when you log in to get a quick pulse on your community.
-  </Card>
-  <Card title="Conversations" icon="messages">
-    A full log of every question Thea has answered or escalated. Each entry shows the member's question, the answer or escalation reason, the confidence score, and the exact source passages cited. Use this to audit quality and spot gaps.
-  </Card>
-  <Card title="Tickets" icon="ticket">
-    View open, claimed, overdue, and closed tickets in one place. Assign tickets to staff, update status, and download full conversation transcripts for any ticket — useful for compliance, training, or dispute resolution.
-  </Card>
-  <Card title="Knowledge / Sources" icon="book">
-    Manage every connected knowledge source. Add new sources, remove outdated ones, trigger a manual re-sync on any source, and see the total number of indexed passages per source. This is your single source of truth for what Thea knows.
-  </Card>
-  <Card title="Playground" icon="flask">
-    Test any question against your live knowledge base before it reaches Discord. See exactly which passages Thea would cite, the confidence score it would assign, and whether it would answer or escalate. Run a question set before launching a new knowledge source.
-  </Card>
-  <Card title="Guardrails" icon="shield">
-    Set the confidence threshold below which Thea escalates instead of answering, choose the escalation role, apply tone presets, and define scope rules that limit Thea to topics relevant to your community.
-  </Card>
-  <Card title="AutoMod" icon="ban">
-    Configure each moderation layer: Discord-native rules, spam and scam-link heuristics, the moderation API, and the AI pass. Set severity actions, build a repeat-offender ladder, and review flagged content in the review queue.
-  </Card>
-  <Card title="Settings" icon="gear">
-    General server settings, billing and plan management, notification preferences, and tools to back up or restore your entire Thea configuration.
-  </Card>
-</CardGroup>
+### Monitor
 
-## Multi-server management
+| Page | What it is |
+|---|---|
+| **Overview** | Setup checklist, plan usage, health, recent conversations |
+| **Activity** | Charts for answers, declines, and AutoMod over 7 or 30 days |
+| **Stats** | Live Discord counts — members, boosts, channels, verification level |
+| **Conversations** | Every question Thea handled. See [Conversations](/answering/conversations) |
+| **Tickets** | Queue, CSAT, transcripts. See [Tickets](/tickets/overview) |
 
-If you manage more than one Discord server, each server gets its own isolated dashboard workspace — separate knowledge bases, separate AutoMod rules, and separate ticket queues. Switch between workspaces using the server selector in the top-left corner of the dashboard. Billing is consolidated at the account level, so you manage your subscription and payment method in one place regardless of how many servers you run.
+### Build
 
-## Back up and clone your configuration
+| Page | What it is |
+|---|---|
+| **Knowledge** | Sources and gaps. See [Knowledge sources](/answering/knowledge-sources) |
+| **Help Center** | Articles and collections. See [Help center](/help-center/overview) |
+| **Playground** | Rehearse answers. See [Playground](/answering/playground) |
 
-From **Settings → Backup & Restore**, export your entire Thea configuration — knowledge sources, guardrail settings, AutoMod rules, ticket routing, and onboarding form setup — as a single JSON file. Import that file into another server's dashboard to clone the configuration instantly. This is useful when launching a second community with the same structure, or when you want a staging server that mirrors your production setup.
+### Admin
 
-<Tip>
-  Press **G** then a section key (shown in the sidebar tooltips) to jump directly to any dashboard section without using the mouse — handy for staff who live in the dashboard during busy periods.
-</Tip>
+| Page | What it is |
+|---|---|
+| **Announcements** | Scheduled posts. See [Announcements](/community/announcements) |
+| **Scam defense** | Live scam signals and effective policy. See [Scam defense](/moderation/scam-defense) |
+| **AutoMod** | Opens **Settings → AutoMod** |
+| **Members** | Dashboard collaborators, when the beta is on. See [Collaborators](/dashboard/collaborators) |
+| **Audit** | Configuration history. See [Audit](/dashboard/audit) |
+| **Settings** | The cards below |
+| **Billing** | This server's plan. Owner only. See [Plans and billing](/plans-and-billing) |
+
+## Settings sections
+
+While you are in Settings, the sidebar lists:
+
+General · Answering · Handoff · Welcome · Onboarding · Tickets · Saved replies · Safety · AutoMod · Raid protection · Server logs · Help center · API · Backup & clone
+
+| Section | Docs |
+|---|---|
+| General | Display name, extra instructions, [weekly digest](#weekly-digest), status-page alerts |
+| Answering / Safety | [Answering settings](/answering/settings) |
+| Handoff | [Confidence and escalation](/answering/confidence-and-escalation) |
+| Welcome | [Welcome](/community/welcome) |
+| Onboarding | [Onboarding forms](/dashboard/onboarding-forms) |
+| Tickets | [Ticket setup](/tickets/setup) |
+| Saved replies | [Saved replies](/community/saved-replies) |
+| AutoMod | [AutoMod](/moderation/automod), [global blacklist](/moderation/global-blacklist) |
+| Raid protection | [Raid protection](/moderation/raid-protection) |
+| Server logs | [Server logs](/community/server-logs) |
+| Help center | Branding and domain |
+| API | [Content API](/dashboard/content-api) |
+| Backup & clone | [Backup and clone](/dashboard/backup-and-clone) |
+
+## Weekly digest
+
+**Settings → General → Weekly digest** posts a short summary — answers, tickets, escalations, AutoMod — to a staff channel you pick. It is a Discord message, not an email. Each digest uses one AI summarization.
+
+## Overview checklist
+
+Until the server is fully set up, Overview walks through:
+
+1. Add a knowledge source
+2. Let it index
+3. Choose where the bot answers
+4. Route escalations
+5. Get a first answer in Discord or the Playground
+
+## Related
+
+- [Analytics](/dashboard/analytics)
+- [Discord setup](/dashboard/discord-setup)
+- [Integrations](/dashboard/integrations)

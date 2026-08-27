@@ -1,50 +1,53 @@
 ---
-title: "Publish a Help Center from Your Thea Knowledge Base"
+title: "Help center"
 sidebarTitle: "Overview"
-description: "Turn your indexed knowledge into a public, searchable help center website — the same source powering Discord answers, zero extra maintenance."
+description: "Write and publish articles as a public help site. Published articles are also indexed so Thea can cite them in Discord."
 ---
 
-Your Thea help center publishes the exact knowledge you've already indexed for Discord as a searchable, public website. Members browsing the web and members asking questions inside Discord read from one shared knowledge base — when you update a source, both channels reflect the change automatically. There is no second site to build or maintain.
+The help center is a public site you author in the dashboard. It is not an automatic dump of every crawled page. When you publish an article, visitors can search it on the web, and Thea indexes it as a knowledge source for Discord answers.
+
+Open **Help Center** in the server sidebar to create the center and edit articles. Branding and domain live under **Settings → Help center**.
 
 ## What you get
 
-Every help center includes:
-
-- **Collections** — themed groups of articles (e.g., "Getting Started", "Billing", "Troubleshooting") that give your content structure
-- **Articles** — individual pages sourced directly from your indexed knowledge
-- **Full-text search** — visitors search across all published articles instantly
-- **Your own domain** — point `help.yourdomain.com` (or any subdomain) at Thea on paid plans
+- **Articles** with draft, published, and archived states
+- **Collections** for grouping (Getting started, Billing, Troubleshooting)
+- **Search** across published articles
+- **Helpful / not helpful** votes on articles
+- A Thea-hosted URL, plus a [custom domain](/help-center/custom-domain) on Pro and Business
 
 ## Plan limits
 
-| Plan | Help-center articles | Custom domain |
+| Plan | Articles (drafts count) | Custom domain |
 |---|---|---|
-| Free | 10 | ✗ |
-| Pro | 500 | ✓ |
-| Business | 5,000 | ✓ |
+| Free | 10 | — |
+| Pro | 500 | Yes |
+| Business | 5,000 | Yes |
 
-## Enable your help center
+## Create and publish
 
-Open **Dashboard → Help Center → Enable**. Thea immediately publishes your indexed knowledge to a Thea-hosted subdomain — no build step required. Share the URL with your community right away or configure a custom domain first.
+<Steps>
+  <Step title="Create the center">
+    Open **Help Center**. If none exists, create one.
+  </Step>
+  <Step title="Write an article">
+    Draft the page, assign a collection, and publish when it is ready.
+  </Step>
+  <Step title="Set visibility">
+    **Settings → Help center**: **Live** or **Hidden**, plus name, headline, accent color, logo, and footer text.
+  </Step>
+  <Step title="Share the URL">
+    The public path is `/help/[center]` on theabot.com until you add a custom domain.
+  </Step>
+</Steps>
 
-## Organize content into collections
-
-Create collections to group related articles together. Navigate to **Dashboard → Help Center → Collections**, click **New Collection**, and give it a name and optional description. Drag articles into a collection, or assign a collection when editing an article. Collections appear as top-level sections in the sidebar of your help center.
-
-Good collection names follow the same logic your members use when they search — "Getting Started", "Billing & Plans", "Troubleshooting", "Account & Security" cover most communities well. Aim for four to six collections rather than one flat list of dozens of articles.
-
-## Default URL
-
-Your help center goes live at a Thea-hosted subdomain the moment you enable it. You'll find the exact URL in **Dashboard → Help Center → Domain Settings**. The Thea-hosted URL stays active even after you add a custom domain, so any existing links you've shared keep working.
-
-## Custom domain
-
-Custom domains are available on Pro and Business plans. See the [Custom Domain guide](/help-center/custom-domain) for the full DNS setup walkthrough.
-
-<Tip>
-  The help center and your Discord answers share one knowledge base. Update a Notion page or re-upload a doc, and both your Discord bot and your public help center reflect the change at the next sync — you never maintain two separate content sources.
-</Tip>
+Published articles become a `help_center` knowledge source. Updating an article updates what Thea can cite after the next index.
 
 <Note>
-  Help-center articles count toward your plan's document limits. If you're approaching your limit, archive articles you no longer need or upgrade your plan before adding new content.
+  Crawled docs sites and Notion pages stay on **Knowledge**. They do not automatically appear as help-center articles. Publish an article when you want a public page of your own.
 </Note>
+
+## Related
+
+- [Custom domain](/help-center/custom-domain)
+- [Knowledge sources](/answering/knowledge-sources)

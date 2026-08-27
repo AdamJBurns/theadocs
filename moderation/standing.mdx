@@ -1,0 +1,54 @@
+---
+title: "Member standing and the /standing command"
+sidebarTitle: "Member standing"
+description: "How Thea scores a member's AutoMod record on your server, how points decay, and what /standing shows."
+keywords: ["standing", "strikes", "repeat offenders", "/standing"]
+---
+
+Every AutoMod finding and every manual `/warn` on a server writes to that member's **standing**. Members can look at their own record. Staff can look at anyone's.
+
+This is per-server. It is not the same as [account standing](/account/standing), which is Thea's platform ledger for the person who signed in to the dashboard.
+
+## Check standing
+
+```
+/standing
+```
+
+The reply is ephemeral. It shows the member's current tier, recent actions, and any active points.
+
+Staff with **Moderate Members** can pass a user:
+
+```
+/standing user:@member
+```
+
+## Tiers
+
+| Tier | Meaning |
+|---|---|
+| **Good** | No meaningful recent record. |
+| **Limited** | Some findings; the member is not yet at risk of the strongest automatic actions. |
+| **At risk** | Enough points that repeat-offender escalation is likely to fire on the next finding. |
+| **Suspended** | The record is severe enough that the strongest configured actions are in play. |
+
+Thea does not show a raw score to members. It shows the tier and the actions that produced it.
+
+## What counts
+
+- AutoMod actions on this server (warns, quarantines, timeouts, and so on)
+- Manual `/warn` from a moderator
+
+Kicks and bans from other servers, global-blacklist listings, and platform account standing do **not** appear here.
+
+## Decay
+
+Points fall off over time. More severe actions take longer to decay (from about 90 days up to about 2 years). After the window, that action no longer holds the member in a worse tier.
+
+## Repeat offenders
+
+**Settings → AutoMod → Repeat offenders** raises the action when a member accumulates enough findings in a window you set. The count uses AutoMod's event log. Message content is never stored — only a hash used to correlate repeats.
+
+Configure the ladder there, or with `/automod escalation`. Repeat-offender escalation can raise an action. It never lowers one.
+
+See [AutoMod](/moderation/automod) for the full action list.

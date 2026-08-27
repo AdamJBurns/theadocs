@@ -36,7 +36,7 @@ Scam Defense works through a layered signal pipeline. Deterministic checks run f
 
 ## Threat Feeds
 
-Thea's domain and indicator feeds are versioned and validated before any update goes live. If a feed update is malformed or contains suspicious entries, it is quarantined automatically — it does not silently change what Scam Defense enforces. You can inspect the current active feed version from Dashboard → Scam Defense → Threat Feeds.
+Thea's domain and indicator feeds are versioned and validated before any update goes live. If a feed update is malformed or contains suspicious entries, it is quarantined automatically — it does not silently change what Scam Defense enforces. The **Community scam list** card under **Settings → AutoMod** is the server-facing control (ask before each update, update automatically, or do not use). The live view of signals and effective policy is **Scam defense** in the sidebar.
 
 ## The Evidence Model
 
@@ -59,7 +59,7 @@ Configure what Scam Defense does for each finding severity:
 | High confidence | Delete message, quarantine member |
 | Confirmed campaign | Escalate repeat offender, ban |
 
-Set these in Dashboard → Scam Defense → Policy. Actions apply to regular members only (see Staff & Bots below).
+Set these under **Settings → AutoMod → Actions by severity**. Actions apply to regular members only (see Staff and bots below). **Scam defense** in the sidebar is the live view of signals and the effective policy — the controls themselves stay on AutoMod.
 
 ## Staff, Bots & Webhooks
 
@@ -71,7 +71,7 @@ If an external dependency — a threat feed API, the AI adjudication service, or
 
 ## Dashboard
 
-Dashboard → Scam Defense gives you a live view of everything Thea is finding in your server.
+**Scam defense** in the sidebar is a live, privacy-safe view of what Thea is finding. The **effective scam policy** card shows what is configured versus what is actually running (plan, provider, feed, and global controls).
 
 <CardGroup cols={2}>
   <Card title="Overview" icon="chart-bar">
@@ -92,20 +92,20 @@ Dashboard → Scam Defense gives you a live view of everything Thea is finding i
 
 Scam Defense operates on server activity only — it does not access or monitor direct messages. Message bodies, raw URLs, QR code payloads, and screened display names are not retained after evaluation. Only the finding metadata (event ID, severity, action, timestamps) is stored for audit purposes.
 
-## Enabling Scam Defense
+## Enabling scam defense
 
 <Steps>
-  <Step title="Open Dashboard → Scam Defense">
-    Navigate to the Scam Defense section in your Thea dashboard.
+  <Step title="Turn AutoMod on">
+    Open **Settings → AutoMod** and enable AutoMod. Heuristics, blocked domains, and the community scam list are the scam-specific layers.
   </Step>
-  <Step title="Review detection visibility">
-    Detection logging and audit visibility are enabled first. Review a few days of findings to understand what Thea is seeing before automated actions go live.
+  <Step title="Set a log channel">
+    Quarantine review and Allow / Ban decisions need a private staff channel.
   </Step>
-  <Step title="Configure your policy">
-    Set the action for each severity tier under Dashboard → Scam Defense → Policy.
+  <Step title="Review findings first">
+    Open **Scam defense** in the sidebar. Watch a few days of signals before you raise per-severity actions.
   </Step>
-  <Step title="Enable automated actions">
-    Once you're satisfied with detection accuracy, enable automated actions for the severity tiers you've reviewed.
+  <Step title="Tighten actions">
+    Under **Settings → AutoMod → Actions by severity**, move from log-only to quarantine or delete once you trust the findings.
   </Step>
 </Steps>
 

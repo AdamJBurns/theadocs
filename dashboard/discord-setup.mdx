@@ -1,0 +1,74 @@
+---
+title: "Add Thea to Discord and grant permissions"
+sidebarTitle: "Discord setup"
+description: "Invite Thea, run /setup, grant the permissions it actually needs, and troubleshoot a bot that is installed but not answering."
+keywords: ["invite", "permissions", "setup", "/setup", "Add to Server"]
+---
+
+Thea is a Discord bot plus a dashboard. The dashboard is where you manage knowledge and settings. Discord is where members ask questions and staff run commands.
+
+## Invite Thea
+
+<Steps>
+  <Step title="Sign in">
+    Go to [theabot.com/auth/signup](https://www.theabot.com/auth/signup) and choose **Continue with Discord**.
+  </Step>
+  <Step title="Add the bot">
+    Open the server in the dashboard and follow **Add to Server**, or use the install link Thea shows for servers you manage that do not have the bot yet.
+  </Step>
+  <Step title="Grant the requested permissions">
+    Accept the permission prompt. Thea asks for the scopes `bot` and `applications.commands`. It does **not** need Administrator.
+  </Step>
+  <Step title="Run setup in Discord">
+    In a help channel, run:
+
+    ```
+    /setup channel:#support support_role:@Support
+    ```
+
+    This writes the watched channel and the role pinged on escalations and tickets. You can change both later in **Settings → Answering** and **Settings → Handoff**.
+  </Step>
+</Steps>
+
+<Note>
+  Free installs require a Discord account at least **30 days** old, or a paid plan on that server. One person can run Thea for free on at most **2** servers. See [Plans and billing](/plans-and-billing).
+</Note>
+
+## Permissions Thea uses
+
+| Permission | Why |
+|---|---|
+| View Channel, Send Messages, Create Public Threads, Send Messages in Threads, Embed Links, Read Message History | Answer questions and open answer threads |
+| Add Reactions, Use External Emojis | Raid challenge and feedback buttons |
+| Manage Messages | Delete or quarantine content AutoMod flags |
+| Moderate Members | Timeouts from AutoMod, review-mode blacklist, `/timeout` |
+| Kick Members / Ban Members | `/kick`, `/ban`, `/softban`, automatic blacklist bans |
+| Manage Channels | Ticket channels, auto-slowmode, `/lock` |
+| Manage Roles | Join role, onboarding completion role, channel locks |
+| Manage Nicknames | **Settings → General → Display name** |
+| Manage Server | Discord-native AutoMod layer, some raid actions |
+
+Privileged intents Thea needs on the application: **Message Content** and **Server Members**. Those are configured on Thea's Discord application, not by you at invite time.
+
+## After invite
+
+The person who added the bot gets a one-time nudge if `/setup` has not been run yet. Completing `/setup` stops that nudge.
+
+If the server is added but has no knowledge and no answers after a few days, Thea emails the billing owner a reminder. Index a source and ask a question in the [Playground](/answering/playground) or Discord to clear it.
+
+## The bot is in the server but silent
+
+1. Confirm `/setup` ran, or that **Settings → Answering** has a trigger and watched channels.
+2. Confirm at least one knowledge source is **Ready** under **Knowledge**.
+3. Confirm you have not hit the monthly [answer limit](/plans-and-billing).
+4. Confirm the bot can see the channel (View Channel + Read Message History).
+5. If the trigger is **Only when mentioned**, @mention Thea.
+6. Check **Settings → Safety** — NSFW channels are declined by default.
+
+Use `/status` (Manage Server) to see usage, limits, and whether answering is paused.
+
+## Related
+
+- [Quickstart](/quickstart)
+- [Answering settings](/answering/settings)
+- [Slash command reference](/reference/slash-commands)

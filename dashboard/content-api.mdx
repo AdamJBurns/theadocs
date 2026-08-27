@@ -1,0 +1,88 @@
+---
+title: "Content API"
+sidebarTitle: "Content API"
+description: "Push pages Thea cannot crawl — authenticated docs, generated content — with a server API key. Available on Pro and Business."
+keywords: ["content API", "API key", "external pages", "ska_"]
+---
+
+The Content API is for knowledge the crawler cannot reach: docs behind a login, pages generated from your own database, or a pipeline that already owns the source of truth. You push Markdown pages by an `externalId`. Unchanged content is free (hash match). Changed content replaces the document and is re-embedded.
+
+Available on **Pro** and **Business**. Create keys in **Settings → API**. Only the server **owner** can create or revoke keys.
+
+## Authentication
+
+Keys look like `ska_` followed by hex. Thea shows the full key **once**, at creation. Store it in a secrets manager.
+
+```http
+Authorization: Bearer ska_…
+```
+
+Creating and revoking keys is recorded in the [Audit log](/dashboard/audit). Unknown and revoked keys look the same to a caller.
+
+<Warning>
+  A key can read and write this server's external pages. Treat it like a password. If someone who created keys leaves, revoke those keys.
+</Warning>
+
+## Base URL
+
+```
+https://www.theabot.com/api/v1
+```
+
+All pages on a server share one `api` knowledge source. That source counts as **one** source against your plan limit, regardless of how many pages you push.
+
+## List pages
+
+```http
+GET /api/v1/external-pages
+```
+
+Returns `externalId`, `title`, `url`, `contentHash`, `chunkCount`, and `updatedAt` for each page. Requires a key with read access.
+
+## Upsert a page
+
+```http
+POST /api/v1/external-pages
+Content-Type: application/json
+```
+
+```json
+{
+  "externalId": "docs/refunds",
+  "title": "Refunds",
+  "markdown": "## Refunds\n\nYou have 14 days…",
+  "url": "https://example.com/refunds"
+}
+```
+
+| Field | Required | Rules |
+|---|---|---|
+| `externalId` | Yes | 1–256 printable ASCII characters, no spaces. Your stable id. |
+| `title` | Yes | 1–256 characters |
+| `markdown` | Yes | 1–200,000 characters |
+| `url` | No | Absolute `http://` or `https://` URL, up to 2,048 characters |
+
+The request body must be under **512 KB**. Pushing the same `externalId` with unchanged Markdown does not re-embed.
+
+## Delete a page
+
+```http
+DELETE /api/v1/external-pages/{externalId}
+```
+
+`externalId` is URL-encoded if it contains reserved characters. Returns `{ "deleted": true, "externalId": "…" }` or `404` if that id was never pushed.
+
+## Errors
+
+| Status | When |
+|---|---|
+| `401` | Missing or unknown key |
+| `403` | Key cannot write, or the plan does not include the Content API |
+| `413` | Body larger than 512 KB |
+| `422` | Validation failed |
+| `429` | Rate limited — wait and retry, using `Retry-After` if present |
+
+## Related
+
+- [Knowledge sources](/answering/knowledge-sources)
+- [Integrations](/dashboard/integrations) — Notion and Zendesk, if you would rather connect a workspace than push pages

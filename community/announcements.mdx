@@ -1,0 +1,47 @@
+---
+title: "Schedule announcements to Discord channels"
+sidebarTitle: "Announcements"
+description: "Post one-off or recurring announcements to a channel, with output moderation before anything is sent."
+keywords: ["announcements", "scheduled messages", "recurring"]
+---
+
+Announcements let staff schedule a message to a Discord channel from the dashboard or with `/announce`. Thea runs output moderation on the text before it posts, the same fail-closed check used on answers.
+
+Open **Announcements** in the server sidebar.
+
+## Create an announcement
+
+1. Choose the channel.
+2. Write the message. You can add an optional embed title.
+3. Send now, or set a delay.
+4. On **Pro** and **Business**, you can also repeat it daily, weekly, or monthly.
+
+One-off announcements are available on every plan, including Free. Recurrence is paid because each send runs output moderation again.
+
+| Plan | One-off | Recurring |
+|---|---|---|
+| Free | Yes | — |
+| Pro | Yes | Daily, weekly, monthly |
+| Business | Yes | Daily, weekly, monthly |
+
+## From Discord
+
+```
+/announce channel:#updates message:Maintenance tonight at 22:00 UTC
+```
+
+Optional options:
+
+- **delay** — minutes to wait (0–10,080, which is 7 days)
+- **embed title** — title on the embed
+
+`/announce` requires **Manage Server**.
+
+## What members see
+
+Thea posts as itself, in the channel you chose. If output moderation blocks the text, the announcement is not sent and the dashboard records the failure.
+
+## Related
+
+- [Saved replies](/community/saved-replies) — reusable replies in tickets and channels, not scheduled broadcasts
+- [Plans and billing](/plans-and-billing) — recurrence is a Pro and Business feature

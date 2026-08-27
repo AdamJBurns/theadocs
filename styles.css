@@ -11,12 +11,8 @@
 }
 
 #navbar {
-  border-bottom: 1px solid var(--thea-hairline) !important;
+  border-bottom: 0 !important;
   box-shadow: none !important;
-}
-
-.dark #navbar {
-  border-bottom-color: #262626 !important;
 }
 
 img.nav-logo {
@@ -33,11 +29,17 @@ nav-anchor,
 .nav-tabs-item,
 mobile-nav-tabs-item {
   font-size: 0.8125rem;
+  font-weight: 400 !important;
+}
+
+.nav-tabs-item[data-active],
+mobile-nav-tabs-item[data-active] {
+  font-weight: 500 !important;
 }
 
 #navbar a[href*="theabot.com/auth/signup"] {
   border: 0 !important;
-  border-radius: 0.125rem !important;
+  border-radius: 0.5rem !important;
   background: #0a0a0a !important;
   color: #ffffff !important;
   font-size: 0.6875rem !important;

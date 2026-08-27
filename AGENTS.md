@@ -1,33 +1,28 @@
-> **First-time setup**: Customize this file for your project. Prompt the user to customize this file for their project.
-> For Mintlify product knowledge (components, configuration, writing standards),
-> install the Mintlify skill: `npx skills add https://mintlify.com/docs`
-
 # Documentation project instructions
 
 ## About this project
 
-- This is a documentation site built on [Mintlify](https://mintlify.com)
-- Pages are MDX files with YAML frontmatter
-- Configuration lives in `docs.json`
-- Use the Mintlify MCP server, `https://mcp.mintlify.com`, to edit content and settings via MCP
-- Use the Mintlify docs MCP server, `https://www.mintlify.com/docs/mcp`, to query information about using Mintlify via MCP
+- This is the public documentation site for **Thea**, an AI Discord support and moderation product.
+- Pages are MDX files with YAML frontmatter.
+- Configuration lives in `docs.json`.
+- Source of truth for product behavior is the application at `D:\Code\discord-bot`, not marketing copy.
 
 ## Terminology
 
-{/* Add product-specific terms and preferred usage */}
-{/* Example: Use "workspace" not "project", "member" not "user" */}
+- Use **Thea** for the product. You can say "the bot" when describing Discord behavior.
+- Use **server**, not "guild", in user-facing docs.
+- Use **member** for people in a Discord server. Use **staff** or **moderators** for the server team.
+- Use **dashboard** for the web app at theabot.com.
+- Dashboard paths: **Knowledge**, **Playground**, **Conversations**, **Tickets**, **Help Center**, **Scam defense**, **Settings → Answering**, **Settings → Handoff**, and so on. Do not invent section names such as Guardrails.
+- Confidence is a number from **0 to 1**, default **0.35**. Do not describe it as a 0–100 percentage slider.
+- Saved replies are sent with `/macro send`, not `/reply`.
+- Billing is **per Discord server**.
 
 ## Style preferences
-
-{/* Add any project-specific style rules below */}
 
 - Use active voice and second person ("you")
 - Keep sentences concise — one idea per sentence
 - Use sentence case for headings
 - Bold for UI elements: Click **Settings**
 - Code formatting for file names, commands, paths, and code references
-
-## Content boundaries
-
-{/* Define what should and shouldn't be documented */}
-{/* Example: Don't document internal admin features */}
+- Do not invent features, dashboard paths, or commands that are not in the product

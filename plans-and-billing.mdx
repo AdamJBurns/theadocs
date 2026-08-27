@@ -1,13 +1,15 @@
 ---
-title: "Thea Pricing: Compare Free, Pro, and Business Plans"
-sidebarTitle: "Plans & Billing"
-description: "Compare Free, Pro, and Business plans, understand answer and source limits, and learn how Thea's per-server billing protects you from unexpected charges."
+title: "Plans and billing"
+sidebarTitle: "Plans & billing"
+description: "Compare Free, Pro, and Business. Billing is per Discord server. Learn limits, trials, grace periods, and what happens when you hit a cap."
 ---
 
-Thea is billed per Discord server through Stripe. Every server starts on the Free plan with no credit card required. When your community grows or you need advanced features like Notion and Zendesk integrations, the Content API, or higher answer volumes, you can upgrade in one click from the dashboard. The sections below lay out exactly what each plan includes and how billing works.
+Thea bills **per Discord server** through Stripe. Each server has its own plan and usage counters. Every server starts on Free with no credit card.
+
+Manage the plan from that server's **Billing** page (owner only). You can also review billing from the account sidebar.
 
 <Note>
-  The Free plan requires no credit card. You can run Thea on a single server indefinitely at no cost, within the Free plan limits.
+  Free requires no card. You can run Thea on a server indefinitely within Free limits.
 </Note>
 
 ## Plan comparison
@@ -27,34 +29,62 @@ Thea is billed per Discord server through Stripe. Every server starts on the Fre
 | **Integrations (Notion, Zendesk)** | — | Yes | Yes |
 | **Content API** | — | Yes | Yes |
 | **Image understanding** | — | Yes | Yes |
+| **Recurring announcements** | — | Yes | Yes |
 | **Crawl depth** | 1 level | 3 levels | 5 levels |
-| **AutoMod rules, heuristics & moderation API** | Included | Included | Included |
+| **AutoMod rules, heuristics, moderation screen** | Included | Included | Included |
 | **AI AutoMod scans per month** | — | 2,000 | 20,000 |
+
+One-off [announcements](/community/announcements) are free on every plan. Recurrence is paid.
+
+## Free-tier guards
+
+To keep Free usable for real communities:
+
+- The Discord account that runs `/setup` must be at least **30 days** old, **or** the server must be on a paid plan.
+- One person can have at most **2** Free servers.
 
 ## Billing mechanics
 
-### Billing scope and payment
-Thea bills per Discord server, not per user or per workspace account. Each server has its own plan and its own usage counters. Payments are processed through Stripe and you can update your payment method or view invoices from the **Settings → Billing** page at any time.
+### Payment
 
-### Pro free trial
-The Pro plan includes a **14-day free trial** for each server (one trial per server, non-renewable). Your card details are collected at checkout so that billing can start automatically if you don't cancel, but nothing is charged until the trial period ends.
+Payments go through Stripe. Update the card and view invoices on **Billing**.
+
+### Pro trial
+
+Each server can start a **14-day Pro trial** once (one trial per server and per billing account). The card is collected at checkout and is not charged until the trial ends.
 
 <Tip>
-  To avoid being charged, cancel the Pro trial from **Settings → Billing** before the 14-day period ends. Your server will revert to the Free plan limits, but your knowledge base and conversation history are preserved.
+  Cancel from **Billing** before day 14 to avoid a charge. The server returns to Free limits. Knowledge and conversation history stay.
 </Tip>
 
-### Upgrading and downgrading
-Upgrading from any plan takes one click from **Settings → Billing** and applies immediately — your new answer quota and source limits are available the moment the upgrade completes. Downgrading takes effect at the end of the current billing period.
+### Upgrades and downgrades
 
-### What happens when you hit a limit
-Reaching your monthly answer limit pauses new AI answers for the rest of the billing period. Thea will not delete your knowledge base, your conversation history, or any moderation configuration. Non-AI moderation (rules, heuristics, and the moderation API) continues running uninterrupted. Answers resume automatically when the period resets.
+Upgrades apply immediately. Downgrades take effect at the end of the current period. Business is the top self-serve plan.
 
-<Warning>
-  Escalations still fire when answers are paused — your escalation role will receive pings for any question Thea cannot handle, so your team can step in manually.
-</Warning>
+### When you hit a limit
+
+Reaching the monthly **answer** limit pauses new AI answers until the period resets. Knowledge, conversations, tickets, and non-AI AutoMod keep running. Escalations still fire.
+
+At **80%** of answers or AI scans, Thea shows a banner, reflects it on `/status`, and can email the billing owner.
 
 ### Monthly spend cap
-Every paid plan includes a hard monthly spend cap that acts as a circuit breaker. If metered usage (such as AI AutoMod scans) would push your bill beyond the cap, Thea stops consuming those metered resources for the remainder of the period rather than accruing unbounded charges.
 
-### Why AI AutoMod scans are metered
-The first three AutoMod layers — Discord-native rules, spam/scam-link heuristics, and the moderation API — run on every plan at no additional cost because they are deterministic and computationally inexpensive. The fourth layer, the AI pass, submits each flagged message to a language model for adjudication. Because each scan costs a model call, AI AutoMod scans are metered and are only available on Pro and Business plans. The scan quota resets with your billing period.
+Paid plans also have a hard spend cap (a circuit breaker). If metered usage would exceed it, Thea stops consuming those resources for the rest of the period instead of running an unbounded bill.
+
+### Failed payment
+
+After a failed charge, Thea keeps answering for **7 days** (grace). Then the server is soft-locked: the bot stops answering until payment succeeds.
+
+### Removed bot
+
+If you kick Thea, data is kept for **14 days** so an accidental removal does not destroy the knowledge base. After that, it is purged. You may get a win-back reminder before the purge.
+
+## Why AI AutoMod is metered
+
+Discord-native rules, heuristics, and the moderation screen are deterministic and run on every plan. The AI pass sends borderline messages to a model, so those scans are metered and exist only on Pro and Business. Ticket triage uses the same allowance.
+
+## Related
+
+- [Knowledge sources](/answering/knowledge-sources)
+- [AutoMod](/moderation/automod)
+- [Content API](/dashboard/content-api)

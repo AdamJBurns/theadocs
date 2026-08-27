@@ -1,0 +1,27 @@
+---
+title: "Audit log and exports"
+sidebarTitle: "Audit"
+description: "See every configuration change on a server, and export the audit log or moderation ledger."
+keywords: ["audit log", "export", "moderation export"]
+---
+
+**Audit** records configuration changes on this server: who changed what, when, and any metadata the action attached. Open it from the server sidebar. You need admin-level dashboard access.
+
+Typical entries include settings saves, API key create/revoke, Content API writes, imports from [Backup & clone](/dashboard/backup-and-clone), and collaborator changes.
+
+The audit log is not automatically pruned.
+
+## Exports
+
+From **Audit** you can download:
+
+| Export | Contents |
+|---|---|
+| **Audit log** | Configuration changes |
+| **Moderation export** | Manual commands and AutoMod actions — member, action, reason, actor, timestamp |
+
+Use the moderation export for ban appeals, shift handoff, or an external compliance request. It is the same ledger `/record` and `/standing` read from.
+
+<Note>
+  Message bodies are not in these exports. Server logs post content to Discord only. AutoMod stores hashes for repeat-offender correlation, not raw text. See [Server logs](/community/server-logs) and [Privacy](https://www.theabot.com/privacy).
+</Note>

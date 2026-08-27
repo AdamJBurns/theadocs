@@ -1,90 +1,107 @@
 ---
-title: "Manage Knowledge Sources That Power Thea's Answers"
-sidebarTitle: "Knowledge Sources"
-description: "Add URLs, sitemaps, FAQ pairs, Notion, Zendesk, Discord threads, and files to Thea's knowledge base and keep them in sync automatically."
+title: "Knowledge sources that power Thea's answers"
+sidebarTitle: "Knowledge sources"
+description: "Add pages, sitemaps, files, status pages, Notion, Zendesk, Discord threads, help-center articles, and Content API pages — then keep them in sync."
+keywords: ["knowledge", "sources", "sitemap", "notion", "zendesk"]
 ---
 
-Thea answers questions using the knowledge sources you connect — nothing else. The more relevant content you index, the more questions Thea can answer confidently. You can mix and match source types to reflect how your documentation actually lives: a public docs site, an internal wiki, a Notion workspace, Zendesk articles, or even past Discord threads that already contain great answers.
+Thea answers only from the sources you connect. Mix types to match how your docs actually live.
 
-## Supported Source Types
+Open **Knowledge** in the server sidebar. This is not under Settings.
+
+## Source types
 
 <CardGroup cols={2}>
-  <Card title="URL" icon="link">
-    Index a single web page. Thea crawls the page and any linked pages up to the depth limit for your plan.
+  <Card title="Single page" icon="link">
+    Index one URL. Thea follows links from that page up to your plan's crawl depth.
   </Card>
-  <Card title="Sitemap" icon="sitemap">
-    Point Thea at an XML sitemap to crawl every listed page. On re-sync, only changed pages are fetched, keeping sync times short.
+  <Card title="Entire site" icon="sitemap">
+    Point at an XML sitemap. On re-sync, only changed pages are fetched.
+  </Card>
+  <Card title="Status page" icon="signal">
+    A status page that re-syncs on a schedule. Pair it with **Settings → General → Status page alerts** to post when an incident opens or resolves.
+  </Card>
+  <Card title="Upload file" icon="file">
+    PDF, Markdown, or plain text. Size limits: 2 MB (Free), 20 MB (Pro), 50 MB (Business).
   </Card>
   <Card title="FAQ" icon="circle-question">
-    Upload structured question-and-answer pairs. FAQ entries receive a retrieval boost because the format maps directly to how members ask questions.
+    Structured question-and-answer pairs. They get a retrieval boost because they look like how members ask.
   </Card>
-  <Card title="Notion" icon="n" >
-    Connect a Notion workspace to sync pages and databases. Available on **Pro** and **Business** plans.
+  <Card title="Notion" icon="n">
+    Sync pages and databases. **Pro** and **Business**. Counts as one source for the whole connection.
   </Card>
   <Card title="Zendesk" icon="headset">
-    Pull in your Zendesk help center articles automatically. Available on **Pro** and **Business** plans.
+    Published help-center articles. **Pro** and **Business**.
   </Card>
-  <Card title="Past Discord Threads" icon="discord">
-    Index resolved threads from your server. Thea learns from answers your team has already written.
+  <Card title="Discord thread" icon="discord">
+    Index a resolved thread so Thea can reuse an answer your team already wrote.
   </Card>
-  <Card title="Uploaded Files" icon="file">
-    Upload Markdown files or documents directly. File size limits vary by plan.
+  <Card title="Help center articles" icon="book">
+    Published articles from your [Thea help center](/help-center/overview) are indexed automatically.
+  </Card>
+  <Card title="Content API" icon="code">
+    Pages you push with an API key. **Pro** and **Business**. See [Content API](/dashboard/content-api).
   </Card>
 </CardGroup>
 
-### Crawl Depth by Plan
+## Crawl depth
 
-When you add a URL source, Thea follows links from that page up to the crawl depth your plan allows.
+When you add a page or site, Thea follows links up to:
 
-| Plan     | Crawl Depth |
-|----------|-------------|
-| Free     | 1 level     |
-| Pro      | 3 levels    |
-| Business | 5 levels    |
+| Plan | Depth |
+|---|---|
+| Free | 1 level (only the URL you enter) |
+| Pro | 3 levels |
+| Business | 5 levels |
 
-A depth of 1 means only the page you enter is indexed. A depth of 3 means the starting page plus pages linked from it, plus pages linked from those.
-
-## How to Add a Source
+## Add a source
 
 <Steps>
-  <Step title="Open Knowledge settings">
-    In the Thea dashboard, go to **Settings → Knowledge → Sources**.
+  <Step title="Open Knowledge">
+    In the server dashboard, click **Knowledge**.
   </Step>
-  <Step title="Click Add Source">
-    Select the source type you want to add from the dropdown menu.
+  <Step title="Click Add source">
+    Choose the type.
   </Step>
-  <Step title="Enter the URL or connect an integration">
-    For URL and sitemap sources, paste the address and confirm the crawl depth. For Notion and Zendesk, follow the OAuth prompts to authorize Thea's access. For file uploads, drag your file into the upload area.
+  <Step title="Connect it">
+    Paste a URL, upload a file, or complete Notion / Zendesk OAuth.
   </Step>
-  <Step title="Wait for indexing to complete">
-    Thea begins crawling and indexing immediately. The knowledge dashboard shows a passage count and a status indicator for each source. Large sites may take a few minutes to index fully.
+  <Step title="Wait for Ready">
+    Status moves through **Queued**, **Building**, **Ready**, or **Error**. **Stale** means a scheduled sync failed or the source changed out from under the index.
   </Step>
 </Steps>
 
-## Sync and Re-Sync
+Paused sources keep serving whatever was last indexed. The dashboard warns collaborators so you do not forget a freeze.
 
-Keeping your sources current ensures Thea's answers reflect the latest version of your documentation.
+## Sync
 
-| Plan     | Automatic Sync      |
-|----------|---------------------|
-| Free     | Manual only         |
-| Pro      | Every 24 hours      |
-| Business | Every 6 hours       |
+| Plan | Automatic re-sync |
+|---|---|
+| Free | Manual only |
+| Pro | Every 24 hours |
+| Business | Every 6 hours |
 
-To trigger a manual re-sync at any time, open **Settings → Knowledge → Sources**, find the source, and click **Sync Now**.
-
-The knowledge dashboard shows the passage count and the last-synced timestamp for every source. If a source becomes unreachable — for example, a URL returns a 404 or Notion credentials expire — a broken-source alert appears in the dashboard so you can fix it before it affects answer quality.
+Trigger **Sync now** on a source at any time. Status-page alerts fire on that same cadence — see **Settings → General**.
 
 <Warning>
-  Each plan enforces document and passage limits across all sources combined. Exceeding a limit prevents new content from being indexed until you remove sources or upgrade.
+  Document and passage limits apply across all sources combined. New content stops indexing when you hit the cap.
 
-  | Plan     | Document Limit | Passage Limit |
-  |----------|----------------|---------------|
-  | Free     | 50             | 2,000         |
-  | Pro      | 2,000          | 100,000       |
-  | Business | 25,000         | 1,000,000     |
+  | Plan | Documents | Passages | Sources |
+  |---|---|---|---|
+  | Free | 50 | 2,000 | 3 |
+  | Pro | 2,000 | 100,000 | 25 |
+  | Business | 25,000 | 1,000,000 | 200 |
 </Warning>
 
-<Tip>
-  After adding or updating a source, open the Playground and ask questions that the new content should cover. Check the **passages matched** section in the per-answer diagnostics to confirm Thea is retrieving from the right source before members start asking those questions in Discord.
-</Tip>
+## Knowledge gaps
+
+On paid plans, Thea clusters questions it could not answer. Open the gaps from **Knowledge**, then draft a FAQ, add a source, or dismiss the cluster.
+
+After you add or update a source, ask the same questions in the [Playground](/answering/playground) and confirm the new passages show up before members rely on them.
+
+## Discord
+
+```
+/source add url:https://docs.example.com/guide
+/source list
+```

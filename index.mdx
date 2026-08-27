@@ -1,49 +1,49 @@
 ---
-title: "Thea — AI-Powered Discord Support & Moderation Bot"
+title: "Thea — Discord support and moderation"
 sidebarTitle: "Home"
 description: "Thea answers member questions from your docs, runs layered AutoMod, manages tickets, and publishes a help center — all from one dashboard."
 ---
 
-Thea is an AI-powered Discord bot that keeps your community supported around the clock. It answers questions directly from the knowledge sources you connect — docs, wikis, FAQs — and always cites the exact passage it used. When Thea isn't confident, it hands the thread to your team instead of guessing. The same installation runs your AutoMod, ticket queue, and public help center.
+Thea is an AI Discord bot that keeps a community supported around the clock. It answers from the knowledge sources you connect and cites the passage it used. When it is not confident, it hands the thread to your team instead of guessing. The same install runs AutoMod, tickets, and a public help center.
 
 <CardGroup cols={2}>
-  <Card title="Quick Start" icon="rocket" href="/quickstart">
-    Add Thea to your server and answer your first question in under five minutes.
+  <Card title="Quickstart" icon="rocket" href="/quickstart">
+    Add Thea to a server and answer the first question.
   </Card>
-  <Card title="Knowledge Sources" icon="book-open" href="/answering/knowledge-sources">
-    Connect your docs, wikis, sitemaps, and integrations so Thea has answers ready.
+  <Card title="Knowledge sources" icon="book-open" href="/answering/knowledge-sources">
+    Docs, sitemaps, files, Notion, Zendesk, and the Content API.
   </Card>
   <Card title="AutoMod" icon="shield-halved" href="/moderation/automod">
-    Set up layered moderation rules — from Discord-native filters to AI-reviewed decisions.
+    Heuristics, scam defense, raid protection, and AI review.
   </Card>
   <Card title="Tickets" icon="ticket" href="/tickets/overview">
-    Let members open private support channels that arrive pre-triaged and routed.
+    Private channels, triage, transcripts, and CSAT.
   </Card>
-  <Card title="Help Center" icon="circle-question" href="/help-center/overview">
-    Publish your indexed knowledge base as a searchable, public help center.
+  <Card title="Help center" icon="circle-question" href="/help-center/overview">
+    Publish articles Thea can also cite in Discord.
   </Card>
-  <Card title="Plans & Billing" icon="credit-card" href="/plans-and-billing">
-    Compare Free, Pro, and Business limits and manage your subscription.
+  <Card title="Plans and billing" icon="credit-card" href="/plans-and-billing">
+    Free, Pro, and Business — billed per server.
   </Card>
 </CardGroup>
 
-## How Thea Works
+## How Thea works
 
 <Steps>
-  <Step title="Connect your knowledge sources">
-    Point Thea at your documentation sites, wikis, sitemaps, FAQ pages, or Notion and Zendesk workspaces. Thea indexes everything in minutes — no retraining, no manual tagging.
+  <Step title="Connect knowledge sources">
+    Point Thea at docs, a sitemap, files, or Notion / Zendesk. Indexing usually finishes in minutes for small sites.
   </Step>
-  <Step title="Tune your settings">
-    Set the confidence threshold that controls when Thea answers vs. escalates, pick the escalation role your moderators hold, and write the rules your AutoMod should enforce.
+  <Step title="Tune settings">
+    Pick watched channels, set the 0–1 confidence threshold (default 0.35), choose a support role, and turn on the AutoMod layers you want.
   </Step>
   <Step title="Rehearse in the Playground">
-    Before going live, open the Playground in the dashboard to send real questions and inspect how Thea would respond — including the source passages it would cite and its confidence score. Adjust your threshold based on what you see.
+    Ask real questions and inspect citations and confidence before anything reaches Discord. Playground runs use the live pipeline and count against your AI budget.
   </Step>
-  <Step title="Launch in your server">
-    Invite Thea to your Discord server. It starts answering questions in threads with citations, opening tickets from your panel, and escalating anything it isn't sure about to your team.
+  <Step title="Launch in Discord">
+    Invite Thea and run `/setup`. It answers in threads, opens tickets from your panel, and escalates when it is not sure.
   </Step>
 </Steps>
 
 <Note>
-  Thea is free to start — no credit card required. The Free plan includes 100 answers per month, 3 knowledge sources, AutoMod rules, heuristics, and tickets. [Sign up at theabot.com](https://www.theabot.com/auth/signup).
+  Free includes 100 answers per month, 3 knowledge sources, AutoMod heuristics, and tickets — no credit card. [Sign up at theabot.com](https://www.theabot.com/auth/signup).
 </Note>

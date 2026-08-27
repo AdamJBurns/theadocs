@@ -4,7 +4,11 @@ sidebarTitle: "Playground"
 description: "Use the Thea Playground to run questions against your live knowledge base, inspect retrieved passages, and tune confidence before going live."
 ---
 
-The Playground lets you test Thea's answers before members ever see them. Ask questions in a full conversation interface inside the dashboard — Thea responds exactly as it would in Discord, using your live knowledge base, but nothing is posted to any channel. Use it to verify that new sources are being picked up, to understand why certain questions escalate, and to tune your confidence threshold with real data.
+The Playground lets you test Thea's answers before members ever see them. Ask questions in the dashboard — Thea uses the same retrieval, confidence gate, and moderation as Discord, but nothing is posted to a channel.
+
+<Note>
+  Playground runs consume real AI budget and count toward your monthly answers. They are not a free sandbox.
+</Note>
 
 ## Accessing the Playground
 
@@ -60,7 +64,7 @@ Follow this workflow every time you add or update a knowledge source to make sur
 
 <Steps>
   <Step title="Add or update a source">
-    Go to **Settings → Knowledge → Sources** and add your new source or trigger a re-sync on an existing one. Wait for indexing to complete.
+    Go to **Knowledge** and add your new source or trigger a re-sync. Wait until the status is **Ready**.
   </Step>
   <Step title="Open the Playground">
     Navigate to **Playground** in the dashboard.

@@ -10,7 +10,7 @@ Raid protection gives your server two automatic detectors — one for unusual jo
 
 <CardGroup cols={2}>
   <Card title="Join-Surge Detector" icon="arrow-right-to-bracket">
-    Monitors how fast new members are joining. When the join rate exceeds your configured threshold within a rolling time window, the detector fires. You set both the count threshold (e.g., 10 joins) and the window (e.g., within 60 seconds) in Dashboard → Raid Protection.
+    Monitors how fast new members are joining. When the join rate exceeds your configured threshold within a rolling time window, the detector fires. You set the count and window in **Settings → Raid protection**.
   </Card>
   <Card title="Content-Storm Detector" icon="bolt">
     Monitors message activity across channels. When a burst of messages matches a suspicious pattern — identical text, similar structure, or content matching known raid scripts — the detector fires. It distinguishes normal high-traffic events from coordinated flooding by looking at structural similarity, not just volume.
@@ -67,6 +67,59 @@ Shows the current state of raid mode, which detectors are active, and any recent
 
 Manual activations and deactivations are logged to the moderation ledger with the moderator's identity and timestamp, the same as automated events.
 
-## Welcome Messages & Role Grants
+## Settings
 
-Once a newcomer clears raid verification — either by passing the emoji captcha during an active raid or by joining normally when raid mode is off — Thea delivers the configured welcome message and grants the member role. This ensures that role grants and welcome pings are tied to a verified, human interaction rather than the raw join event.
+Configure this in **Settings → Raid protection**.
+
+### Raid detection
+
+When a raid is detected:
+
+- **Alert staff with an arm button**
+- **Activate raid mode automatically**
+- **Off — raid mode is manual only**
+
+Thresholds (evaluated over a one-minute window):
+
+- **Join surge** — distinct joins or recent joiners posting
+- **Recent join window (minutes)** — how fresh a join counts
+- **Identical-message authors** — distinct authors posting the same text
+- **Automatic raid mode (minutes)** — how long auto-activated raid mode lasts
+
+`/raid on` and `/raid off` still work regardless of the detector.
+
+### Challenge gate
+
+While raid mode is active, messages from suspect members are removed and they get an emoji check. Passing verifies them permanently. People already in the room are left alone. Staff, bots, and exempt roles are never challenged.
+
+- **Recent join window (hours)**
+- **Account age (days)** — `0` turns this test off
+- **Wrong answers allowed** — options reshuffle after every miss
+- Fail action: keep removing their messages, kick, or ban
+
+### While raid mode is active
+
+- Pause invites (default on)
+- Pause DMs
+- Raise verification to High
+
+These use Discord incident actions. Discord lifts them after 24 hours regardless. Needs **Manage Server**. Ticket SLA pings are also suppressed during a raid.
+
+### Exemptions and alerts
+
+Roles the gate never challenges, plus an alert channel. Members with timeout or message-management permissions are exempt automatically. Without an alert channel, alerts fall back to the AutoMod log.
+
+## Welcome and onboarding
+
+Once a newcomer clears the gate — or joins when raid mode is off — Thea delivers the [welcome](/community/welcome) and grants the join role. [Onboarding](/dashboard/onboarding-forms) reminders stay quiet while raid mode is on.
+
+## More `/raid` commands
+
+```
+/raid set
+/raid exempt
+/raid verify
+/raid deverify
+```
+
+`verify` marks a member as having passed. `deverify` resets them.

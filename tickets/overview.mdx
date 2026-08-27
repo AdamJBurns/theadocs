@@ -1,63 +1,65 @@
 ---
-title: "Ticket System Overview: Support in Private Channels"
+title: "Ticket system overview"
 sidebarTitle: "Overview"
-description: "Learn how Thea's ticket system creates private Discord channels, triages with AI, routes to the right staff, and closes with transcripts."
+description: "Members open a private channel from a panel. Thea answers first from your docs, triages the ticket, then steps back when staff reply."
 ---
 
-Thea's ticket system turns Discord into a structured support environment without requiring members to leave the server. When a member clicks the ticket panel button in any channel, Thea opens a private channel visible only to that member and your staff, immediately attempts to answer the question from your knowledge base, and then triages, categorizes, and routes the ticket to the right team — all before a human ever needs to type a word.
+Tickets are private Discord channels. A member clicks **Open a ticket** on a panel (or runs `/ticket open`). Thea creates a channel under a bot-managed **Tickets** category that only that member and your staff can see, tries to answer from your knowledge base, then waits for a human.
 
-## How a Ticket Flows End-to-End
+## How a ticket flows
 
 <Steps>
-  <Step title="Member clicks the ticket panel button">
-    A member visits the channel where you've published your ticket panel and clicks the button. They may be prompted to fill in a short open-time form (for example, an order number or platform) depending on how you've configured the category.
+  <Step title="The member opens a ticket">
+    They click the panel button or use `/ticket open`. If you configured a [ticket form](/tickets/setup), they answer up to five questions first. Those answers are posted into the ticket. Thea does not store them elsewhere.
   </Step>
   <Step title="A private channel is created">
-    Thea instantly creates a private Discord channel that is visible only to the member who opened the ticket and the staff roles you've designated. No one else in the server can see or search the channel.
+    Only the opener and your team can read it.
   </Step>
-  <Step title="Thea attempts to answer from your knowledge base">
-    Before any staff member is notified, Thea searches your connected knowledge sources and posts an answer with cited passages if its confidence is above your threshold. Members often get an immediate, accurate response at this stage.
+  <Step title="Thea answers from your docs">
+    If confidence is high enough, Thea posts a cited answer before anyone is pinged.
   </Step>
-  <Step title="Thea tags category, urgency, and sentiment">
-    Thea automatically applies three triage labels to the ticket:
-    - **Category** — matched to one of your configured categories (e.g., Billing, Technical, General)
-    - **Urgency** — High, Medium, or Low based on the member's language and topic
-    - **Sentiment** — Frustrated, Neutral, or Satisfied to help staff prioritize tone
+  <Step title="Optional AI triage">
+    When triage is on, Thea labels category, urgency, and sentiment. You can map categories to roles so the right team is pinged. Angry or urgent openers go to your support role immediately. Each classification counts against your **AI AutoMod scan** allowance.
   </Step>
-  <Step title="Ticket is routed to the correct staff role">
-    Based on the detected category, Thea notifies the staff role you've assigned to own that category. The right team sees the ticket without manual sorting.
+  <Step title="Staff take over">
+    The first human reply in the channel makes Thea step back. Mentioning Thea pulls it back in. Use `/ticket claim`, `/ticket assign`, and `/ticket note` as needed.
   </Step>
-  <Step title="A human staff member takes over">
-    The moment a staff member sends a message in the ticket channel, Thea steps back and stops auto-responding. The conversation continues between the member and your team with full context available.
-  </Step>
-  <Step title="Ticket is closed and a transcript is delivered">
-    When staff clicks **Close**, Thea sends a transcript of the entire conversation to the member and prompts them for a satisfaction rating. Staff can download the transcript at any time from Dashboard → Tickets → History.
+  <Step title="Close, transcript, and CSAT">
+    On close, Thea can DM the member a plain-text transcript, then remove their access to the channel. It also DMs a 1–5 satisfaction question plus an optional comment. Low scores (1–2) show up in the dashboard under **Rated poorly**.
   </Step>
 </Steps>
 
-## Key Features
+## Dashboard views
+
+Open **Tickets** in the sidebar:
+
+Active · Unassigned · Assigned to me · Escalated · Closed · **Rated poorly** · All
+
+Each ticket shows the transcript, staff notes, CSAT, SLA status, and a transcript download. Staff can reopen from the dashboard.
+
+## Key pieces
 
 <CardGroup cols={2}>
-  <Card title="Claim and Assign" icon="hand-pointer">
-    Any staff member can claim a ticket to signal ownership. Claimed tickets display the assignee's name in the channel header, preventing two agents from simultaneously working the same case. Owners can reassign to any other staff member.
+  <Card title="Claim and assign" icon="hand-pointer" href="/tickets/managing-tickets">
+    One owner at a time. Claim, assign, or release from Discord or the dashboard.
   </Card>
-  <Card title="Staff Notes" icon="note-sticky">
-    Staff can attach private internal notes to a ticket — visible only to the team, never to the member. Notes persist after the ticket closes and are included in the staff-side transcript, providing full handover context for future reference.
+  <Card title="Staff notes" icon="note-sticky">
+    `/ticket note` is visible only to staff. The member never sees it.
   </Card>
-  <Card title="Response-Time SLA" icon="clock">
-    Set a response-time target per category (for example, 2 hours for Billing). If an escalated ticket goes unanswered beyond that window, Thea re-pings the routing role. Overdue tickets appear in Dashboard → Tickets → Overdue.
+  <Card title="Response target" icon="clock">
+    One re-ping of the support role if an escalated ticket sits unanswered. A claim does not count — only a reply to the member. Nothing is sent during a raid.
   </Card>
-  <Card title="Satisfaction Ratings" icon="star">
-    When a ticket closes, Thea prompts the member for a satisfaction rating. Aggregated ratings appear in Dashboard → Tickets → Analytics and help you track support quality over time.
+  <Card title="CSAT" icon="star">
+    After close, a 1–5 rating ("Not at all" to "Completely") and an optional 500-character comment.
   </Card>
-  <Card title="Canned Replies" icon="bolt">
-    Staff can insert pre-written responses using the autocomplete picker or the `/reply` command. Canned replies are created and managed in Dashboard → Tickets → Saved Replies, keeping responses fast and consistent.
+  <Card title="Saved replies" icon="bolt" href="/community/saved-replies">
+    Send canned text with `/macro send`. There is no `/reply` command.
   </Card>
-  <Card title="Reopen" icon="rotate-left">
-    If a member replies to their transcript or requests a reopen, the ticket is restored with its full message history intact. No context is lost between sessions.
+  <Card title="Other ticket bots" icon="puzzle-piece">
+    Thea can answer the first question in Ticket Tool–style channels, then step back.
   </Card>
 </CardGroup>
 
 <Note>
-  Ticket transcripts are stored independently of the private Discord channel. Even if the channel is deleted after closing, the full conversation history remains accessible in Dashboard → Tickets → History.
+  Staff can always download a transcript from the ticket page. The optional close DM is for the member, because closing removes their channel access. That DM leaves Thea's retention window.
 </Note>

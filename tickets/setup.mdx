@@ -1,62 +1,48 @@
 ---
-title: "Set Up a Ticket Panel in Your Discord Server Today"
+title: "Set up tickets"
 sidebarTitle: "Setup"
-description: "Configure a ticket panel, create categories with routing roles and SLA targets, and publish an interactive button to your Discord server in minutes."
+description: "Enable member tickets, post a panel, add up to five form questions, and turn on triage, transcripts, and a response target."
 ---
 
-Setting up Thea's ticket system starts with publishing a panel — an interactive button message that members click to open a support ticket. From the dashboard you control everything: which channel receives the panel, how categories map to staff roles, what information members provide at open time, and how long your team has to respond before an SLA re-ping fires. Once you publish, Thea handles channel creation, triage, and routing automatically.
-
-## Create and Publish Your Ticket Panel
+Ticket setup lives in **Settings → Tickets**. You can also run `/ticket setup` in Discord.
 
 <Steps>
-  <Step title="Open Ticket Settings">
-    In your Thea dashboard, navigate to **Tickets → Settings**. If this is your first panel, you'll see the setup prompt immediately.
+  <Step title="Turn tickets on">
+    Enable **Let members open tickets**.
   </Step>
-  <Step title="Choose a channel for the panel">
-    Select the Discord channel where you want the ticket panel button to appear. This is typically a dedicated `#support` or `#open-a-ticket` channel so members know exactly where to start.
+  <Step title="Choose the panel channel">
+    Pick an existing channel or let Thea create one. Ticket *conversations* open as private channels under a bot-managed **Tickets** category — not in this channel.
   </Step>
-  <Step title="Customize the panel message and button label">
-    Write the message that appears above the button — for example, a short explanation of what kinds of issues members can get help with. Set a button label that's clear and action-oriented, such as **Open a Ticket** or **Contact Support**.
+  <Step title="Post the panel">
+    Click **Post panel**. Thea sends a message with an **Open a ticket** button. Posting again replaces the previous panel.
   </Step>
-  <Step title="Create ticket categories">
-    Add one or more categories to organize incoming tickets. Each category routes to a different staff role and can carry its own response-time target. Common examples include **Billing**, **Technical**, and **General**.
-
-    See [Category Configuration](#category-configuration) below for the full list of per-category settings.
+  <Step title="Add form questions (optional)">
+    Under **Ticket form**, add up to five questions (free text, email, or phone). Answers are posted into the new ticket. Also available as `/ticket fields`.
   </Step>
-  <Step title="Add custom form fields">
-    If your team needs specific information at open time, attach form fields to any category. For example, a Billing category might ask for an order number; a Technical category might ask which platform the member is using. Members fill in these fields before the private channel is created.
-  </Step>
-  <Step title="Publish the panel">
-    Click **Publish Panel**. Thea posts the interactive button message to the channel you selected. Members can start opening tickets immediately.
+  <Step title="Set the support role">
+    Escalations and SLA pings use the role on **Settings → Handoff**. The same role `/setup` sets.
   </Step>
 </Steps>
 
-## Category Configuration
+## Other cards on this page
 
-Each category you create accepts the following settings:
-
-<ParamField body="Category Name" type="string" required>
-  The label members see when selecting a category (for example, "Billing", "Technical", "General"). Keep names short and self-explanatory.
-</ParamField>
-
-<ParamField body="Routing Role" type="Discord role" required>
-  The Discord role that receives a ping when a ticket in this category is opened and escalated. Assign the role that owns this type of issue — for example, your billing team's role for the Billing category.
-</ParamField>
-
-<ParamField body="Response-Time Target" type="duration">
-  The time window (in minutes or hours) within which the routing role should respond. If the window is exceeded on an escalated ticket, Thea sends a re-ping to the routing role and marks the ticket as overdue in the dashboard.
-</ParamField>
-
-<ParamField body="Open-Time Form Fields" type="array">
-  Optional custom fields members complete before the ticket channel is created. Use these to collect context — such as order numbers, account IDs, or platform details — that staff would otherwise have to ask for manually.
-</ParamField>
-
-## Managing Multiple Panels
+| Card | Behavior |
+|---|---|
+| **Transcript on close** | **DM the member a transcript** — on by default. Staff can still download from the dashboard. |
+| **Response target** | Minutes an escalated ticket may sit without a staff *reply*. One ping per ticket, ever. Off = silent. Nothing is sent while a raid is active. |
+| **Ticket triage** | AI category, urgency, and sentiment. Map categories to roles. Uses one AI AutoMod scan per ticket. |
+| **Other ticket bots** | Answer the first question in Ticket Tool–style channels. Add Thea's role to that bot's support team so it can see the channels. Match by category and/or name prefix (`ticket-` is the default). |
 
 <Note>
-  Only one panel can be active per channel. If you need separate entry points for different audiences — for example, a VIP support channel and a general support channel — publish a distinct panel in each channel with its own categories and routing configuration.
+  Using Ticket Tool (or similar)? Add Thea's role to that bot's support team, then enable **Other ticket bots**. Thea answers once from your docs and steps back when a human replies.
 </Note>
 
 <Tip>
-  Add your most frequently asked questions as knowledge-base entries so Thea can answer them the moment a ticket opens, before staff ever need to respond. Go to **Knowledge → Sources** to add or update entries. The fewer tickets that need human intervention, the faster your overall response metrics look.
+  Put common answers in [Knowledge](/answering/knowledge-sources) so the first message in the ticket resolves the request. The fewer tickets that need a human, the better your response times look.
 </Tip>
+
+## Related
+
+- [Managing tickets](/tickets/managing-tickets)
+- [Saved replies](/community/saved-replies)
+- [Welcome and onboarding](/community/welcome)

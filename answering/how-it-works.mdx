@@ -1,49 +1,50 @@
 ---
-title: "How Thea Finds Passages and Builds Discord Answers"
-sidebarTitle: "How It Works"
-description: "Learn how Thea's citation-grounded retrieval pipeline finds the right passages, scores confidence, and delivers sourced answers in Discord threads."
+title: "How Thea finds passages and builds Discord answers"
+sidebarTitle: "How it works"
+description: "Thea searches only your sources, scores confidence from 0 to 1, and posts a cited thread — or hands off instead of guessing."
 ---
 
-When a member asks a question in a channel Thea monitors, Thea searches the knowledge sources you have connected, scores how well the retrieved passages match the question, and posts a threaded reply with inline citations — all within seconds. If the confidence score falls below the threshold you have set, Thea escalates to your team instead of posting a speculative answer, passing along the full thread context and the passages it found.
+When a member asks a question in a channel Thea watches, Thea searches the knowledge you connected, scores the match, and either posts a threaded reply with citations or refuses to guess.
 
-## How an Answer Is Built
+## How an answer is built
 
 <Steps>
-  <Step title="Member asks a question">
-    A member sends a message in a monitored channel. Thea detects the question and begins a retrieval pass over your indexed knowledge sources.
+  <Step title="A member asks a question">
+    Someone writes in a watched channel, @mentions Thea, or uses `/ask`. Thea also answers the first question in a ticket it created (and in Ticket Tool–style channels if you enabled that).
   </Step>
-  <Step title="Thea searches indexed passages">
-    Thea breaks the question into search queries and retrieves the most relevant passages from your connected sources. Only passages indexed for your server are searched — no cross-server data is ever used.
+  <Step title="Thea searches your passages">
+    Only passages indexed for this server are searched. Nothing from another community is used.
   </Step>
   <Step title="Confidence is scored">
-    Each candidate answer is assigned a confidence score between 0 and 1, reflecting how closely the retrieved passages match the question. The score is calculated before anything is posted to Discord.
+    The draft gets a score between 0 and 1 before anything is posted. See [Confidence and escalation](/answering/confidence-and-escalation).
   </Step>
-  <Step title="Reply posted in thread with citations">
-    When the confidence score meets or exceeds your threshold, Thea creates a thread on the original message and posts the answer with numbered inline citations linking back to the exact source passages (for example, **[1] Docs · Authentication**, **[2] Wiki · API keys**).
+  <Step title="Reply in a thread, with citations">
+    If the score meets your threshold, Thea opens a thread on the original message and posts the answer with numbered citations (for example **[1] Docs · Authentication**). Members can mark it helpful or not helpful, and can press **Get a human** if you enabled that button.
   </Step>
-  <Step title="Below threshold — escalation">
-    When the score falls below your threshold, Thea does not post a public answer. Instead, it pings your escalation role in a private escalation channel, attaching the full thread, the cited passages it found, and the draft reply it would have posted — giving your team everything they need to respond quickly.
+  <Step title="Below threshold — no guess">
+    Thea tells the member it could not ground a reliable answer. If escalation is on, it offers a handoff that pings your support role. It does not invent a policy from general knowledge.
   </Step>
 </Steps>
 
-## Grounded by Design
+Near-duplicate questions can link to a recent answer instead of generating a new one. Those redirects do not count against your monthly quota. See [Answering settings](/answering/settings).
 
-Thea is built around a single principle: every answer must be traceable to something you chose to connect.
+## Grounded by design
 
-- **Exact source citations.** Each answer links to the specific passage Thea retrieved, not just the document. Members and staff can follow the citation and read the original text in context.
-- **Server isolation.** Your indexed knowledge is completely isolated from every other server using Thea. A passage you add to your knowledge base will never appear in another server's answers.
-- **Honest gaps.** When none of your sources cover a question well enough to meet your confidence threshold, Thea does not fill the gap with general knowledge. It tells the member it could not find a reliable answer and escalates to your team.
+- **Exact source citations.** Each answer links to the passage Thea retrieved, not just the document.
+- **Server isolation.** Your index never appears in another server's answers.
+- **Honest gaps.** If the sources do not cover the question well enough, Thea says so.
 
 <Note>
-  Thea never answers from general internet knowledge or its own training data. Every answer comes exclusively from the knowledge sources you have connected and indexed.
+  Thea never answers from the public internet or its own training data. Extra instructions under **Settings → General** can set tone; they cannot override grounding.
 </Note>
 
-## What Members See
+## What members see
 
-Members receive a threaded reply directly beneath their question. The reply includes:
+- The answer, in the asker's language if you enabled that
+- Numbered citations back to your sources
+- Helpful / not helpful buttons
+- An optional **Get a human** button
 
-- The answer text written in clear prose.
-- Numbered inline citations — for example, **[1] Docs · Authentication** — each linking to the exact passage Thea used.
-- A short footer indicating the answer was generated by Thea.
+If a human (not Thea) replies in that thread, Thea steps back and stops contributing.
 
-If a second human (non-bot) reply appears in the same thread, Thea steps back and stops contributing to that conversation, letting your team take over without interference.
+Playground questions use the same pipeline and do not post to Discord. See [Playground](/answering/playground).

@@ -1,0 +1,47 @@
+---
+title: "Saved replies (macros)"
+sidebarTitle: "Saved replies"
+description: "Create named canned replies and send them with /macro send. Thea posts under its own name with a footer naming the staff member."
+keywords: ["saved replies", "macros", "/macro", "canned replies"]
+---
+
+Saved replies are named snippets your staff send in Discord. Thea posts the text under its own name, with a footer that names the person who sent it. Members cannot tell the difference between a saved reply and a typed Thea message except for that footer.
+
+Configure them in **Settings → Saved replies**. Send them with `/macro send`.
+
+## Create a reply
+
+1. Open **Settings → Saved replies**.
+2. Give the reply a short name (this is what autocomplete shows).
+3. Write the body.
+4. Save.
+
+A server can store up to **100** saved replies.
+
+<Warning>
+  Saved replies cannot @mention anyone. Mentions in the body stay plain text so a canned reply cannot ping @everyone or a role by accident.
+</Warning>
+
+## Send a reply
+
+Anyone on your support team can send a saved reply in a channel or ticket:
+
+```
+/macro send name:waiting-on-info
+```
+
+The name option autocompletes. To see everything stored:
+
+```
+/macro list
+```
+
+## Who can manage them
+
+Creating and editing saved replies is an admin dashboard action (`macros:write`). Sending them in Discord is available to staff who can use `/macro` — typically the same people who work tickets.
+
+## Tickets
+
+Saved replies are the canned responses for ticket work. There is no separate `/reply` command. Use `/macro send` inside the ticket channel the same way you would in any other channel.
+
+See [Managing tickets](/tickets/managing-tickets).

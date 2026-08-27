@@ -1,0 +1,46 @@
+---
+title: "Backup, import, and clone server settings"
+sidebarTitle: "Backup & clone"
+description: "Export your Thea configuration as JSON, preview an import, or clone settings to another server you manage."
+keywords: ["backup", "export", "import", "clone"]
+---
+
+**Settings → Backup & clone** is how you copy a server's Thea configuration. Use it to snapshot production, seed a staging server, or move settings to a new community.
+
+## Export
+
+Click **Export** to download a JSON file of this server's settings. The snapshot includes answering, handoff, welcome, tickets, AutoMod, raid protection, logging, saved replies, and related configuration.
+
+You can also start an export from Discord:
+
+```
+/config export
+```
+
+That command gives you a link to the same dashboard download. It does not attach the file in Discord.
+
+<Note>
+  Export is configuration, not your knowledge index. Documents, passages, conversations, and ticket transcripts stay on the original server.
+</Note>
+
+## Import
+
+Import applies a previously exported file to this server.
+
+1. Open **Settings → Backup & clone**.
+2. Choose the JSON file.
+3. Review the preview of what will change.
+4. Apply.
+
+The preview is there so you can see every card that will be overwritten before you confirm.
+
+## Clone to another server
+
+If you manage more than one server with Thea, **Clone** copies this server's configuration to another server you have settings access on. Pick the target, review the preview, and apply.
+
+You need **Settings** write permission on the destination. Billing, API keys, and the knowledge index are not cloned.
+
+## Related
+
+- [Audit](/dashboard/audit) — who changed configuration after an import
+- [Answering settings](/answering/settings) — what most of the snapshot is about

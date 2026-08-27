@@ -1,0 +1,45 @@
+---
+title: "Welcome new members and grant a join role"
+sidebarTitle: "Welcome"
+description: "Greet people when they join, give them a role, and understand how raid protection holds both until the member passes the check."
+keywords: ["welcome message", "join role", "greet"]
+---
+
+Welcome is the first thing Thea does when someone joins: a message in a channel you choose, and optionally a role. Configure it in **Settings → Welcome**, or with `/config welcome` in Discord.
+
+## Greet new members
+
+| Field | What it does |
+|---|---|
+| Channel | Where the greeting is posted. |
+| Message | The text Thea sends. Use `{user}` for the new member and `{server}` for the server name. |
+| Join role | An optional role granted on join. |
+
+The greeting can mention the person who just joined. `@everyone` in the message stays plain text — Thea will not mass-ping from a welcome.
+
+The display name you set under **Settings → General** is how Thea appears when it posts.
+
+## Join role safety
+
+Thea re-checks the role at grant time. Roles that carry moderator permissions are refused. If someone later adds those permissions to the role you selected, Thea will not grant it.
+
+## Raid protection
+
+If [raid protection](/moderation/raid-protection) is holding new arrivals behind the challenge gate, Thea does **not** greet them and does **not** grant the join role until they pass. A raid never gets welcomed, and never gets the role.
+
+Onboarding reminders are also paused while raid mode is active. See [Onboarding forms](/dashboard/onboarding-forms).
+
+## Discord commands
+
+```
+/config welcome show
+/config welcome set
+/config welcome off
+```
+
+`set` takes the same channel, message, and optional role as the dashboard card. `off` stops greetings without deleting your saved text.
+
+## Related
+
+- [Onboarding](/dashboard/onboarding-forms) — ask new members questions after they arrive
+- [Raid protection](/moderation/raid-protection) — when welcomes are held
