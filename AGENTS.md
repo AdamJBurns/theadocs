@@ -26,3 +26,4 @@
 - Bold for UI elements: Click **Settings**
 - Code formatting for file names, commands, paths, and code references
 - Do not invent features, dashboard paths, or commands that are not in the product
+- Never stack callouts. One alert per section. Fold extra notes into body text or a step.
