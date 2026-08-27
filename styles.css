@@ -1,0 +1,208 @@
+:root {
+  --thea-blue-900: #1c2fb8;
+  --thea-blue-700: #3d55e4;
+  --thea-blue-300: #93aaf5;
+  --thea-ink: #171717;
+  --thea-hairline: #eaeaea;
+}
+
+::selection {
+  background: rgb(61 85 228 / 22%);
+}
+
+#navbar {
+  border-bottom: 1px solid var(--thea-hairline) !important;
+  box-shadow: none !important;
+}
+
+.dark #navbar {
+  border-bottom-color: #262626 !important;
+}
+
+img.nav-logo {
+  width: auto !important;
+  height: 1.625rem !important;
+}
+
+.dark img.nav-logo {
+  filter: invert(1);
+}
+
+navbar-link,
+nav-anchor,
+.nav-tabs-item,
+mobile-nav-tabs-item {
+  font-size: 0.8125rem;
+}
+
+#navbar a[href*="theabot.com/auth/signup"] {
+  border: 0 !important;
+  border-radius: 0.125rem !important;
+  background: #0a0a0a !important;
+  color: #ffffff !important;
+  font-size: 0.6875rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+#navbar a[href*="theabot.com/auth/signup"]:hover {
+  background: #262626 !important;
+}
+
+.dark #navbar a[href*="theabot.com/auth/signup"] {
+  background: #ffffff !important;
+  color: var(--thea-ink) !important;
+}
+
+.dark #navbar a[href*="theabot.com/auth/signup"]:hover {
+  background: #e5e5e5 !important;
+}
+
+h1,
+h2,
+h3 {
+  letter-spacing: -0.025em;
+}
+
+h1,
+h2 {
+  font-weight: 400 !important;
+}
+
+eyebrow {
+  color: var(--thea-blue-900);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+eyebrow::before {
+  display: inline-block;
+  width: 0.75rem;
+  height: 0.625rem;
+  margin-right: 0.45rem;
+  background: repeating-linear-gradient(
+    to right,
+    var(--thea-blue-700) 0,
+    var(--thea-blue-700) 2px,
+    transparent 2px,
+    transparent 4px
+  );
+  content: "";
+  vertical-align: -0.05rem;
+}
+
+.dark eyebrow {
+  color: var(--thea-blue-300);
+}
+
+sidebar-group-header {
+  font-size: 0.625rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+#sidebar-content li[data-active] {
+  border-radius: 0.25rem;
+  background: #f5f5f5 !important;
+}
+
+#sidebar-content li[data-active] a {
+  color: var(--thea-blue-900) !important;
+}
+
+.dark #sidebar-content li[data-active] {
+  background: #1f1f1f !important;
+}
+
+.dark #sidebar-content li[data-active] a {
+  color: var(--thea-blue-300) !important;
+}
+
+toc-item[data-active-deepest] {
+  color: var(--thea-blue-900) !important;
+}
+
+.dark toc-item[data-active-deepest] {
+  color: var(--thea-blue-300) !important;
+}
+
+card {
+  border-color: var(--thea-hairline) !important;
+  border-radius: 0.375rem !important;
+  background: #ffffff !important;
+  box-shadow: none !important;
+  transition:
+    border-color 160ms ease,
+    transform 160ms ease;
+}
+
+card:hover {
+  border-color: #aab6dd !important;
+  transform: translateY(-1px);
+}
+
+.dark card {
+  border-color: #262626 !important;
+  background: #0a0a0a !important;
+}
+
+.dark card:hover {
+  border-color: #5264a8 !important;
+}
+
+callout,
+accordion,
+code-block,
+tabs {
+  border-radius: 0.375rem !important;
+  box-shadow: none !important;
+}
+
+mdx-content hr {
+  height: 1px;
+  border: 0;
+  background: var(--thea-hairline);
+}
+
+.dark mdx-content hr {
+  background: #262626;
+}
+
+pagination-prev,
+pagination-next {
+  border-color: var(--thea-hairline) !important;
+  border-radius: 0.375rem !important;
+  box-shadow: none !important;
+}
+
+.dark pagination-prev,
+.dark pagination-next {
+  border-color: #262626 !important;
+}
+
+footer,
+#footer {
+  border-top-style: solid !important;
+}
+
+a,
+button,
+input,
+textarea,
+select {
+  outline-color: var(--thea-blue-700);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  card {
+    transition: none;
+  }
+
+  card:hover {
+    transform: none;
+  }
+}

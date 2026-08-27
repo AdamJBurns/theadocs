@@ -1,3 +1,159 @@
 ---
-title: "Account Blacklisted"
+title: "Why your account is blacklisted"
+sidebarTitle: "Global blacklist"
+description: "Understand why Thea placed your Discord account on the global blacklist, what participating servers can do, and how to submit an appeal."
+keywords: ["global blacklist", "blacklisted account", "ban appeal", "BL reference", "Discord ban"]
 ---
+
+Thea's global blacklist is an optional safety feature for Discord servers. Your account is listed only after **at least three different participating servers** independently issue permanent bans through Thea within a rolling 90-day period.
+
+<Note>
+  A global-blacklist listing is not a Discord-wide ban or a ban from Thea itself. It is a shared
+  moderation signal that only affects servers that choose to use it.
+</Note>
+
+## Why you were listed
+
+A ban contributes to the threshold only when all of these conditions are true:
+
+- The server has opted in to the global blacklist.
+- The ban is permanent.
+- The ban was issued through Thea, including a moderator command or a permanent action from an enabled Thea moderation system.
+- The ban was initiated by that server. It was not caused by an existing global-blacklist listing.
+- The ban happened within the last 90 days.
+
+The bans must come from different servers. Several bans from the same server still count as one active signal.
+
+Timeouts, kicks, temporary bans, softbans, native Discord bans, bans from another bot, and actions caused by the global blacklist do not count toward the threshold.
+
+## What happens after you are listed
+
+Thea sends your Discord account a direct message containing:
+
+- A public reference such as `BL-213131`
+- A private, expiring link to your status page
+- A short explanation of the threshold
+- Access to the appeal form
+
+Participating servers choose how they respond:
+
+### Review mode
+
+Thea applies a 24-hour timeout and sends the server's moderators an **Allow** or **Ban** decision. Choosing **Allow** creates an exception for that server and that blacklist reference.
+
+### Auto-ban mode
+
+Thea bans the account automatically and records that the ban came from the global-blacklist listing.
+
+Thea checks members who are already in a participating server and members who join later. If Thea lacks the required Discord permission, it records the failed action and alerts that server's moderators instead of silently treating it as successful.
+
+<Info>
+  Each server still controls its own membership. A server can keep or issue an independent local
+  ban regardless of your global-blacklist status.
+</Info>
+
+## Understand your `BL-` reference
+
+Each listing receives a reference such as `BL-213131`. You can safely quote this reference when contacting support because it cannot open your status page or identify the contributing servers by itself.
+
+Your private link is different. Anyone holding it may be able to view the limited status page and submit the listing's one appeal.
+
+<Warning>
+  Keep the full link from Thea's direct message private. Do not post it in a server, ticket, or
+  screenshot. Thea staff will never ask for your Discord password or authentication token.
+</Warning>
+
+## View your status
+
+<Steps>
+  <Step title="Open Thea's direct message">
+    Confirm that the message contains your `BL-` reference and a link on the official
+    `theabot.com` domain.
+  </Step>
+  <Step title="Open the private link">
+    The link grants access to this listing without requiring you to create or sign in to a Thea
+    account.
+  </Step>
+  <Step title="Review the listing">
+    The page shows whether the listing is active, removed, or expired, along with its listing and
+    scheduled-expiry dates.
+  </Step>
+</Steps>
+
+The page does not reveal the names of contributing servers, their internal records, or their ban reasons. Participating servers also cannot inspect the other contributors, your appeal statement, or anyone else's blacklist record.
+
+## Submit an appeal
+
+You can submit one appeal for each blacklist listing.
+
+1. Open the private link from Thea's direct message.
+2. Explain why you believe the listing should be reviewed.
+3. Select **Submit appeal**.
+4. Wait for Thea's trust and safety staff to review the qualifying signals and your statement.
+
+Keep your statement focused on the listing. Do not include passwords, authentication tokens, private server conversations, or personal information that is not needed to review the decision.
+
+Your appeal is reviewed by a person. The participating servers cannot read what you submit.
+
+## Appeal outcomes
+
+### Appeal upheld
+
+The listing remains active until it expires or no longer has enough qualifying signals. Thea sends you the decision using your original `BL-` reference.
+
+### Appeal accepted
+
+Thea removes the listing and prevents its existing signals from silently recreating the same listing. It then queues reversals for actions caused by that listing:
+
+- A review timeout created by the listing is cleared.
+- A ban created automatically by the listing is removed.
+- Future blacklist enforcement for that listing stops.
+
+Thea does **not** remove independent bans issued by a server's moderators, AutoMod, raid protection, or another local moderation system. Those decisions belong to the server that issued them.
+
+A new permanent Thea ban from a participating server after the appeal decision can count as new evidence. If the threshold is reached again, Thea creates a new listing with a new `BL-` reference and a new appeal.
+
+## Other ways a listing can end
+
+An active listing is removed automatically when fewer than three qualifying server signals remain. This can happen when:
+
+- A contributing server reverses its permanent ban.
+- A contributing server opts out of the global blacklist.
+- A qualifying signal reaches the end of its 90-day window.
+- Thea staff accept your appeal.
+
+When this happens, Thea reverses only the restrictions it created for that listing. Local server decisions remain in place.
+
+## What Thea stores
+
+For each qualifying signal, Thea stores the affected Discord user ID, participating server ID, type of Thea moderation action, and timestamp. It does not store message content as part of the global-blacklist signal.
+
+Signals stop counting after 90 days and are deleted. Thea retains the minimum listing reference, dates, aggregate outcome, and staff decision needed to preserve the appeal result. Appeal text is deleted after staff decide the appeal unless it must be retained under a legal hold.
+
+Read the [Privacy Policy](https://www.theabot.com/privacy) for the complete retention and data-rights details.
+
+## Frequently asked questions
+
+<AccordionGroup>
+  <Accordion title="Can I see which servers contributed to my listing?">
+    No. The status page shows only the aggregate threshold, status, and dates. This protects the
+    privacy and security of each participating community.
+  </Accordion>
+  <Accordion title="Can one server blacklist me by itself?">
+    No. At least three different opted-in servers must independently issue qualifying permanent
+    Thea bans within 90 days.
+  </Accordion>
+  <Accordion title="Does an accepted appeal unban me everywhere?">
+    No. It removes bans and timeouts created specifically by that global-blacklist listing. Any
+    independent local ban remains under that server's control.
+  </Accordion>
+  <Accordion title="Is my BL reference private?">
+    The reference is safe to quote to support. The full link from the direct message is private
+    because it grants access to your listing page.
+  </Accordion>
+  <Accordion title="What if the private link does not work?">
+    Confirm that you opened the complete link from Thea's direct message. If it is missing,
+    expired, or still fails, email [support@thea.gg](mailto:support@thea.gg) and include your
+    `BL-` reference. Never send your Discord password or authentication token.
+  </Accordion>
+</AccordionGroup>

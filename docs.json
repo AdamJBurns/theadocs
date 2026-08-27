@@ -3,9 +3,42 @@
   "name": "Thea",
   "theme": "almond",
   "colors": {
-    "primary": "#848484",
-    "light": "#131313",
-    "dark": "#cbcbcb"
+    "primary": "#1c2fb8",
+    "light": "#93aaf5",
+    "dark": "#0a0a0a"
+  },
+  "logo": {
+    "light": "/images/thea-wordmark-light.svg",
+    "dark": "/images/thea-wordmark-light.svg",
+    "href": "https://www.theabot.com"
+  },
+  "fonts": {
+    "family": "Geist",
+    "heading": {
+      "family": "Merriweather"
+    },
+    "body": {
+      "family": "Geist"
+    }
+  },
+  "appearance": {
+    "default": "light",
+    "strict": false
+  },
+  "background": {
+    "color": {
+      "light": "#ffffff",
+      "dark": "#000000"
+    }
+  },
+  "styling": {
+    "eyebrows": "breadcrumbs",
+    "codeblocks": {
+      "theme": {
+        "light": "github-light",
+        "dark": "github-dark"
+      }
+    }
   },
   "favicon": "https://media.brand.dev/19dde7ca-e688-4c28-b743-0301a8015e57.png",
   "navigation": {
@@ -40,6 +73,12 @@
             ]
           },
           {
+            "group": "For members",
+            "pages": [
+              "blacklist/account-blacklisted"
+            ]
+          },
+          {
             "group": "Tickets",
             "pages": [
               "tickets/overview",
@@ -68,6 +107,20 @@
     ]
   },
   "navbar": {
+    "links": [
+      {
+        "label": "Product",
+        "href": "https://www.theabot.com/product"
+      },
+      {
+        "label": "How it works",
+        "href": "https://www.theabot.com/product#how-it-works"
+      },
+      {
+        "label": "Pricing",
+        "href": "https://www.theabot.com/pricing"
+      }
+    ],
     "primary": {
       "type": "button",
       "label": "Get Started",
