@@ -34,7 +34,7 @@ Message content, embed text, and image-card text support the same placeholders:
 
 | Placeholder | Result |
 | --- | --- |
-| `{user}` | A mention of the new member |
+| `{user}` | The new member's Discord mention |
 | `{username}` | The new member's Discord username |
 | `{server}` | The server name |
 | `{memberCount}` | The server's current member count |
@@ -45,7 +45,7 @@ Substitutions happen when the member joins. For example:
 Welcome to {server}, {user}! You are member #{memberCount}.
 ```
 
-Only `{user}` can create a notification, and only for the person who just joined. `@everyone`, `@here`, role mentions, and other user mentions in message content remain plain text.
+Only `{user}` in message content can create a notification, and only for the person who just joined. In an embed, it displays a mention without notifying the member. On an image card, use `{username}` because Discord mentions render as literal text. `@everyone`, `@here`, role mentions, and other user mentions in message content remain plain text.
 
 <Note>
   Thea checks all authored welcome text before saving it, including embed fields
@@ -100,7 +100,7 @@ The dashboard preview uses the current server and your signed-in Discord account
   </Tab>
 </Tabs>
 
-Animated images and vector files are not supported. Raster images must be under 24 megapixels.
+Animated images and vector files are not supported. Raster images must be no more than 24 megapixels.
 
 <Warning>
   Uploaded welcome backgrounds are public. The normalized background is stored
@@ -114,14 +114,14 @@ The greeting parts fail independently:
 
 - Without **Embed Links**, Thea omits the Discord embed. A generated card can still appear as a normal attachment.
 - Without **Attach Files**, Thea omits the generated card but can still send message content and an embed.
-- If card generation or a remote background fails, message content and the embed can still be delivered.
+- If a remote card background cannot load, the card uses its fallback color. If card generation itself fails, message content and the embed can still be delivered.
 - If Thea cannot send to the selected channel, the join role can still be granted.
 
 Thea limits welcome posts to 10 per server per minute during a join surge. Additional greetings are skipped, but eligible join roles are still granted.
 
 ## Join role safety
 
-Choose an optional role to grant when a member joins. Thea refuses `@everyone`, integration-managed roles, roles at or above its highest role, and roles with moderation permissions.
+Choose an optional role to grant when a member joins. Thea needs **Manage Roles** and a role above the one it grants. It refuses `@everyone`, integration-managed roles, roles at or above its highest role, and roles with moderation permissions.
 
 The role is checked again on every join. If somebody later makes the role unsafe or moves it above Thea, it is not granted.
 
@@ -167,7 +167,7 @@ Check **Embed Links** for embeds and **Attach Files** for generated cards. If yo
 
 ### The join role is not granted
 
-Move Thea's highest role above the join role and remove moderation permissions from the join role. `/config welcome show` reports when the saved role is no longer safe.
+Confirm that Thea has **Manage Roles**, move its highest role above the join role, and remove moderation permissions from the join role. `/config welcome show` reports when the saved role is no longer safe.
 
 ## Related
 
