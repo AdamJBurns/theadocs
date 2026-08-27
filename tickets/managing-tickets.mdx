@@ -1,0 +1,59 @@
+---
+title: "Managing Tickets: Claim, Reply, and Close"
+sidebarTitle: "Managing Tickets"
+description: "Claim ownership, add internal notes, send canned replies, close with transcripts, and track SLA performance across your active ticket queue."
+---
+
+Once tickets are flowing in, your team interacts with them directly inside Discord's private ticket channels — supplemented by dashboard views for history, overdue tracking, and analytics. Thea handles the AI layer automatically, but every claim, note, reply, and close action is in your team's hands. The workflow below covers the full day-to-day lifecycle from the moment a ticket lands to the moment it's resolved.
+
+## Claiming a Ticket
+
+When a ticket is routed to your role, open the private ticket channel and click the **Claim** button in the channel header. Claiming registers you as the owner, displays your name to other staff, and prevents a second agent from unknowingly working the same case. Only one staff member can hold the claim at a time.
+
+## Assigning a Ticket
+
+If you need to hand off ownership — for example, because the ticket falls under another team member's area of expertise — use the **Assign** button to transfer the claim. The new assignee's name appears in the ticket header immediately, giving the member and the rest of your team a clear point of contact.
+
+## Adding Staff Notes
+
+Select **Add Note** inside the ticket channel to attach an internal message. Notes are visible only to staff — never to the member — and are ideal for handover context, escalation history, or follow-up reminders. Notes persist after the ticket closes and appear in the staff-side transcript in Dashboard → Tickets → History.
+
+## Sending Canned Replies
+
+For common responses, use the **Saved Replies** autocomplete picker or type `/reply` in the ticket channel to browse your library of pre-written messages. Insert a reply with one click or keystroke. To create or edit saved replies, go to **Dashboard → Tickets → Saved Replies**.
+
+<Tip>
+  Build canned replies for your five most common outcomes — things like "waiting on more info", "escalating to the billing team", and "issue confirmed and resolved". Consistent language speeds up resolution and raises satisfaction ratings.
+</Tip>
+
+## Closing a Ticket
+
+Click **Close** in the ticket channel when the issue is resolved. On close, Thea automatically:
+
+1. Prompts the member to submit a satisfaction rating
+2. Sends a full transcript of the conversation to the member
+3. Archives the ticket in **Dashboard → Tickets → History**
+
+Closed tickets retain their triage labels, staff notes, and the initial Thea knowledge-base answer so you have a complete record of every interaction.
+
+## Reopening a Ticket
+
+If a member replies to their transcript or contacts your team to request a reopen, the ticket is restored with its entire message history intact. Reopened tickets re-enter the active queue and can be claimed and managed like any new ticket.
+
+## SLA Re-Pings and Overdue Tickets
+
+Each ticket category can carry a response-time target. When an escalated ticket exceeds that target without a staff reply, Thea sends a follow-up ping to the routing role. Tickets that have breached their target are flagged in **Dashboard → Tickets → Overdue** so your team can prioritize them at a glance.
+
+## Downloading Transcripts
+
+Go to **Dashboard → Tickets → History**, select any closed ticket, and click **Download Transcript** to save the full conversation as a file. Transcripts include the member's opening form responses, Thea's initial knowledge-base answer with citations, all staff and member messages, and any staff notes.
+
+---
+
+<Accordion title="What happens when Thea answers in a ticket?">
+  The moment a ticket opens, Thea searches your knowledge base and posts an answer with source citations if its confidence is above your configured threshold. This happens before any staff notification, so members often receive an immediate, accurate response. As soon as a staff member sends a message in the ticket channel, Thea steps back and stops auto-responding for the remainder of that ticket. The knowledge-base answer and all subsequent messages — from both Thea and your team — are included in the final transcript.
+</Accordion>
+
+<Accordion title="Can I export moderation records?">
+  Yes — go to **Dashboard → Moderation → Records** and click **Export CSV**. The export includes member ID, action, reason, timestamp, and the staff member or automated layer (such as the spam heuristics engine or AI pass) that took the action.
+</Accordion>

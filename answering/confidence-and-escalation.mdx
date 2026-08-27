@@ -1,0 +1,63 @@
+---
+title: "Confidence Thresholds & Escalation in Thea"
+sidebarTitle: "Confidence & Escalation"
+description: "Set a confidence threshold to control when Thea posts automatically and when it escalates to your team with full thread context and cited sources."
+---
+
+Before Thea posts any answer, it assigns that draft a confidence score reflecting how well the passages it retrieved actually match the question. You control the threshold that separates an automatic reply from a human escalation. Tune it once at the server level, then override it for individual channels that need a tighter or looser bar.
+
+## What the Confidence Score Measures
+
+The confidence score is a number between **0 and 1** that Thea calculates for each draft answer before it is posted. A higher score means the retrieved passages strongly match the member's question and the answer is well-supported by your knowledge sources. A lower score means the passages are a weaker match — the question may be ambiguous, partially covered, or outside your indexed content.
+
+The score is recalculated for every question independently. It is not an average across your knowledge base; it reflects only how well the sources answered this specific question at this specific moment.
+
+## Setting the Threshold
+
+<Steps>
+  <Step title="Open Answering settings">
+    In the Thea dashboard, go to **Settings → Answering → Confidence Threshold**.
+  </Step>
+  <Step title="Adjust the slider">
+    Move the slider to a value between 0 and 1. Answers with a confidence score **at or above** this value are posted automatically. Answers that fall **below** it are escalated instead.
+  </Step>
+  <Step title="Save and test">
+    Save the setting, then open the Playground and run a few sample questions to see which ones fall above and below the threshold. Adjust as needed.
+  </Step>
+</Steps>
+
+<Tip>
+  Start with a threshold of **0.7** and tune upward over time. A threshold that is too high early on will escalate too many questions while your knowledge base is still growing. As you add more sources and verify answers, raise the threshold gradually.
+</Tip>
+
+## Per-Channel Thresholds
+
+You can override the server-wide threshold for any individual channel. For example, you might set a higher bar in **#billing-support** — where an incorrect answer has real consequences — while keeping a lower bar in **#general-help** where approximate answers are acceptable.
+
+To set a per-channel threshold:
+
+1. Go to **Settings → Answering → Channels**.
+2. Select the channel you want to configure.
+3. Enable **Override server threshold** and set the channel-specific value.
+
+Channel-level thresholds take precedence over the server-wide setting for all questions asked in that channel.
+
+## What an Escalation Looks Like
+
+When a question falls below the confidence threshold, Thea sends a notification to your designated escalation role. The escalation includes:
+
+- The **full thread** — the original message and any replies.
+- The **passages Thea cited** — the exact source excerpts it retrieved, even if confidence was too low to post them publicly.
+- The **draft answer** Thea would have posted — so your team can edit and send it rather than starting from scratch.
+
+Your team can reply directly in the escalation thread. Once a human responds in the original Discord thread, Thea steps back and does not post further.
+
+<Note>
+  Escalations do **not** consume your monthly answer quota. Only answers that Thea posts publicly count against your plan's limit.
+</Note>
+
+## Verified Answers
+
+After a moderator or staff member reviews and replies to a question, that reply can be pinned as the **verified answer**. Verified answers carry more weight than raw documentation passages in future retrievals — meaning if a member asks the same question again, Thea prioritizes the answer your team already confirmed as correct.
+
+To mark a reply as verified, click the **Verify Answer** button that appears on staff-visible messages in Thea-managed threads.

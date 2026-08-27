@@ -1,0 +1,76 @@
+---
+title: "Moderator Slash Commands Reference"
+sidebarTitle: "Mod Commands"
+description: "A complete reference for every Discord slash command Thea's moderators can use — from warnings and bans to watchlists and moderation record exports."
+---
+
+Every moderation action in Thea — whether taken manually by a staff member or automatically by AutoMod — writes to a shared ledger. That means commands issued from Discord show up alongside automated actions in the dashboard, in member records, and in exported reports. The commands below are available in any channel where Thea is present, subject to the Discord role permissions you've configured.
+
+<Note>
+  All slash commands require the appropriate Discord role permissions to execute. Assign Thea's moderator role to the staff roles that should have access. Members without the required permissions will not see these commands in their slash command list.
+</Note>
+
+## Moderation Commands
+
+| Command | Description | Notes |
+|---|---|---|
+| `/warn @user [reason]` | Issues a formal warning to the member | Warning appears in the member's record and counts toward escalation thresholds |
+| `/timeout @user [duration] [reason]` | Applies a Discord timeout for the specified duration | Duration accepts values like `1h`, `24h`, `7d` |
+| `/kick @user [reason]` | Removes the member from the server | Member can rejoin unless banned; kick is logged with reason |
+| `/ban @user [reason]` | Permanently bans the member | Use `/softban` if you only want to clear recent messages |
+| `/softban @user [reason]` | Bans then immediately unbans the member | Deletes the member's recent messages; they can rejoin afterward |
+| `/purge [count]` | Deletes the last N messages in the current channel | Discord limits bulk deletion to messages under 14 days old |
+| `/lock` | Locks the current channel to prevent new messages | Staff with the Manage Channels permission can still post |
+| `/standing [@user]` | Shows a member's moderation record | Omit `@user` to view your own record; staff can view any member |
+| `/automod test [message]` | Simulates a message against current AutoMod rules | Returns a layer-by-layer breakdown with the action each layer would take |
+| `/raid [on\|off\|status]` | Manually controls raid mode | `on` enables the verification gate; `status` shows current raid state |
+
+## The Shared Moderation Ledger
+
+Manual commands and automated AutoMod actions write to the same ledger. This means:
+
+- A timeout issued via `/timeout` and a timeout triggered by AutoMod both appear in the member's record.
+- Strike thresholds count strikes from both manual warns and automatic warns.
+- Exported records include everything, regardless of source.
+
+Staff can always see who took an action — whether it was a moderator by name or Thea acting automatically — in Dashboard → Moderation → Records.
+
+## Moderator Notes
+
+Add context to a member's record without issuing a formal action:
+
+```
+/note @user [text]
+```
+
+Notes are staff-only and never visible to the member. Use them to document observations, flag concerns during an investigation, or leave context for the next moderator on shift.
+
+## Watchlist
+
+Flag a member for heightened monitoring across shift changes:
+
+```
+/watch @user [reason]
+```
+
+Watchlisted members appear at the top of Dashboard → Moderation → Watchlist. Thea surfaces their activity in the log channel with a watchlist indicator so all staff, including those who weren't online when the watch was set, maintain awareness.
+
+Remove a member from the watchlist with:
+
+```
+/unwatch @user
+```
+
+## Exporting Moderation Records
+
+Export the full moderation ledger as a CSV from Dashboard → Moderation → Records. The export includes all actions (manual and automated), dates, responsible moderator or system, reasons, and outcomes. Use this for audits, ban appeals, or handoffs.
+
+## Server Logs
+
+Configure Thea to post server events to dedicated log channels in Dashboard → Logging. Events you can log include:
+
+- **Message deletes** — content and author of deleted messages
+- **Message edits** — before and after content
+- **Member joins** — account age, invite used, and any flags from join screening
+- **Member leaves** — whether voluntary or kicked/banned
+- **Bans and unbans** — with reason and responsible moderator

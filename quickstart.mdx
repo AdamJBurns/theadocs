@@ -1,47 +1,61 @@
 ---
-title: "Quickstart"
-description: "Begin with a guide on the fastest path to a successful outcome"
+title: "Get Started with Thea in 5 Minutes"
+sidebarTitle: "Quickstart"
+description: "Create your account, connect a knowledge source, set your confidence threshold, rehearse answers in the Playground, and invite Thea to your Discord server."
 ---
 
-Describe how someone begins using your product. What is the first thing they need to do? Are there any prerequisites?
+This guide walks you through everything you need to go from zero to a live, answering bot in about five minutes. You'll connect a knowledge source you already have — a docs site, a sitemap, or a plain FAQ page — and Thea will index it, start answering questions, and escalate to your team whenever it isn't confident enough to answer on its own.
 
-A quickstart should take someone from zero to using your product. They'll get a quick win and a sense of what they can accomplish.
-
-## Prerequisites
-
-Before you begin, you must have:
-
-- Requirement one (for example, Node.js 18+, a free account, an API key)
-- Requirement two (for example, a compatible device, a compatible browser, a compatible operating system)
-
-## Get started
+<Note>
+  The Pro plan includes a **14-day free trial**. Your card is collected at checkout but is not charged until the trial period ends. You can cancel at any time from the dashboard before the trial expires.
+</Note>
 
 <Steps>
-  <Step title="Install">
-    Describe how to install your product or sign up.
-
-    ```bash
-    npm install your-package
-    ```
+  <Step title="Create your account">
+    Go to [theabot.com/auth/signup](https://www.theabot.com/auth/signup) and select **Continue with Discord**. Thea uses Discord OAuth so there is no separate password to manage — the account you create is tied directly to your Discord identity.
   </Step>
-  <Step title="Configure">
-    Describe any setup or configuration needed before first use.
 
-    ```bash
-    your-cli init
-    ```
+  <Step title="Add your first knowledge source">
+    After signing in, open the **Knowledge** tab and click **Add source**. Paste in one of the following:
+
+    - A documentation URL (Thea will crawl linked pages up to the crawl depth your plan allows)
+    - A sitemap URL (e.g. `https://yourdocs.com/sitemap.xml`)
+    - A direct link to a FAQ or help page
+
+    Thea begins indexing immediately. Indexing typically completes within a few minutes for small sites. You'll see a progress indicator in the Knowledge tab — you can continue setup while indexing runs in the background.
+
+    <Tip>
+      You can connect up to **3 sources** on the Free plan, **25** on Pro, and **200** on Business. Notion and Zendesk integrations are available on Pro and Business.
+    </Tip>
   </Step>
-  <Step title="Run it">
-    Show the first thing a user does to see it working.
 
-    ```bash
-    your-cli start
-    ```
+  <Step title="Set your confidence threshold and escalation role">
+    Navigate to **Settings → Answering**. Two controls matter here:
+
+    - **Confidence threshold** — a percentage slider (0–100). When Thea's internal confidence for a given answer falls below this value, it escalates instead of replying.
+    - **Escalation role** — the Discord role that gets pinged when an escalation fires. Assign this to your support team or moderators.
+
+    Start with the default threshold (around 70%) and adjust it after you've reviewed a few answers in the Playground. A lower threshold means Thea answers more questions itself; a higher threshold means it escalates more often.
+  </Step>
+
+  <Step title="Try a question in the Playground">
+    Open the **Playground** from the left sidebar. Type a question your members commonly ask. Thea will return:
+
+    - The answer it would post in Discord
+    - The source passage(s) it cited
+    - Its confidence score for the answer
+    - A diagnostic breakdown showing which sources were searched
+
+    Use the Playground to rehearse your full question set before going live. You can save a run history and revisit past diagnostics at any time.
+
+    <Tip>
+      See [Playground](/answering/playground) for the full guide on running bulk question sets, reading per-answer diagnostics, and interpreting confidence scores.
+    </Tip>
+  </Step>
+
+  <Step title="Invite Thea to your Discord server">
+    Go to **Settings → Discord** and click **Add to Server**. Choose the server from the dropdown and grant the requested permissions. Thea needs permission to read messages in the channels you want it to watch and to send messages where it should reply.
+
+    Once invited, Thea is live. It will begin answering questions in the channels you've enabled and escalating to your team when confidence is low.
   </Step>
 </Steps>
-
-<Tip>
-  Give people a way to get help. This could be a link to a support page, a chat with a customer support agent, or a forum for your product.
-
-  Example: Need help? Reach out to us at [support@yourcompany.com](mailto:support@yourcompany.com).
-</Tip>

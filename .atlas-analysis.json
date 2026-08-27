@@ -1,0 +1,94 @@
+{
+  "projectType": "saas",
+  "projectName": "Thea",
+  "projectDescription": "Thea is an AI-powered Discord bot that answers member questions with citations from your own docs, runs layered AutoMod, manages tickets with triage, and publishes a searchable help center — all from one dashboard.",
+  "theme": "almond",
+  "primaryColor": "#848484",
+  "lightColor": "#131313",
+  "darkColor": "#cbcbcb",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "introduction",
+              "quickstart",
+              "plans-and-billing"
+            ]
+          },
+          {
+            "group": "Answering",
+            "pages": [
+              "answering/how-it-works",
+              "answering/knowledge-sources",
+              "answering/confidence-and-escalation",
+              "answering/playground"
+            ]
+          },
+          {
+            "group": "Moderation",
+            "pages": [
+              "moderation/automod",
+              "moderation/scam-defense",
+              "moderation/raid-protection",
+              "moderation/moderator-commands"
+            ]
+          },
+          {
+            "group": "Tickets",
+            "pages": [
+              "tickets/overview",
+              "tickets/setup",
+              "tickets/managing-tickets"
+            ]
+          },
+          {
+            "group": "Help Center",
+            "pages": [
+              "help-center/overview",
+              "help-center/custom-domain"
+            ]
+          },
+          {
+            "group": "Dashboard & Settings",
+            "pages": [
+              "dashboard/overview",
+              "dashboard/analytics",
+              "dashboard/integrations",
+              "dashboard/onboarding-forms"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "Grounded AI answers with inline source citations — never guesses",
+    "Confidence-gated escalation hands off to human moderators when unsure",
+    "Layered AutoMod: Discord-native rules, heuristics, moderation API, and AI pass",
+    "Scam Defense with multi-signal campaign detection (links, QR codes, attachments, identity)",
+    "Raid protection with join-surge and content-storm detection",
+    "Ticket system with AI triage (category, urgency, sentiment) and routing",
+    "Searchable help center published from the same knowledge base, with custom domain support",
+    "Notion and Zendesk integrations for knowledge sync",
+    "Onboarding forms that collect answers for staff without storing member data",
+    "Activity analytics: questions, helpfulness, gaps, and time-to-answer",
+    "Playground for rehearsing real questions before going live",
+    "Content API for programmatic knowledge management (Pro and Business)"
+  ],
+  "publicApiSurface": [
+    "Content API (Pro/Business) — authenticate, index, and query knowledge sources programmatically",
+    "/automod test — Discord slash command to preview moderation rules against a sample message",
+    "/standing — Discord slash command for members to audit their own moderation record",
+    "/raid — Discord slash commands for manual raid control",
+    "Dashboard: knowledge sources (URL, sitemap, FAQ, Notion, Zendesk)",
+    "Dashboard: confidence threshold and escalation role settings",
+    "Dashboard: per-severity AutoMod action configuration",
+    "Dashboard: ticket routing, custom form fields, response-time targets",
+    "Dashboard: help center collections, articles, and custom domain",
+    "Dashboard: onboarding form builder (up to 5 questions, role-on-completion)"
+  ]
+}

@@ -1,0 +1,118 @@
+---
+title: "Scam Defense: Multi-Signal Campaign Detection"
+sidebarTitle: "Scam Defense"
+description: "Detect and contain scam campaigns in your server with layered signals, an evidence model that prevents false positives, and a full audit dashboard."
+---
+
+Scam Defense is Thea's dedicated system for identifying and stopping coordinated scam campaigns — from phishing links to brand impersonation to multi-account posting waves. Rather than relying on a single signal, it combines independent evidence streams, applies conservative action ceilings, and surfaces everything to your staff in an auditable dashboard. You control what happens when a threat is confirmed.
+
+## What Scam Defense Detects
+
+Scam Defense works through a layered signal pipeline. Deterministic checks run first; AI adjudication handles only what passes through.
+
+<Accordion title="Canonicalized Links">
+  Links are normalized before comparison — Unicode lookalike characters, URL shorteners, misleading subdomains, and redirect chains are all resolved to their canonical form. A scam link disguised as `discord․gg` (using a Unicode period) is caught the same way a plain `discord.gg` impersonation would be.
+</Accordion>
+
+<Accordion title="Dangerous Attachments">
+  Files are checked for dangerous types, doubled extensions (e.g., `invoice.pdf.exe`), and mismatches between the declared MIME type and actual file content. An image that is actually an executable is flagged regardless of what it's named.
+</Accordion>
+
+<Accordion title="QR Codes & Image Surfaces">
+  QR codes embedded in images are decoded and their payloads are checked against the same link and domain intelligence used for text links. Image fetching applies strict size and timeout limits to prevent resource exhaustion.
+</Accordion>
+
+<Accordion title="Identity Signals">
+  Display names, usernames, and profile content are screened for staff, support, admin, and brand impersonation patterns. A new account claiming to be your server's admin team is flagged before it can contact members.
+</Accordion>
+
+<Accordion title="Cross-Channel Campaign Detection">
+  When multiple accounts post the same — or structurally similar — content across different channels in a short time window, Scam Defense recognizes it as a coordinated campaign rather than isolated incidents. Each account is evaluated independently, but the campaign context raises the confidence of the overall finding.
+</Accordion>
+
+<Accordion title="AI Adjudication">
+  Messages that pass all deterministic checks but still appear suspicious are passed to Thea's AI for a final judgment. The AI evaluates context, phrasing patterns, and behavioral signals. This step runs only after all deterministic signals have been applied.
+</Accordion>
+
+## Threat Feeds
+
+Thea's domain and indicator feeds are versioned and validated before any update goes live. If a feed update is malformed or contains suspicious entries, it is quarantined automatically — it does not silently change what Scam Defense enforces. You can inspect the current active feed version from Dashboard → Scam Defense → Threat Feeds.
+
+## The Evidence Model
+
+Scam Defense combines independent signals rather than stacking correlated ones.
+
+- **Deduplication:** multiple signals originating from the same root cause (one bad link appearing in three messages) count once, not three times.
+- **Conservative action ceilings:** each signal tier caps the maximum action Scam Defense will recommend. A single weak signal is never sufficient to trigger a punitive action.
+- **Recommendation, not mandate:** Scam Defense produces a recommended response; your policy rules determine what action is actually taken.
+
+This design means that a false positive from one signal is absorbed by the model rather than amplified into a ban.
+
+## Your Policy Controls the Response
+
+Configure what Scam Defense does for each finding severity:
+
+| Severity | Example Action |
+|---|---|
+| Low confidence | Log only |
+| Medium confidence | Warn member, flag for staff review |
+| High confidence | Delete message, quarantine member |
+| Confirmed campaign | Escalate repeat offender, ban |
+
+Set these in Dashboard → Scam Defense → Policy. Actions apply to regular members only (see Staff & Bots below).
+
+## Staff, Bots & Webhooks
+
+Accounts with staff roles, verified bots, and server webhooks run in **observe-only** mode. Their activity is recorded and can be investigated, but it never triggers automated punishment. This prevents Scam Defense from acting on your own tools and team.
+
+## Graceful Degradation
+
+If an external dependency — a threat feed API, the AI adjudication service, or a third-party enrichment source — is temporarily unavailable, Scam Defense continues operating with local protection. The degraded state is surfaced in the dashboard so you know which signals are temporarily inactive.
+
+## Dashboard
+
+Dashboard → Scam Defense gives you a live view of everything Thea is finding in your server.
+
+<CardGroup cols={2}>
+  <Card title="Overview" icon="chart-bar">
+    What your server is seeing, detection frequency, containment rate, and how often detections were contained before members were affected.
+  </Card>
+  <Card title="Findings" icon="shield-halved">
+    Every detection with its source tier, severity, policy verdict, and action taken. Filter by date, type, or outcome.
+  </Card>
+  <Card title="Detection Detail" icon="magnifying-glass">
+    Open any finding to inspect the event ID, source tier, severity level, policy verdict, action taken, confidence scores, Discord scope (channel, user, message), and full review history.
+  </Card>
+  <Card title="Review History" icon="clock-rotate-left">
+    A log of every manual decision staff made — approvals, dismissals, and overrides — alongside the automated finding that prompted review.
+  </Card>
+</CardGroup>
+
+## Privacy
+
+Scam Defense operates on server activity only — it does not access or monitor direct messages. Message bodies, raw URLs, QR code payloads, and screened display names are not retained after evaluation. Only the finding metadata (event ID, severity, action, timestamps) is stored for audit purposes.
+
+## Enabling Scam Defense
+
+<Steps>
+  <Step title="Open Dashboard → Scam Defense">
+    Navigate to the Scam Defense section in your Thea dashboard.
+  </Step>
+  <Step title="Review detection visibility">
+    Detection logging and audit visibility are enabled first. Review a few days of findings to understand what Thea is seeing before automated actions go live.
+  </Step>
+  <Step title="Configure your policy">
+    Set the action for each severity tier under Dashboard → Scam Defense → Policy.
+  </Step>
+  <Step title="Enable automated actions">
+    Once you're satisfied with detection accuracy, enable automated actions for the severity tiers you've reviewed.
+  </Step>
+</Steps>
+
+<Note>
+  Scam Defense uses a staged rollout: detection and audit visibility arrive first, and automated actions are progressively enabled after you've reviewed findings and calibrated your policy. This prevents a misconfigured policy from taking mass action before you've validated its accuracy.
+</Note>
+
+<Warning>
+  Attempting to evade Scam Defense by creating new accounts or servers to bypass an active action is a violation of Thea's Acceptable Use Policy and may result in removal from the platform.
+</Warning>

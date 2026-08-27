@@ -1,0 +1,60 @@
+---
+title: "Plans, Limits & Billing for Thea"
+sidebarTitle: "Plans & Billing"
+description: "Compare Free, Pro, and Business plans, understand answer and source limits, and learn how Thea's per-server billing protects you from unexpected charges."
+---
+
+Thea is billed per Discord server through Stripe. Every server starts on the Free plan with no credit card required. When your community grows or you need advanced features like Notion and Zendesk integrations, the Content API, or higher answer volumes, you can upgrade in one click from the dashboard. The sections below lay out exactly what each plan includes and how billing works.
+
+<Note>
+  The Free plan requires no credit card. You can run Thea on a single server indefinitely at no cost, within the Free plan limits.
+</Note>
+
+## Plan comparison
+
+| Feature | Free | Pro | Business |
+|---|---|---|---|
+| **Price** | $0 / mo | $29 / mo | $99 / mo |
+| **Answers per month** | 100 | 2,000 | 20,000 |
+| **Knowledge sources** | 3 | 25 | 200 |
+| **Documents** | 50 | 2,000 | 25,000 |
+| **Indexed passages** | 2,000 | 100,000 | 1,000,000 |
+| **Help-center articles** | 10 | 500 | 5,000 |
+| **Max file size** | 2 MB | 20 MB | 50 MB |
+| **Scheduled re-sync** | Manual | Every 24 h | Every 6 h |
+| **Conversation retention** | 30 days | 180 days | 1 year |
+| **Custom help-center domain** | — | Yes | Yes |
+| **Integrations (Notion, Zendesk)** | — | Yes | Yes |
+| **Content API** | — | Yes | Yes |
+| **Image understanding** | — | Yes | Yes |
+| **Crawl depth** | 1 level | 3 levels | 5 levels |
+| **AutoMod rules, heuristics & moderation API** | Included | Included | Included |
+| **AI AutoMod scans per month** | — | 2,000 | 20,000 |
+
+## Billing mechanics
+
+### Billing scope and payment
+Thea bills per Discord server, not per user or per workspace account. Each server has its own plan and its own usage counters. Payments are processed through Stripe and you can update your payment method or view invoices from the **Settings → Billing** page at any time.
+
+### Pro free trial
+The Pro plan includes a **14-day free trial** for each server (one trial per server, non-renewable). Your card details are collected at checkout so that billing can start automatically if you don't cancel, but nothing is charged until the trial period ends.
+
+<Tip>
+  To avoid being charged, cancel the Pro trial from **Settings → Billing** before the 14-day period ends. Your server will revert to the Free plan limits, but your knowledge base and conversation history are preserved.
+</Tip>
+
+### Upgrading and downgrading
+Upgrading from any plan takes one click from **Settings → Billing** and applies immediately — your new answer quota and source limits are available the moment the upgrade completes. Downgrading takes effect at the end of the current billing period.
+
+### What happens when you hit a limit
+Reaching your monthly answer limit pauses new AI answers for the rest of the billing period. Thea will not delete your knowledge base, your conversation history, or any moderation configuration. Non-AI moderation (rules, heuristics, and the moderation API) continues running uninterrupted. Answers resume automatically when the period resets.
+
+<Warning>
+  Escalations still fire when answers are paused — your escalation role will receive pings for any question Thea cannot handle, so your team can step in manually.
+</Warning>
+
+### Monthly spend cap
+Every paid plan includes a hard monthly spend cap that acts as a circuit breaker. If metered usage (such as AI AutoMod scans) would push your bill beyond the cap, Thea stops consuming those metered resources for the remainder of the period rather than accruing unbounded charges.
+
+### Why AI AutoMod scans are metered
+The first three AutoMod layers — Discord-native rules, spam/scam-link heuristics, and the moderation API — run on every plan at no additional cost because they are deterministic and computationally inexpensive. The fourth layer, the AI pass, submits each flagged message to a language model for adjudication. Because each scan costs a model call, AI AutoMod scans are metered and are only available on Pro and Business plans. The scan quota resets with your billing period.

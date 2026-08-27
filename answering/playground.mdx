@@ -1,0 +1,81 @@
+---
+title: "Test Questions in the Thea Playground"
+sidebarTitle: "Playground"
+description: "Use the Thea Playground to run questions against your live knowledge base, inspect retrieved passages, and tune confidence before going live."
+---
+
+The Playground lets you test Thea's answers before members ever see them. Ask questions in a full conversation interface inside the dashboard — Thea responds exactly as it would in Discord, using your live knowledge base, but nothing is posted to any channel. Use it to verify that new sources are being picked up, to understand why certain questions escalate, and to tune your confidence threshold with real data.
+
+## Accessing the Playground
+
+Open the Thea dashboard and click **Playground** in the left navigation. The Playground loads with your current knowledge base and configuration already active — no separate setup is required.
+
+## What You Can Do in the Playground
+
+<CardGroup cols={2}>
+  <Card title="Ask any question" icon="message">
+    Type a question in the multiline input at the bottom. Press **Enter** to send, or **Shift + Enter** to add a new line without sending.
+  </Card>
+  <Card title="Use sample questions" icon="list-check">
+    Select from a set of pre-loaded sample questions to quickly explore how Thea responds to common query types without typing them out manually.
+  </Card>
+  <Card title="Inspect per-answer diagnostics" icon="magnifying-glass-chart">
+    Expand the diagnostics panel under any answer to see the passages matched, the confidence score, and the sources cited for that specific response.
+  </Card>
+  <Card title="Clear history" icon="rotate-left">
+    Reset the conversation at any time with the **Clear** button. Previous runs are preserved in the run history for comparison.
+  </Card>
+</CardGroup>
+
+## Per-Answer Diagnostics
+
+Every answer in the Playground includes a collapsible diagnostics panel. Open it to see:
+
+- **Passages matched** — the exact text excerpts Thea retrieved, ranked by relevance.
+- **Confidence score** — the 0–1 score Thea assigned this draft before deciding whether to post or escalate.
+- **Sources cited** — the source name, type, and passage location for each citation in the answer.
+
+Use the confidence score here to calibrate your threshold setting. If an answer you consider correct is scoring below your current threshold and triggering escalation, your threshold may be set too high for the depth of your current knowledge base.
+
+## Error Types
+
+The Playground surfaces configuration and runtime issues as inline error messages so you can fix them before they affect real members.
+
+<Accordion title="Rate limit">
+  Your server has reached its answer rate limit for the current window. Wait for the limit to reset or upgrade your plan for a higher limit.
+</Accordion>
+<Accordion title="Spend cap">
+  The monthly answer quota for your plan has been reached. Answers will not be generated until the quota resets at the start of the next billing period, or until you upgrade.
+</Accordion>
+<Accordion title="Configuration error">
+  A required setting — such as the escalation role or a knowledge source — is missing or misconfigured. The error message identifies which setting needs attention.
+</Accordion>
+<Accordion title="Validation error">
+  The question or input did not pass Thea's input validation. This can occur with extremely long messages or inputs containing unsupported characters.
+</Accordion>
+
+## Recommended Workflow
+
+Follow this workflow every time you add or update a knowledge source to make sure Thea is ready before members start asking.
+
+<Steps>
+  <Step title="Add or update a source">
+    Go to **Settings → Knowledge → Sources** and add your new source or trigger a re-sync on an existing one. Wait for indexing to complete.
+  </Step>
+  <Step title="Open the Playground">
+    Navigate to **Playground** in the dashboard.
+  </Step>
+  <Step title="Ask questions the new source should cover">
+    Write questions a member would realistically ask about the content you just added. Be specific — broad questions may match many sources, while narrow questions stress-test whether the new passages are actually being retrieved.
+  </Step>
+  <Step title="Inspect passages matched and confidence">
+    Open the diagnostics panel for each answer. Confirm that passages from your new source appear in the **passages matched** list and that the confidence score is above your threshold.
+  </Step>
+  <Step title="Adjust your threshold if needed">
+    If well-supported answers are scoring lower than expected, consider lowering your threshold slightly. If answers are posting when they should be escalating, raise it.
+  </Step>
+</Steps>
+
+<Tip>
+  Keep a document with a set of canonical test questions — one or two per major topic in your knowledge base. Re-run the full list in the Playground after every source update to catch regressions before they reach your members.
+</Tip>

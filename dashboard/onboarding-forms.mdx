@@ -1,0 +1,63 @@
+---
+title: "Onboarding Forms: Gate Access & Collect Info"
+sidebarTitle: "Onboarding Forms"
+description: "Ask new members up to five questions (or just require a rules click) before they gain server access — answers go to staff only and are never stored."
+---
+
+Onboarding forms let you decide what happens between a new member joining your server and gaining full access. You can ask up to five custom questions — gathering context like how they found your community or what they're hoping to get out of it — or skip questions entirely and just require members to acknowledge your rules. Either way, Thea handles the gating: members who haven't completed the form see only restricted channels, and answers flow directly to a staff channel you designate. Thea never stores the answers anywhere else.
+
+## Two modes
+
+<CardGroup cols={2}>
+  <Card title="Questions mode" icon="clipboard-question">
+    Present up to five custom questions inside a Discord dialog. Members type their answers and submit. Answers are posted to your designated staff channel immediately and are not retained by Thea after delivery.
+  </Card>
+  <Card title="Rules-acknowledgment mode" icon="circle-check">
+    No questions. A button in the onboarding panel is all members interact with — pressing it is the entire flow. Choose this when you want to confirm rule acceptance without collecting any data at all.
+  </Card>
+</CardGroup>
+
+## Set up your onboarding form
+
+Navigate to **Dashboard → Settings → Onboarding** and configure the following:
+
+1. **Write your questions** — add up to five questions in the order you want members to see them. Each question becomes a field in the Discord modal dialog.
+
+2. **Choose a staff channel** — select the private channel where Thea will post member answers. This channel must not be readable by `@everyone`.
+
+3. **Select the completion role** — choose the role Thea grants when a member submits the form. Thea re-verifies the role's permissions at the moment of granting to prevent privilege escalation; if the role has been modified to carry elevated permissions since you configured it, Thea will surface a warning in the dashboard before granting.
+
+4. **Set a gate role (optional)** — choose an entry-level role that restricts what new members can see. Members without the completion role are held to channels visible to the gate role only. Once they complete the form and receive the completion role, they see everything the completion role allows.
+
+## Privacy by design
+
+Thea's onboarding system is built around the principle that member-submitted data should reach your staff and no one else:
+
+- **Answers are posted to the staff channel only.** Thea does not store, log, or train on submitted answers after delivering them to your channel.
+- **If a question asks for contact information** (email address, phone number), the designated staff channel must be private and not readable by `@everyone`. Thea will warn you during setup if this condition isn't met.
+- **Questions asking for passwords, payment details, or identity documents** (passports, national ID numbers) are refused outright — Thea will not allow you to save a question of this type.
+
+## Reminders for members who haven't completed
+
+Members who join and don't complete the form receive automated reminders:
+
+- Reminders are sent to a **separate channel** (not the onboarding panel channel), keeping the panel clean.
+- Thea sends **one batch message per reminder cycle**, tagging all members still outstanding — not individual pings per member.
+- Reminders repeat on the schedule you configure, up to **twice per day**, for **up to 7 days** after a member's arrival.
+- Once a member completes the form, their tag is removed from all future reminders automatically.
+
+## Raid mode behavior
+
+When raid mode is active, onboarding forms go quiet — Thea suppresses reminders and does not process new form submissions until raid mode is lifted. This prevents attackers from gaming the onboarding flow during a join surge. Normal onboarding resumes automatically when raid mode ends.
+
+## Arrival notice behavior
+
+The arrival notice Thea posts when a new member joins stays visible indefinitely — it does not self-delete. This ensures the onboarding prompt remains discoverable even if a member doesn't act on it immediately. The notice is removed automatically once the member completes the form.
+
+<Warning>
+  Configuring questions that ask members for passwords, two-factor authentication codes, payment card details, crypto wallet phrases, or any other credentials is a violation of Thea's Acceptable Use Policy and will result in your workspace being suspended. Thea blocks the most obvious patterns at save time, but it is your responsibility to ensure your questions do not solicit sensitive credentials.
+</Warning>
+
+<Tip>
+  For simple rule acceptance — where you just want proof a member read the rules — use rules-acknowledgment mode. It's zero friction for members and collects no data whatsoever, making it the right default for most communities.
+</Tip>

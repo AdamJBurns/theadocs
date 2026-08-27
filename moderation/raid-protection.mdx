@@ -1,0 +1,72 @@
+---
+title: "Raid Protection & Join Verification in Thea"
+sidebarTitle: "Raid Protection"
+description: "Stop coordinated raids before they disrupt your server with surge detectors, an emoji-captcha verification gate, and manual slash command controls."
+---
+
+Raid protection gives your server two automatic detectors — one for unusual join bursts and one for coordinated message floods — plus an emoji-captcha verification gate that screens newcomers before they can interact with the rest of your community. When a raid is detected, Thea either alerts your team or takes action automatically, depending on how you've configured it. Moderators can also trigger raid mode manually at any time with a single slash command.
+
+## The Two Detectors
+
+<CardGroup cols={2}>
+  <Card title="Join-Surge Detector" icon="arrow-right-to-bracket">
+    Monitors how fast new members are joining. When the join rate exceeds your configured threshold within a rolling time window, the detector fires. You set both the count threshold (e.g., 10 joins) and the window (e.g., within 60 seconds) in Dashboard → Raid Protection.
+  </Card>
+  <Card title="Content-Storm Detector" icon="bolt">
+    Monitors message activity across channels. When a burst of messages matches a suspicious pattern — identical text, similar structure, or content matching known raid scripts — the detector fires. It distinguishes normal high-traffic events from coordinated flooding by looking at structural similarity, not just volume.
+  </Card>
+</CardGroup>
+
+<Note>
+  Suspicious usernames are screened automatically at join as an additional signal. Accounts with names matching known raider patterns or staff impersonation templates are flagged before they can post.
+</Note>
+
+## Alert Mode vs. Auto Mode
+
+Each detector operates in one of two modes:
+
+<Tabs>
+  <Tab title="Alert Mode">
+    Thea sends a notification to your designated staff channel when a detector fires. The alert includes the triggering event, the current join or message rate, and quick-action buttons so staff can respond without leaving Discord. No automatic action is taken — your team decides what to do.
+  </Tab>
+  <Tab title="Auto Mode">
+    When a detector fires, Thea immediately executes the action you've configured: enabling the verification gate, locking channels, or restricting new-member permissions. The event is still logged and your team is notified, but the response is automatic.
+  </Tab>
+</Tabs>
+
+<Tip>
+  Enable alert mode first and monitor a few real events before switching to auto mode. This helps you confirm your thresholds are calibrated correctly for your server's normal activity patterns before automated actions go live.
+</Tip>
+
+## Emoji-Captcha Verification Gate
+
+When the verification gate is active — either triggered automatically or enabled manually — every new member who joins must solve a short emoji-captcha challenge before gaining access to the rest of the server. The gate integrates with Discord's membership screening flow.
+
+The captcha presents a simple prompt (e.g., "React with 🛡️") and grants the configured member role only after a correct response. This gates out bots and raiders who join programmatically without human interaction.
+
+Welcome messages and onboarding forms remain quiet while raid mode is active, so raiders do not receive welcome pings or form prompts that could be used to flood staff channels.
+
+## Manual Controls: `/raid`
+
+Moderators can manage raid mode directly from any channel using the `/raid` command.
+
+```
+/raid on
+```
+Enables raid mode immediately, activating the verification gate and any configured auto-responses.
+
+```
+/raid off
+```
+Disables raid mode and restores normal access for new members.
+
+```
+/raid status
+```
+Shows the current state of raid mode, which detectors are active, and any recent trigger events.
+
+Manual activations and deactivations are logged to the moderation ledger with the moderator's identity and timestamp, the same as automated events.
+
+## Welcome Messages & Role Grants
+
+Once a newcomer clears raid verification — either by passing the emoji captcha during an active raid or by joining normally when raid mode is off — Thea delivers the configured welcome message and grants the member role. This ensures that role grants and welcome pings are tied to a verified, human interaction rather than the raw join event.

@@ -1,0 +1,56 @@
+---
+title: "Analytics & Insights: Track What Members Ask"
+sidebarTitle: "Analytics"
+description: "Measure answer quality, spot knowledge gaps, track ticket performance, and use Thea's weekly digest to keep your team informed automatically."
+---
+
+Thea's analytics turn raw bot activity into actionable signal. Instead of guessing whether your knowledge base is working, you see answer rates, helpfulness scores, and clusters of questions Thea couldn't handle — giving you a clear picture of where to invest your docs effort next. The same dashboard surfaces ticket performance and AutoMod detections so you can manage your whole community from one screen.
+
+## Available metrics
+
+### Answer activity
+
+- **Answers per period** — total questions received, broken down into answered, declined (out of scope), and escalated (below confidence threshold)
+- **Helpfulness ratings** — the share of answers members marked helpful versus not helpful; a low ratio on a specific topic signals a knowledge quality problem rather than a coverage problem
+- **Time-to-answer** — median and 95th-percentile latency from question to answer, useful for spotting when indexing lag is affecting response quality
+
+### Knowledge gap clustering
+
+Thea groups questions it couldn't answer into clusters based on semantic similarity. Each cluster shows the recurring theme (e.g., "refund policy questions", "API rate limit errors") and how many members hit it. A cluster with high volume and no matching knowledge source is a direct indicator of where your documentation has holes.
+
+### AutoMod activity
+
+- Detections broken down by moderation layer (Discord-native rules, heuristics, moderation API, AI pass)
+- Severity distribution and action taken (warn, mute, kick, ban)
+- Repeat-offender counts
+- Channel coverage report — opens in a dedicated sheet showing which channels have each AutoMod layer active
+
+### Ticket stats
+
+- Response time (median and SLA breach rate)
+- Satisfaction ratings submitted by members after ticket close
+- Volume by category and urgency
+- Open vs. closed ratio over time
+
+## How to access analytics
+
+Navigate to **Dashboard → Activity** for the high-level answer and AutoMod summary. For per-conversation detail — including cited sources and confidence scores on individual answers — go to **Dashboard → Conversations**. Ticket stats live in **Dashboard → Tickets**.
+
+## Weekly staff digest
+
+Enable the weekly digest from **Dashboard → Settings → Notifications**. Add the email addresses you want to receive it and choose a delivery day. Each digest summarizes the week's answer volume, helpfulness rating, top knowledge gaps, AutoMod detections, and ticket performance. It's designed to be forwarded to a team lead or server owner who doesn't log into the dashboard every day.
+
+## Using analytics to improve your knowledge base
+
+When you see a knowledge-gap cluster, treat it as a doc debt ticket:
+
+1. Open **Dashboard → Activity → Knowledge Gaps**.
+2. Click a cluster to read the actual member questions that make it up.
+3. Either add a FAQ entry directly in the knowledge editor, or connect a new knowledge source (a Notion page, a Zendesk article, an uploaded document) that covers the topic.
+4. Re-check the cluster in the following week's analytics to confirm it has shrunk.
+
+Small, consistent improvements compound quickly — closing three clusters a week means your knowledge base improves 150+ times a year.
+
+<Tip>
+  Check the knowledge-gap cluster report every week and treat unanswered questions as docs debt. Each cluster is a concrete, member-validated signal that a piece of documentation is missing — more reliable than any editorial guess about what to write next.
+</Tip>

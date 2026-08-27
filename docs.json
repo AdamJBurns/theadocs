@@ -1,72 +1,77 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
-  "name": "Mintlify Starter Kit",
+  "name": "Thea",
+  "theme": "almond",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#848484",
+    "light": "#131313",
+    "dark": "#cbcbcb"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "https://media.brand.dev/19dde7ca-e688-4c28-b743-0301a8015e57.png",
   "navigation": {
-    "pages": [
+    "tabs": [
       {
-        "group": "Getting Started",
-        "pages": [
-          "index",
-          "quickstart"
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "introduction",
+              "quickstart",
+              "plans-and-billing"
+            ]
+          },
+          {
+            "group": "Answering",
+            "pages": [
+              "answering/how-it-works",
+              "answering/knowledge-sources",
+              "answering/confidence-and-escalation",
+              "answering/playground"
+            ]
+          },
+          {
+            "group": "Moderation",
+            "pages": [
+              "moderation/automod",
+              "moderation/scam-defense",
+              "moderation/raid-protection",
+              "moderation/moderator-commands"
+            ]
+          },
+          {
+            "group": "Tickets",
+            "pages": [
+              "tickets/overview",
+              "tickets/setup",
+              "tickets/managing-tickets"
+            ]
+          },
+          {
+            "group": "Help Center",
+            "pages": [
+              "help-center/overview",
+              "help-center/custom-domain"
+            ]
+          },
+          {
+            "group": "Dashboard & Settings",
+            "pages": [
+              "dashboard/overview",
+              "dashboard/analytics",
+              "dashboard/integrations",
+              "dashboard/onboarding-forms"
+            ]
+          }
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
-  },
-  "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
-  },
-  "navbar": {
-    "links": [
-      {
-        "label": "Support",
-        "href": "mailto:hi@mintlify.com"
-      }
-    ],
-    "primary": {
-      "type": "button",
-      "label": "Dashboard",
-      "href": "https://app.mintlify.com"
-    }
-  },
-  "contextual": {
-    "options": [
-      "copy",
-      "view",
-      "chatgpt",
-      "claude",
-      "perplexity",
-      "mcp",
-      "cursor",
-      "vscode"
     ]
   },
-  "footer": {
-    "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+  "navbar": {
+    "primary": {
+      "type": "button",
+      "label": "Get Started",
+      "href": "https://www.theabot.com/auth/signup"
     }
   }
 }

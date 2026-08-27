@@ -1,0 +1,101 @@
+---
+title: "Layered AutoMod: Configure Moderation Rules"
+sidebarTitle: "AutoMod"
+description: "Set up Thea's four-layer AutoMod system — from Discord-native filters to AI-powered review — and tune per-severity actions for your server."
+---
+
+Thea's AutoMod applies four independent layers to every incoming message, in sequence. Each layer handles a different class of threat, and together they let you catch everything from basic spam floods to subtle policy violations phrased to evade keyword filters. You configure what happens at each severity level — log, warn, timeout, or ban — and a review queue captures any action Thea couldn't complete so nothing falls through the cracks.
+
+## How the Four Layers Work
+
+Every message passes through all active layers before a final action is decided. Layers earlier in the sequence handle clear-cut cases; later layers handle what slips through.
+
+<Steps>
+  <Step title="Discord-Native Rules">
+    Thea reads your existing Discord AutoMod filters first. Any rules you've already configured in Discord's built-in AutoMod — keyword blocks, mention limits, spam thresholds — apply here without duplication. Thea respects Discord's own exemptions (roles, channels) exactly as you've set them.
+  </Step>
+  <Step title="Spam & Scam-Link Heuristics">
+    Flood detection tracks message rate per member and per channel. Known-bad domain matching catches scam links even when they're posted without `http://` — bare hostnames and Unicode-disguised URLs are normalized before comparison. This layer runs on every plan, including Free.
+  </Step>
+  <Step title="Moderation API">
+    Rules defined in the Thea dashboard are evaluated programmatically against the normalized message. This layer supports structured conditions (regex, word lists, attachment types, embed sources) that go beyond what Discord-native rules allow.
+  </Step>
+  <Step title="AI Pass">
+    Borderline messages that survive earlier layers are judged by Thea's AI against the plain-language rules you write in the dashboard. Because you describe your community's standards in natural language, this layer catches policy violations that are too contextual for keyword matching — sarcasm, veiled threats, coded language. The AI pass is metered and runs on Pro and Business plans only.
+  </Step>
+</Steps>
+
+<Note>
+  The AI pass (layer 4) is available on **Pro and Business** plans only. Layers 1–3 run on every plan, including Free.
+</Note>
+
+## What AutoMod Scans
+
+AutoMod evaluates more than plain text. Every incoming event is checked across:
+
+- Text messages and edits (re-scanned on every edit)
+- Image attachments
+- QR codes embedded in images
+- Forwarded messages and reposts
+- Link embeds and preview metadata
+- Stickers
+
+## The `/automod test` Command
+
+Before you push a new rule live, simulate it.
+
+```
+/automod test [message]
+```
+
+The command returns a full layer-by-layer breakdown: which layers are active, whether your account is exempt from any of them, and exactly what action the current ruleset would take on the sample message.
+
+<Tip>
+  Always run `/automod test` before finalizing new rules, especially AI-pass rules. The simulation uses the same evaluation path as live enforcement, so what you see is what members will experience.
+</Tip>
+
+## Per-Severity Actions
+
+For each severity level you define, configure the action Thea takes when a message or member matches. Actions are applied immediately unless a permission is missing (see Review Queue below).
+
+| Action | What It Does |
+|---|---|
+| **Log only** | Records the event in the log channel with no visible action taken |
+| **Warn** | Issues a formal warning visible to the member; adds a strike to their record |
+| **Timeout** | Applies a Discord timeout for a duration you configure per rule |
+| **Quarantine** | Removes the message and posts it in the log channel with Accept / Dismiss review buttons for staff |
+| **Kick** | Removes the member from the server; they can rejoin |
+| **Ban** | Permanently bans the member from the server |
+
+### Repeat-Offender Escalation
+
+Set strike thresholds so that accumulating violations automatically triggers stronger actions:
+
+- **Strike 1** → warn
+- **Strike 3** → 24-hour timeout
+- **Strike 5** → kick
+- **Strike 7** → ban
+
+Each threshold and its corresponding action is fully configurable in Dashboard → AutoMod → Escalation.
+
+## Review Queue
+
+When AutoMod intends an action but cannot complete it — because Thea is missing a permission, the log channel isn't set, or the action requires human sign-off — the event appears in the Review Queue instead of disappearing silently.
+
+From the queue, staff can approve the intended action, choose a different action, or dismiss it with a note. Every queue decision is logged to the moderation ledger.
+
+## Member Appeals & False-Positive Rate
+
+Members who receive a punishment from AutoMod can request a human review directly from the message Thea sends them — even after a kick or ban. Staff see the appeal alongside the original evidence in the review interface.
+
+Every staff ruling on an appeal (upheld or overturned) feeds Thea's false-positive rate metric, visible in Dashboard → AutoMod → Accuracy. Use this rate to tune overly aggressive rules.
+
+## Member Self-Audit: `/standing`
+
+Members can check their own moderation record at any time without involving staff:
+
+```
+/standing
+```
+
+The command shows active strikes, past warnings, timeouts, and their current standing. Staff can also call `/standing @user` to view another member's record.

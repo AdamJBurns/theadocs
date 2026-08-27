@@ -1,0 +1,63 @@
+---
+title: "Use a Custom Domain for Your Thea Help Center"
+sidebarTitle: "Custom Domain"
+description: "Point your own subdomain at the Thea help center in six steps — Thea provisions HTTPS automatically, no certificate management needed."
+---
+
+A custom domain lets your help center live at an address you own — like `help.yourcompany.com` — instead of the default Thea-hosted subdomain. Thea handles SSL certificate provisioning and renewal automatically, so your team only needs to add one DNS record and click Verify. Custom domains are available on Pro and Business plans.
+
+## Requirements
+
+- **Plan:** Pro or Business
+- Access to your domain's DNS settings (through your registrar or DNS provider, e.g., Cloudflare, Route 53, Namecheap)
+
+## Set up your custom domain
+
+<Steps>
+  <Step title="Open Domain Settings">
+    In the Thea dashboard, navigate to **Help Center → Domain Settings**.
+  </Step>
+
+  <Step title="Enter your desired subdomain">
+    Type the full subdomain you want to use, for example `help.yourdomain.com`. Thea does not support apex (root) domains for the help center — use a subdomain.
+  </Step>
+
+  <Step title="Copy the CNAME target">
+    After you enter your subdomain, Thea displays a CNAME target hostname unique to your workspace. Copy this value — you'll paste it into your DNS provider in the next step.
+  </Step>
+
+  <Step title="Create the CNAME record in your DNS provider">
+    Log in to your DNS provider and create a new CNAME record:
+
+    | Field | Value |
+    |---|---|
+    | **Type** | CNAME |
+    | **Name / Host** | `help` (the subdomain label, not the full domain) |
+    | **Value / Target** | The Thea target hostname you copied in Step 3 |
+    | **TTL** | 3600 (or your provider's default) |
+
+    Save the record. The exact field names vary by DNS provider but the values are the same everywhere.
+  </Step>
+
+  <Step title="Verify in the Thea dashboard">
+    Return to **Dashboard → Help Center → Domain Settings** and click **Verify**. Thea queries your DNS and confirms the CNAME record is in place.
+  </Step>
+
+  <Step title="Go live with automatic HTTPS">
+    Once verification succeeds, your help center is live at your custom domain with a valid SSL certificate. Thea renews the certificate automatically before it expires — no action needed on your part.
+  </Step>
+</Steps>
+
+## DNS propagation
+
+DNS changes can take up to **24–48 hours** to propagate across all global resolvers. During this window, some visitors may still land on the Thea-hosted subdomain URL — that URL stays active indefinitely, so no one gets a broken link while propagation completes.
+
+If Verify fails immediately after adding the record, wait 15–30 minutes and try again. If it still fails after several hours, double-check that the CNAME Name field contains only the subdomain label (e.g., `help`), not the full domain (e.g., `help.yourdomain.com`), which would create a record like `help.yourdomain.com.yourdomain.com`.
+
+<Warning>
+  Thea provisions and manages the SSL certificate for your custom domain automatically. Do not upload or configure your own SSL certificate — doing so will conflict with Thea's provisioning and may take your help center offline.
+</Warning>
+
+<Tip>
+  The most common and recommended setup is `help.yourdomain.com`. It's short, intuitive for members to remember, and it keeps your main domain free for your primary website.
+</Tip>

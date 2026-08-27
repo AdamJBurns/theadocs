@@ -1,0 +1,90 @@
+---
+title: "Connect Knowledge Sources to Thea"
+sidebarTitle: "Knowledge Sources"
+description: "Add URLs, sitemaps, Notion, Zendesk, Discord threads, and files to Thea's knowledge base and keep them in sync automatically."
+---
+
+Thea answers questions using the knowledge sources you connect — nothing else. The more relevant content you index, the more questions Thea can answer confidently. You can mix and match source types to reflect how your documentation actually lives: a public docs site, an internal wiki, a Notion workspace, Zendesk articles, or even past Discord threads that already contain great answers.
+
+## Supported Source Types
+
+<CardGroup cols={2}>
+  <Card title="URL" icon="link">
+    Index a single web page. Thea crawls the page and any linked pages up to the depth limit for your plan.
+  </Card>
+  <Card title="Sitemap" icon="sitemap">
+    Point Thea at an XML sitemap to crawl every listed page. On re-sync, only changed pages are fetched, keeping sync times short.
+  </Card>
+  <Card title="FAQ" icon="circle-question">
+    Upload structured question-and-answer pairs. FAQ entries receive a retrieval boost because the format maps directly to how members ask questions.
+  </Card>
+  <Card title="Notion" icon="n" >
+    Connect a Notion workspace to sync pages and databases. Available on **Pro** and **Business** plans.
+  </Card>
+  <Card title="Zendesk" icon="headset">
+    Pull in your Zendesk help center articles automatically. Available on **Pro** and **Business** plans.
+  </Card>
+  <Card title="Past Discord Threads" icon="discord">
+    Index resolved threads from your server. Thea learns from answers your team has already written.
+  </Card>
+  <Card title="Uploaded Files" icon="file">
+    Upload Markdown files or documents directly. File size limits vary by plan.
+  </Card>
+</CardGroup>
+
+### Crawl Depth by Plan
+
+When you add a URL source, Thea follows links from that page up to the crawl depth your plan allows.
+
+| Plan     | Crawl Depth |
+|----------|-------------|
+| Free     | 1 level     |
+| Pro      | 3 levels    |
+| Business | 5 levels    |
+
+A depth of 1 means only the page you enter is indexed. A depth of 3 means the starting page plus pages linked from it, plus pages linked from those.
+
+## How to Add a Source
+
+<Steps>
+  <Step title="Open Knowledge settings">
+    In the Thea dashboard, go to **Settings → Knowledge → Sources**.
+  </Step>
+  <Step title="Click Add Source">
+    Select the source type you want to add from the dropdown menu.
+  </Step>
+  <Step title="Enter the URL or connect an integration">
+    For URL and sitemap sources, paste the address and confirm the crawl depth. For Notion and Zendesk, follow the OAuth prompts to authorize Thea's access. For file uploads, drag your file into the upload area.
+  </Step>
+  <Step title="Wait for indexing to complete">
+    Thea begins crawling and indexing immediately. The knowledge dashboard shows a passage count and a status indicator for each source. Large sites may take a few minutes to index fully.
+  </Step>
+</Steps>
+
+## Sync and Re-Sync
+
+Keeping your sources current ensures Thea's answers reflect the latest version of your documentation.
+
+| Plan     | Automatic Sync      |
+|----------|---------------------|
+| Free     | Manual only         |
+| Pro      | Every 24 hours      |
+| Business | Every 6 hours       |
+
+To trigger a manual re-sync at any time, open **Settings → Knowledge → Sources**, find the source, and click **Sync Now**.
+
+The knowledge dashboard shows the passage count and the last-synced timestamp for every source. If a source becomes unreachable — for example, a URL returns a 404 or Notion credentials expire — a broken-source alert appears in the dashboard so you can fix it before it affects answer quality.
+
+<Warning>
+  Each plan enforces document and passage limits across all sources combined. Exceeding a limit prevents new content from being indexed until you remove sources or upgrade.
+
+  | Plan     | Document Limit | Passage Limit |
+  |----------|----------------|---------------|
+  | Free     | 50             | 2,000         |
+  | Pro      | 2,000          | 100,000       |
+  | Business | 25,000         | 1,000,000     |
+</Warning>
+
+<Tip>
+  After adding or updating a source, open the Playground and ask questions that the new content should cover. Check the **passages matched** section in the per-answer diagnostics to confirm Thea is retrieving from the right source before members start asking those questions in Discord.
+</Tip>

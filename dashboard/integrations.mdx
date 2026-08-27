@@ -1,0 +1,81 @@
+---
+title: "Integrate Notion, Zendesk & the Content API"
+sidebarTitle: "Integrations"
+description: "Connect Notion workspaces, Zendesk help centers, and the Content API to keep your Thea knowledge base in sync with your existing tools."
+---
+
+Thea can pull knowledge directly from the tools your team already uses to write documentation. Connect a Notion workspace, a Zendesk help center, or both — Thea indexes them on a recurring schedule and surfaces the content in Discord answers and your public help center without any extra copy-and-paste. For teams that manage knowledge programmatically, the Content API lets you push documents and trigger re-indexes from your own scripts and CI pipelines.
+
+## Requirements
+
+Notion, Zendesk, and the Content API are available on **Pro and Business plans**. To upgrade, go to **Dashboard → Settings → Billing**.
+
+## Connect Notion
+
+<Steps>
+  <Step title="Open the source picker">
+    Navigate to **Dashboard → Knowledge → Sources → Add Source** and select **Notion**.
+  </Step>
+  <Step title="Authorize with Notion">
+    A browser window opens to Notion's OAuth flow. Sign in with the Notion account that has access to the pages or databases you want to index, then grant Thea the requested permissions.
+  </Step>
+  <Step title="Select pages or databases">
+    Choose the specific Notion pages, databases, or top-level sections you want Thea to index. You can add or remove selections at any time from **Dashboard → Knowledge → Sources**.
+  </Step>
+  <Step title="Let Thea index the content">
+    Thea begins the initial index immediately. Subsequent syncs run on your plan's schedule — every **24 hours on Pro**, every **6 hours on Business**. Changes you make in Notion are reflected in Discord answers and your help center at the next scheduled sync.
+  </Step>
+</Steps>
+
+## Connect Zendesk
+
+<Steps>
+  <Step title="Open the source picker">
+    Navigate to **Dashboard → Knowledge → Sources → Add Source** and select **Zendesk**.
+  </Step>
+  <Step title="Enter your Zendesk subdomain">
+    Type your Zendesk subdomain (the part before `.zendesk.com`). Thea uses this to locate your Zendesk instance.
+  </Step>
+  <Step title="Authorize via OAuth">
+    Click **Authorize** and complete the Zendesk OAuth flow. You'll need an admin or agent account with read access to your help center articles and ticket macros.
+  </Step>
+  <Step title="Review indexed content">
+    Thea indexes your published Zendesk help center articles and ticket macros. Check **Dashboard → Knowledge → Sources** to see the passage count and last-sync timestamp for your Zendesk connection.
+  </Step>
+</Steps>
+
+## Content API
+
+The Content API gives you programmatic control over Thea's knowledge base. Use it to push new documents from a CI pipeline, trigger re-indexes after a docs deploy, or query what Thea has indexed — without touching the dashboard.
+
+### Authentication
+
+Generate an API key from **Dashboard → Settings → API Keys**. Pass it in every request as a Bearer token:
+
+```http
+Authorization: Bearer <your-api-key>
+```
+
+Keep your API key out of version control and client-side code. If a key is compromised, rotate it immediately from **Dashboard → Settings → API Keys** — the old key is revoked the moment you regenerate.
+
+### Rate limits
+
+Rate limits are enforced per API key. When you exceed the limit, the API returns:
+
+```http
+HTTP 429 Too Many Requests
+```
+
+Back off and retry after the interval indicated in the `Retry-After` response header.
+
+### Full API reference
+
+The complete Content API reference — covering authentication, request fields, indexing behavior, response schemas, related endpoints, quotas, and worked examples — is available in-dashboard at **Dashboard → Settings → Content API**. The reference is generated from your live workspace and reflects your current plan's quota and rate limits.
+
+<Note>
+  Notion and Zendesk integrations each count as one knowledge source against your plan's limit (25 sources on Pro, 200 on Business). If you connect a Notion database with hundreds of pages, all pages within that database count collectively as one source, not one source per page.
+</Note>
+
+<Warning>
+  API keys carry full read and write access to your knowledge base. Treat them like passwords: store them in secrets managers, never commit them to source control, and rotate them from **Dashboard → Settings → API Keys** immediately if you suspect they have been exposed.
+</Warning>
