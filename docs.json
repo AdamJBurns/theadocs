@@ -117,12 +117,19 @@
           },
           {
             "group": "Reference",
-            "pages": ["reference/slash-commands"]
+            "pages": ["reference/actions"]
           }
         ]
       }
     ]
   },
+  "redirects": [
+    {
+      "source": "/reference/slash-commands",
+      "destination": "/reference/actions",
+      "permanent": true
+    }
+  ],
   "navbar": {
     "links": [
       {

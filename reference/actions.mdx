@@ -1,0 +1,144 @@
+---
+title: "Actions"
+sidebarTitle: "Actions"
+description: "Every Thea Discord slash command, who can use it, and what it does."
+keywords: ["actions", "slash commands", "/help", "/setup", "/ask", "/ticket", "/automod", "/raid"]
+mode: "wide"
+---
+
+This page lists all **71 slash-command actions** currently registered by Thea. Discord uses the permissions below to control command visibility, and Thea checks access again when you run the command.
+
+<Note>
+  **Support team** means a member with **Manage Server** or the support role configured for your server. Ticket openers can close and reopen their own tickets.
+</Note>
+
+## General and answering
+
+| Action | Who can use it | What it does |
+| --- | --- | --- |
+| `/help` | Any member | Shows Thea's member, staff, and moderation command summary. |
+| `/setup` | Manage Server | Chooses the channel Thea watches and the optional support role it pings. |
+| `/source add` | Manage Server | Indexes a documentation URL as a [knowledge source](/answering/knowledge-sources). |
+| `/source list` | Manage Server | Lists indexed knowledge sources and their status. |
+| `/status` | Manage Server | Shows the plan, answer usage, limits, and whether answering is active. |
+| `/ask` | Any member | Asks Thea a private, ephemeral question using the server's indexed knowledge. |
+| `/standing` | Any member | Shows your own [AutoMod standing](/moderation/standing) in the server. |
+
+## Server configuration
+
+All `/config` actions require **Manage Server**.
+
+| Action | What it does |
+| --- | --- |
+| `/config show` | Shows the current answering, escalation, ticket, model, and persona settings. |
+| `/config set` | Changes the trigger mode, confidence threshold, persona, escalation, support role, or ticket response target. |
+| `/config export` | Opens the dashboard page for downloading a [settings backup](/dashboard/backup-and-clone). |
+| `/config welcome show` | Summarizes the welcome message, embed, card, channel, and join role. |
+| `/config welcome set` | Sets the welcome channel, message, or join role. |
+| `/config welcome off` | Stops welcome messages and automatic join-role grants. |
+| `/config logging show` | Shows enabled server events and their destination channels. |
+| `/config logging channel` | Sets or clears the channel for message, member, moderation, or ticket events. |
+| `/config logging event` | Turns one [server log event](/community/server-logs) on or off. |
+
+## AutoMod
+
+All `/automod` actions require **Manage Server**. See [AutoMod](/moderation/automod) for configuration guidance.
+
+| Action | What it does |
+| --- | --- |
+| `/automod show` | Shows the current AutoMod setup. |
+| `/automod test` | Tests sample text against the live rules without taking action. |
+| `/automod enable` | Turns AutoMod on. |
+| `/automod disable` | Turns AutoMod off. |
+| `/automod rules` | Sets or clears server-wide rules, or adds rules for one channel. |
+| `/automod exempt` | Toggles a role or channel exemption. |
+| `/automod log-channel` | Chooses the private channel for action logs and quarantine reviews. |
+| `/automod action` | Sets the action for low, medium, high, or critical findings. |
+| `/automod escalation` | Configures the repeat-offender threshold, time window, and escalated action. |
+| `/automod topic` | Sets or clears a channel focus so off-topic messages can be warned. |
+
+## Moderator actions
+
+These actions use Discord's native moderation permissions and write to the same ledger as AutoMod.
+
+| Action | Required permission | What it does |
+| --- | --- | --- |
+| `/warn` | Moderate Members | DMs a reason to the member and records a warning. |
+| `/timeout` | Moderate Members | Times out a member for a duration such as `10m`, `2h`, or `3d`, up to 28 days. |
+| `/untimeout` | Moderate Members | Ends a member's timeout early. |
+| `/kick` | Kick Members | DMs the reason, removes the member, and records the action. |
+| `/ban` | Ban Members | Bans a member permanently or for 1–365 days, with optional recent-message deletion. |
+| `/unban` | Ban Members | Lifts a ban using the banned user's ID. |
+| `/purge` | Manage Messages | Deletes 2–100 recent messages in the channel, optionally from one member. |
+| `/softban` | Ban Members | Bans and immediately unbans a member to remove roughly one day of messages. |
+| `/record` | Moderate Members | Shows a member's moderation record. |
+| `/delwarn` | Moderate Members | Removes the member's latest manual warning. |
+| `/moderations` | Moderate Members | Lists temporary bans waiting for their scheduled unban. |
+| `/note` | Moderate Members | Adds a private staff note about a member. |
+| `/notes` | Moderate Members | Shows a member's staff notes and watch status. |
+| `/delnote` | Moderate Members | Removes a numbered staff note, or the newest note when no number is supplied. |
+| `/watch` | Moderate Members | Adds a member to the watchlist, optionally with a reason and expiry. |
+| `/unwatch` | Moderate Members | Removes a member from the watchlist. |
+| `/lock` | Manage Roles | Prevents `@everyone` from sending messages in a text channel and can post a notice. |
+| `/unlock` | Manage Roles | Restores the channel's neutral send-message overwrite and can post a notice. |
+
+<Info>
+  `/lock` and `/unlock` require **Manage Roles**, not Manage Channels, because they edit the `@everyone` permission overwrite.
+</Info>
+
+## Raid protection
+
+See [Raid protection](/moderation/raid-protection) for detector and verification-gate details.
+
+| Action | Who can use it | What it does |
+| --- | --- | --- |
+| `/raid on` | Moderate Members | Turns raid mode on, optionally for a custom number of minutes. |
+| `/raid off` | Moderate Members | Turns raid mode off and restores the temporary incident settings. |
+| `/raid status` | Moderate Members | Shows detector settings, current raid state, and verification statistics. |
+| `/raid set` | Manage Server | Configures detection, thresholds, challenge attempts, failure action, incident controls, duration, and alert channel. |
+| `/raid exempt` | Manage Server | Toggles a role that the raid gate never challenges. |
+| `/raid verify` | Moderate Members | Marks a member as verified so the gate leaves them alone. |
+| `/raid deverify` | Moderate Members | Revokes a member's saved raid verification. |
+
+## Announcements and saved replies
+
+| Action | Who can use it | What it does |
+| --- | --- | --- |
+| `/announce` | Manage Server | Schedules a channel announcement now or up to seven days ahead, with an optional embed title. |
+| `/macro send` | Support team | Posts one of the server's [saved replies](/community/saved-replies) in the current channel. |
+| `/macro list` | Support team | Lists the server's saved replies. |
+
+## Tickets
+
+See [Tickets](/tickets/overview) for setup and lifecycle details.
+
+| Action | Who can use it | What it does |
+| --- | --- | --- |
+| `/ticket setup` | Manage Server | Enables tickets and posts the Open a ticket panel in a chosen channel. |
+| `/ticket open` | Any member | Opens your own private ticket. Support staff and moderators can optionally open one for another member. |
+| `/ticket close` | Ticket opener or support team | Closes the ticket for the current channel. |
+| `/ticket claim` | Support team | Claims an open ticket so the team can see who owns it. |
+| `/ticket assign` | Support team | Assigns the ticket to another current support-team member. |
+| `/ticket unclaim` | Support team | Returns a claimed ticket to the support queue. |
+| `/ticket note` | Support team | Adds an internal note that the member never sees. |
+| `/ticket reopen` | Ticket opener or support team | Reopens the most recent eligible closed ticket or the current channel's ticket. |
+| `/ticket disable` | Manage Server | Prevents members from opening new tickets. |
+| `/ticket fields add` | Manage Server | Adds a free-text, email, or phone question to the ticket form. |
+| `/ticket fields remove` | Manage Server | Removes a ticket-form question by label. |
+| `/ticket fields list` | Manage Server | Lists the ticket-form questions. |
+
+## Onboarding
+
+All `/onboarding` actions require **Manage Server**. See [Onboarding forms](/dashboard/onboarding-forms).
+
+| Action | What it does |
+| --- | --- |
+| `/onboarding setup` | Turns onboarding on and posts its panel, with a staff log channel and optional completion role. |
+| `/onboarding disable` | Stops asking new members to complete onboarding. |
+| `/onboarding questions add` | Adds a free-text, email, or phone question to the form. |
+| `/onboarding questions remove` | Removes an onboarding question by label. |
+| `/onboarding questions list` | Lists the onboarding questions. |
+
+## Message action
+
+Thea also registers **Report to bot operator** in a message's **Apps** menu. It is not a slash command. Any member can use it to report a message privately to Thea's operators.
