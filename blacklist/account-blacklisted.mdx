@@ -12,7 +12,7 @@ keywords:
   ]
 ---
 
-Thea's global blacklist is an optional safety feature for Discord servers. Your account is listed only after **at least three different participating servers** independently issue permanent bans through Thea within a rolling 90-day period.
+Thea's global blacklist is an optional safety feature for Discord servers. Your account is listed only after **at least three different human moderators across three different participating servers** independently issue permanent bans through Thea within a rolling 90-day period.
 
 <Note>
   A global-blacklist listing is not a Discord-wide ban or a ban from Thea
@@ -26,13 +26,13 @@ A ban contributes to the threshold only when all of these conditions are true:
 
 - The server has opted in to the global blacklist.
 - The ban is permanent.
-- The ban was issued through Thea, including a moderator command or a permanent action from an enabled Thea moderation system.
+- The ban was explicitly authorized by a human moderator through Thea, using either the moderator ban command or the Ban action in an identity review.
 - The ban was initiated by that server. It was not caused by an existing global-blacklist listing.
 - The ban happened within the last 90 days.
 
-The bans must come from different servers. Several bans from the same server still count as one active signal.
+The bans must come from different servers and different Discord moderator accounts. Several bans from the same server still count as one server signal, and one moderator acting across several servers still counts as one moderator.
 
-Timeouts, kicks, temporary bans, softbans, native Discord bans, bans from another bot, and actions caused by the global blacklist do not count toward the threshold.
+Timeouts, kicks, temporary bans, softbans, automatic AutoMod or raid bans, native Discord bans, bans from another bot, and actions caused by the global blacklist do not count toward the threshold.
 
 ## What happens after you are listed
 
@@ -120,11 +120,11 @@ Thea removes the listing and prevents its existing signals from silently recreat
 
 Thea does **not** remove independent bans issued by a server's moderators, AutoMod, raid protection, or another local moderation system. Those decisions belong to the server that issued them.
 
-A new permanent Thea ban from a participating server after the appeal decision can count as new evidence. If the threshold is reached again, Thea creates a new listing with a new `BL-` reference and a new appeal.
+A new human-authorized permanent Thea ban from a participating server after the appeal decision can count as new evidence. If both the server and moderator thresholds are reached again, Thea creates a new listing with a new `BL-` reference and a new appeal.
 
 ## Other ways a listing can end
 
-An active listing is removed automatically when fewer than three qualifying server signals remain. This can happen when:
+An active listing is removed automatically when fewer than three qualifying server signals or fewer than three distinct moderator signals remain. This can happen when:
 
 - A contributing server reverses its permanent ban.
 - A contributing server opts out of the global blacklist.
@@ -135,7 +135,7 @@ When this happens, Thea reverses only the restrictions it created for that listi
 
 ## What Thea stores
 
-For each qualifying signal, Thea stores the affected Discord user ID, participating server ID, type of Thea moderation action, and timestamp. It does not store message content as part of the global-blacklist signal.
+For each qualifying signal, Thea stores the affected Discord user ID, authorizing moderator's Discord user ID, participating server ID, type of Thea moderation action, and timestamp. It does not store message content as part of the global-blacklist signal.
 
 Signals stop counting after 90 days and are deleted. Thea retains the minimum listing reference, dates, aggregate outcome, and staff decision needed to preserve the appeal result. Appeal text is deleted after staff decide the appeal unless it must be retained under a legal hold.
 
@@ -149,8 +149,9 @@ Read the [Privacy Policy](https://www.theabot.com/privacy) for the complete rete
     This protects the privacy and security of each participating community.
   </Accordion>
   <Accordion title="Can one server blacklist me by itself?">
-    No. At least three different opted-in servers must independently issue
-    qualifying permanent Thea bans within 90 days.
+    No. At least three different moderators across three different opted-in
+    servers must independently issue qualifying permanent Thea bans within 90
+    days.
   </Accordion>
   <Accordion title="Does an accepted appeal unban me everywhere?">
     No. It removes bans and timeouts created specifically by that

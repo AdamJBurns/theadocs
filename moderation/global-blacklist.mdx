@@ -5,7 +5,7 @@ description: "Opt your server into Thea's shared permanent-ban signal, choose re
 keywords: ["global blacklist", "shared bans", "review mode", "automatic ban"]
 ---
 
-The global blacklist is an optional, shared signal: a Discord account that has been permanently banned through Thea by **three different participating servers** within **90 days**. Your server decides whether to use that signal, and how strongly.
+The global blacklist is an optional, shared signal: a Discord account that has been permanently banned through Thea by **three different human moderators across three different participating servers** within **90 days**. Your server decides whether to use that signal, and how strongly.
 
 This page is for server staff. If your own account was listed, see [Why your account is blacklisted](/blacklist/account-blacklisted).
 
@@ -19,11 +19,11 @@ An account is listed only when all of these are true:
 
 - Each contributing server has opted in to the global blacklist.
 - Each ban is **permanent**.
-- Each ban was issued **through Thea** — a moderator command or a permanent AutoMod action.
+- Each ban was explicitly authorized **through Thea by a human moderator** — either with the moderator ban command or the Ban action in an identity review.
 - The ban was that server's own decision, not a follow-on from an existing listing.
-- The three bans happened in the last **90 days** and came from **different** servers.
+- The three bans happened in the last **90 days**, came from **different** servers, and were authorized by **different** Discord moderator accounts.
 
-Timeouts, kicks, temporary bans, softbans, native Discord bans, bans from another bot, and bans caused by the blacklist itself do **not** count.
+Timeouts, kicks, temporary bans, softbans, automatic AutoMod or raid bans, native Discord bans, bans from another bot, and bans caused by the blacklist itself do **not** count. One moderator banning the same account through several participating servers still contributes only one independent moderator.
 
 Participating servers never see which other servers contributed, and they never see another server's ban reasons.
 
@@ -50,6 +50,7 @@ Switching to **Off**:
 ## Privacy
 
 - Other servers never learn your server identity from a signal you contributed.
+- Other participating servers never learn which moderator authorized a signal.
 - Members who are listed receive a `BL-` reference and a private appeal link from Thea, not from your server.
 - Appeals go to Thea trust and safety, not to your moderators.
 
