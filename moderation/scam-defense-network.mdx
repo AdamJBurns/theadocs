@@ -1,0 +1,159 @@
+---
+title: "Scam Defense Network"
+sidebarTitle: "Defense network"
+description: "Choose whether your server contributes to or uses privacy-preserving scam intelligence from other participating communities."
+keywords: ["scam defense network", "shared threat intelligence", "privacy", "quorum", "network pulse"]
+---
+
+The Scam Defense Network shares evidence about scam infrastructure without sharing messages, raw links, member identities, or server identities. It helps participating servers recognize a campaign that appeared elsewhere first.
+
+Network participation is optional. Contribution and use are separate controls, and network intelligence never bypasses your AutoMod action ceilings.
+
+<Note>
+  The **Effective scam policy** card is the source of truth for what is running.
+  You can save network settings before a staged rollout reaches your server, but
+  detections may remain observe-only until the card shows the layer as effective.
+  Network and shadow scores can appear as telemetry without increasing an action.
+</Note>
+
+## Configure participation
+
+Open **Settings → Scam defense → Scam Defense Network**.
+
+| Control | What it changes |
+|---|---|
+| **Use qualified network intelligence in this server** | Lets Thea use eligible findings from other participating servers when it assesses a local message. |
+| **Contribute keyed scam observations from this server** | Lets eligible local findings count toward network verdicts and privacy-safe public totals. |
+| **Temporarily harden new-account link checks during active campaigns** | Tightens new-account link checks for 30 minutes while an incident is active or a spreading campaign recently touched your server. |
+| **Remove borderline first links and challenge newly observed accounts** | Removes a borderline first link, applies a temporary 10-minute posting pause, and presents a two-step verification challenge. Passing the challenge lifts the pause. |
+
+You can use the network without contributing, contribute without using it, enable both, or disable both.
+
+Turning contribution off immediately stops that server's evidence from counting toward network quorum and public statistics. It does not delete the server's tenant-isolated AutoMod audit history.
+
+## What leaves your server boundary
+
+Thea extracts only supported indicator types:
+
+- Domains
+- Canonical links
+- Discord invite codes
+- Attachment fingerprints
+- Destination hosts found in QR codes
+
+Before storage, each value is normalized and converted to a keyed HMAC-SHA256 digest. The shared observation contains the digest, a rotating server pseudonym, coarse timestamps, counts, and review outcomes.
+
+The shared network record does **not** contain:
+
+- Message text
+- The raw URL, domain, invite code, or QR payload
+- A server name or Discord server ID
+- A member ID
+- A channel ID
+- A message ID
+
+Your own server keeps a separate, tenant-isolated AutoMod event so authorized staff can review the local finding.
+
+## How a verdict qualifies
+
+One server cannot create an actionable network verdict.
+
+1. A signal starts as an observation.
+2. At least three independent, qualified servers must report recent matching evidence before it can become suspected.
+3. Confirmation requires independent human-upheld evidence. Most indicators need two upheld servers, or one upheld server plus separate provider corroboration. Invite codes require three upheld servers. Established domains receive a higher confirmation floor.
+4. When Thea looks up a signal for your server, it removes your server's own contribution before checking quorum.
+
+Only current, unexpired verdicts can be used. Contributor identities and evidence from other servers are never returned to your dashboard.
+
+## Human correction and safety brakes
+
+Moderator review is part of the network state:
+
+- **Upheld** findings add human confirmation.
+- **Approved** findings remove that local event from automated follow-up.
+- Multiple independent false-positive reviews can suppress a verdict.
+- Evidence that no longer qualifies is retracted.
+
+A single server cannot globally suppress an indicator. Thea also limits how many new confirmations can become actionable in a short period. These controls reduce the damage from a poisoned feed, a compromised contributor, or a bad upstream update.
+
+## How network intelligence affects action
+
+The network is an evidence source, not an action policy.
+
+- A suspected match is capped at log-only.
+- A confirmed match can strengthen a local decision only when network use is enabled.
+- Thea still applies signal independence, action ceilings, staff observe-only rules, permissions, rollout gates, and global safety brakes.
+- A human-approved finding is excluded from retroactive deletion and incident response.
+
+When a previously logged message becomes connected to a confirmed verdict, Thea can recheck the live Discord message. It deletes the message only if the freshly derived keyed indicator still matches. This retro-hunt is limited to recent, previously logged events, never punishes the member, and never stores the fetched message body.
+
+## Adaptive hardening
+
+If you enable adaptive hardening, Thea temporarily tightens checks while either condition is true:
+
+- An open or investigating network incident was matched in the last 30 minutes.
+- A spreading campaign touched your server in the last 30 minutes.
+
+The dashboard shows **Adaptive hardening is active** while the temporary window is in effect. The setting does not permanently change your action matrix.
+
+While active, links, domains, and invites from accounts younger than 30 days are routed into deeper review. Adaptive hardening does not delete, timeout, kick, or ban by itself.
+
+## Step-up verification
+
+Step-up verification is for a newly observed account's borderline first link. Thea:
+
+1. Removes the message.
+2. Applies a temporary 10-minute posting pause when it has permission.
+3. Posts a **Verify** button in the channel.
+4. Uses the same two-step challenge system as raid protection.
+5. Lifts the pause after a successful challenge.
+
+If Thea cannot apply the temporary pause, it leaves no challenge pending. If it applies the pause but cannot deliver the prompt, it lifts the pause and expires the check. The removed message is not restored. Accounts already verified through the challenge system are not challenged again.
+
+Thea needs **Moderate Members**, its role must be above the member, and it must be able to send the verification prompt in the channel.
+
+## Public Network Pulse
+
+The public [Network Pulse](https://www.theabot.com/network) shows broad activity without offering an indicator lookup.
+
+- It includes only evidence from servers that currently allow contribution.
+- Every displayed indicator has support from at least three qualified servers.
+- Activity is grouped into three-hour buckets.
+- Detection and indicator totals are rounded down in groups of five.
+- Community and campaign totals are rounded down in groups of three.
+- A time or indicator bucket supported by fewer than three servers displays zero.
+- It contains no geographic map and does not collect or infer server locations.
+
+A displayed zero can mean no activity or activity below the public privacy threshold.
+
+If the snapshot is unavailable, the page displays dashes and an unavailable banner instead of stale or invented values.
+
+## Shadow learning
+
+The dashboard can show shadow-model metrics. Shadow learning uses closed numeric features and explicit moderator outcomes. It does not use message text or raw indicators.
+
+Training is balanced so every contributing server has the same total influence. Entire servers are held out during evaluation to test cross-server generalization. A candidate is rejected when its false-positive or calibration checks fail, and there is no automatic path from a shadow model to enforcement.
+
+## Retention
+
+- Unreviewed shared references expire after 14 days.
+- Reviewed evidence can remain for up to 90 days.
+- Incidents and campaigns can remain for up to 180 days.
+- Inactive model artifacts can remain for up to 180 days.
+- Public pulse values are generated from eligible live records instead of being stored as another event-level copy.
+
+## Scam Defense Network versus the global blacklist
+
+These are separate opt-in systems:
+
+- The **Scam Defense Network** shares keyed infrastructure indicators such as domains and invite codes.
+- The [global blacklist](/moderation/global-blacklist) shares a permanent-ban signal about one Discord account only after independent human moderator actions.
+
+Enabling one does not enable the other.
+
+## Related
+
+- [Scam defense](/moderation/scam-defense)
+- [Scam incidents](/moderation/scam-incidents)
+- [Tripwire channel](/moderation/tripwire-channel)
+- [Global blacklist](/moderation/global-blacklist)

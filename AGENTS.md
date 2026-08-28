@@ -13,7 +13,7 @@
 - Use **server**, not "guild", in user-facing docs.
 - Use **member** for people in a Discord server. Use **staff** or **moderators** for the server team.
 - Use **dashboard** for the web app at theabot.com.
-- Dashboard paths: **Knowledge**, **Playground**, **Conversations**, **Tickets**, **Help Center**, **Scam defense**, **Settings → Answering**, **Settings → Handoff**, and so on. Do not invent section names such as Guardrails.
+- Dashboard paths: **Knowledge**, **Playground**, **Conversations**, **Tickets**, **Help Center**, **Scam defense**, **Settings → Scam defense**, **Settings → AutoMod**, **Settings → Answering**, **Settings → Handoff**, and so on. Do not invent section names such as Guardrails.
 - Confidence is a number from **0 to 1**, default **0.35**. Do not describe it as a 0–100 percentage slider.
 - Saved replies are sent with `/macro send`, not `/reply`.
 - Billing is **per Discord server**.

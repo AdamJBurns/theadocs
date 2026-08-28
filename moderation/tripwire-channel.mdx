@@ -1,0 +1,94 @@
+---
+title: "Set up a tripwire channel"
+sidebarTitle: "Tripwire channel"
+description: "Arm and test a decoy Discord channel that turns unexpected member posts into high-confidence scam evidence."
+keywords: ["tripwire", "honeypot", "decoy channel", "scam defense", "quarantine"]
+---
+
+A tripwire is a decoy text channel where regular members should not post. A message in the armed channel becomes high-confidence automation evidence. Thea can remove the message and place it in your private AutoMod log channel for review.
+
+The tripwire is intentionally conservative:
+
+- It can quarantine a message.
+- It cannot kick or ban a member by itself.
+- It ignores staff, bots, and webhooks.
+- It does not process messages that already existed when you armed it.
+
+## Before you start
+
+You need:
+
+- **AutoMod** enabled.
+- A Discord text channel that regular members can see or reach as part of your decoy design.
+- **Manage Messages** for Thea in that channel.
+- A private AutoMod log channel if you want quarantined messages and review buttons.
+
+<Warning>
+  Do not use a normal conversation channel as the tripwire. Any unexpected
+  regular-member message in a healthy, armed tripwire is treated as suspicious.
+</Warning>
+
+## Arm the channel
+
+<Steps>
+  <Step title="Select the channel">
+    Open **Settings → Scam defense → Tripwire channel**, choose the decoy text
+    channel, and click **Save**.
+  </Step>
+  <Step title="Add the topic marker">
+    In Discord, edit that channel and add this exact marker to its topic:
+
+    ```text
+    [thea-tripwire]
+    ```
+
+    The marker is case-sensitive. The channel name does not arm the tripwire.
+  </Step>
+  <Step title="Grant Manage Messages">
+    Check the channel's permission overrides and confirm Thea can manage
+    messages there. A deny on the channel overrides a permission granted by the
+    server role.
+  </Step>
+  <Step title="Check the effective policy">
+    Open **Settings → Scam defense**. The **Effective scam policy** card must
+    show automated enforcement as effective. If it says **observe only**, the
+    card explains the active plan, provider, rollout, or safety gate.
+  </Step>
+</Steps>
+
+Both the saved channel ID and the topic marker must match. This two-part setup prevents an accidental dropdown selection from silently turning a busy channel into a decoy.
+
+There is no customer-facing **Beta features** switch for the tripwire. If **Effective scam policy** names a staged-rollout gate, contact Thea support with the server name. Changing the channel setup will not remove an operator rollout gate.
+
+## Test the tripwire
+
+1. Wait up to 30 seconds after saving the dashboard setting.
+2. Use a regular test account.
+3. Confirm the account has none of these permissions: **Manage Messages**, **Manage Server**, or **Moderate Members**.
+4. Confirm its roles and the channel are not listed under **Settings → AutoMod → Exemptions**.
+5. Send a new message in the armed channel.
+
+When enforcement is effective, Thea removes the message and reposts it to the AutoMod log channel with review controls. The tripwire itself never times out, kicks, or bans the account.
+
+## Troubleshooting
+
+| Symptom | Check |
+|---|---|
+| The message remains and no finding appears | Confirm the selected channel, click **Save**, add the exact `[thea-tripwire]` topic marker, and wait for the configuration refresh. |
+| A test account does not trigger it | Check the account's effective Discord permissions. An account with **Manage Messages**, **Manage Server**, or **Moderate Members** is treated as staff regardless of its role name. |
+| The finding appears but the message remains | Open **Settings → Scam defense → Effective scam policy**. A staged-rollout or safety gate can keep detection active while limiting actions to observe-only. |
+| The action reports a permission ceiling | Grant Thea **Manage Messages** in the tripwire channel and ensure no channel override denies it. |
+| Quarantine review is unavailable | Set a private channel under **Settings → AutoMod → Log channel** and confirm Thea can send messages there. |
+| You tested an old message | Send a new message. Arming the channel is not retroactive. |
+
+If the checks pass but no finding is created, record the channel name, test time, and server name before contacting support. Those details let support locate the metadata-only pipeline result without needing the message body.
+
+## Disable the tripwire
+
+Open **Settings → Scam defense → Tripwire channel**, select **Tripwire disabled**, and save. You can also remove the topic marker as an immediate second safety measure.
+
+## Related
+
+- [Scam defense](/moderation/scam-defense)
+- [AutoMod actions and exemptions](/moderation/automod)
+- [Scam incidents](/moderation/scam-incidents)

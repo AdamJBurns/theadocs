@@ -1,114 +1,242 @@
 ---
-title: "Scam Defense: Multi-Signal Campaign Detection in Thea"
-sidebarTitle: "Scam Defense"
-description: "Detect and contain scam campaigns in your server with layered signals, an evidence model that prevents false positives, and a full audit dashboard."
+title: "Scam defense"
+sidebarTitle: "Scam defense"
+description: "Configure Thea's layered scam detection, review effective policy, and respond to coordinated campaigns without giving one signal unchecked authority."
+keywords: ["scam defense", "phishing", "campaign detection", "tripwire", "network intelligence"]
 ---
 
-Scam Defense is Thea's dedicated system for identifying and stopping coordinated scam campaigns — from phishing links to brand impersonation to multi-account posting waves. Rather than relying on a single signal, it combines independent evidence streams, applies conservative action ceilings, and surfaces everything to your staff in an auditable dashboard. You control what happens when a threat is confirmed.
+Scam Defense is Thea's scam-specific detection and response system. It runs through AutoMod, combines independent evidence, limits each source to a safe maximum action, and records the result for moderator review.
 
-## What Scam Defense Detects
+It covers phishing links, malicious invites, suspicious attachments, QR destinations, identity impersonation, tripwire activity, and coordinated posting patterns. Optional network intelligence can warn your server about infrastructure that qualified communities have already reviewed.
 
-Scam Defense works through a layered signal pipeline. Deterministic checks run first; AI adjudication handles only what passes through.
+During staged rollout, detection and review can be active while automated enforcement remains observe-only. Saving an action does not override that safety gate.
 
-<Accordion title="Canonicalized Links">
-  Links are normalized before comparison — Unicode lookalike characters, URL shorteners, misleading subdomains, and redirect chains are all resolved to their canonical form. A scam link disguised as `discord․gg` (using a Unicode period) is caught the same way a plain `discord.gg` impersonation would be.
-</Accordion>
+## Where to configure and review it
 
-<Accordion title="Dangerous Attachments">
-  Files are checked for dangerous types, doubled extensions (e.g., `invoice.pdf.exe`), and mismatches between the declared MIME type and actual file content. An image that is actually an executable is flagged regardless of what it's named.
-</Accordion>
-
-<Accordion title="QR Codes & Image Surfaces">
-  QR codes embedded in images are decoded and their payloads are checked against the same link and domain intelligence used for text links. Image fetching applies strict size and timeout limits to prevent resource exhaustion.
-</Accordion>
-
-<Accordion title="Identity Signals">
-  Display names, usernames, and profile content are screened for staff, support, admin, and brand impersonation patterns. A new account claiming to be your server's admin team is flagged before it can contact members.
-</Accordion>
-
-<Accordion title="Cross-Channel Campaign Detection">
-  When multiple accounts post the same — or structurally similar — content across different channels in a short time window, Scam Defense recognizes it as a coordinated campaign rather than isolated incidents. Each account is evaluated independently, but the campaign context raises the confidence of the overall finding.
-</Accordion>
-
-<Accordion title="AI Adjudication">
-  Messages that pass all deterministic checks but still appear suspicious are passed to Thea's AI for a final judgment. The AI evaluates context, phrasing patterns, and behavioral signals. This step runs only after all deterministic signals have been applied.
-</Accordion>
-
-## Threat Feeds
-
-Thea's domain and indicator feeds are versioned and validated before any update goes live. If a feed update is malformed or contains suspicious entries, it is quarantined automatically — it does not silently change what Scam Defense enforces. The **Community scam list** card under **Settings → AutoMod** is the server-facing control (ask before each update, update automatically, or do not use). The live view of signals and effective policy is **Scam defense** in the sidebar.
-
-## The Evidence Model
-
-Scam Defense combines independent signals rather than stacking correlated ones.
-
-- **Deduplication:** multiple signals originating from the same root cause (one bad link appearing in three messages) count once, not three times.
-- **Conservative action ceilings:** each signal tier caps the maximum action Scam Defense will recommend. A single weak signal is never sufficient to trigger a punitive action.
-- **Recommendation, not mandate:** Scam Defense produces a recommended response; your policy rules determine what action is actually taken.
-
-This design means that a false positive from one signal is absorbed by the model rather than amplified into a ban.
-
-## Your Policy Controls the Response
-
-Configure what Scam Defense does for each finding severity:
-
-| Severity | Example Action |
+| Location | Use it for |
 |---|---|
-| Low confidence | Log only |
-| Medium confidence | Warn member, flag for staff review |
-| High confidence | Delete message, quarantine member |
-| Confirmed campaign | Escalate repeat offender, ban |
+| **Settings → AutoMod** | Turn scanning on, choose detection layers, set the log channel, configure exemptions, and map severity to actions. |
+| **Settings → Scam defense** | Review **Effective scam policy** and configure blocked domains, community feed updates, the tripwire channel, network participation, adaptive hardening, and step-up verification. |
+| **Scam defense** in the dashboard | Review local findings, source health, **Effective enforcement**, network pulse, campaigns, incidents, and response playbooks. |
+| **AutoMod** in the dashboard | Review quarantined findings and enforcement that needs staff attention. |
 
-Set these under **Settings → AutoMod → Actions by severity**. Actions apply to regular members only (see Staff and bots below). **Scam defense** in the sidebar is the live view of signals and the effective policy — the controls themselves stay on AutoMod.
+<Info>
+  **Configured** and **effective** are not always the same. A missing permission,
+  unavailable provider, plan limit, staged rollout, stale feed, or safety brake
+  can keep a saved feature in observe-only mode. Check **Effective scam policy**
+  in settings and **Effective enforcement** in the dashboard before testing an
+  action.
+</Info>
 
-## Staff, Bots & Webhooks
-
-Accounts with staff roles, verified bots, and server webhooks run in **observe-only** mode. Their activity is recorded and can be investigated, but it never triggers automated punishment. This prevents Scam Defense from acting on your own tools and team.
-
-## Graceful Degradation
-
-If an external dependency — a threat feed API, the AI adjudication service, or a third-party enrichment source — is temporarily unavailable, Scam Defense continues operating with local protection. The degraded state is surfaced in the dashboard so you know which signals are temporarily inactive.
-
-## Dashboard
-
-**Scam defense** in the sidebar is a live, privacy-safe view of what Thea is finding. The **effective scam policy** card shows what is configured versus what is actually running (plan, provider, feed, and global controls).
-
-<CardGroup cols={2}>
-  <Card title="Overview" icon="chart-bar">
-    What your server is seeing, detection frequency, containment rate, and how often detections were contained before members were affected.
-  </Card>
-  <Card title="Findings" icon="shield-halved">
-    Every detection with its source tier, severity, policy verdict, and action taken. Filter by date, type, or outcome.
-  </Card>
-  <Card title="Detection Detail" icon="magnifying-glass">
-    Open any finding to inspect the event ID, source tier, severity level, policy verdict, action taken, confidence scores, Discord scope (channel, user, message), and full review history.
-  </Card>
-  <Card title="Review History" icon="clock-rotate-left">
-    A log of every manual decision staff made — approvals, dismissals, and overrides — alongside the automated finding that prompted review.
-  </Card>
-</CardGroup>
-
-## Privacy
-
-Scam Defense operates on server activity only — it does not access or monitor direct messages. Message bodies, raw URLs, QR code payloads, and screened display names are not retained after evaluation. Only the finding metadata (event ID, severity, action, timestamps) is stored for audit purposes.
-
-## Enabling scam defense
+## Enable scam defense
 
 <Steps>
-  <Step title="Turn AutoMod on">
-    Open **Settings → AutoMod** and enable AutoMod. Heuristics, blocked domains, and the community scam list are the scam-specific layers.
+  <Step title="Enable the shared scanning pipeline">
+    Open **Settings → AutoMod**, turn on **Enable AutoMod**, and save. Scam
+    controls do not process messages while AutoMod is off.
   </Step>
-  <Step title="Set a log channel">
-    Quarantine review and Allow / Ban decisions need a private staff channel.
+  <Step title="Choose detection layers">
+    Keep **Heuristics** on for scam links, invites, attachments, and campaign
+    behavior. QR decoding also needs **Image scanning**. Enable the moderation
+    screen, name screening, or paid AI classification when you need those
+    additional layers.
   </Step>
-  <Step title="Review findings first">
-    Open **Scam defense** in the sidebar. Watch a few days of signals before you raise per-severity actions.
+  <Step title="Set a private log channel">
+    Choose a staff-only channel under **Settings → AutoMod → Log channel**.
+    Quarantine review and incident alerts need somewhere private to land.
   </Step>
-  <Step title="Tighten actions">
-    Under **Settings → AutoMod → Actions by severity**, move from log-only to quarantine or delete once you trust the findings. Detection and audit visibility arrive first. Automated actions unlock after you have reviewed findings and calibrated policy, so a misconfigured rule cannot take mass action before you validate it.
+  <Step title="Configure scam controls">
+    Open **Settings → Scam defense**. Add local blocked domains, choose a
+    community-list mode, and configure optional tripwire and network features.
+  </Step>
+  <Step title="Start with conservative actions">
+    Under **Settings → AutoMod → Actions by severity**, begin with logging or
+    quarantine. Review real findings before increasing the response.
+  </Step>
+  <Step title="Verify effective policy">
+    Open **Settings → Scam defense** and inspect **Effective scam policy**. Then
+    use **Effective enforcement** on the **Scam defense** dashboard to compare
+    each configured severity action with what the runtime may execute.
   </Step>
 </Steps>
 
+## Default state for a new server
+
+- The AutoMod master switch starts off.
+- Heuristics, the moderation screen, and image scanning are preselected.
+- Name screening and AI classification start off.
+- The community list starts in **Ask before each update** mode and does not use a fetched version until an admin applies it.
+- The tripwire and step-up verification start off.
+- Network contribution, network use, and adaptive hardening are preselected, but they cannot process or enforce anything until AutoMod and the operator-managed network rollout are effective. Review these choices before enabling AutoMod.
+
+## Detection pipeline
+
+Thea builds one scannable view from the member's message. It can include message text, forwarded snapshots, link-preview text, embed text, attachment names, sticker names, and poll text. Edits are scanned again.
+
+<AccordionGroup>
+  <Accordion title="Links, domains, and invites">
+    Thea normalizes hostnames and links before comparison. This catches
+    misleading subdomains, Unicode lookalikes, bare hostnames, blocked domains,
+    known phishing domains, and Discord invite destinations. Normalization does
+    not mean that every external page is fetched. When bounded URL analysis is
+    available, it can add redirect-destination and page-fingerprint evidence.
+  </Accordion>
+  <Accordion title="Attachments and QR codes">
+    Attachment metadata is checked for dangerous file types, doubled
+    extensions, and misleading names. Thea can decode QR codes from a bounded
+    number of Discord-hosted images and pass the destination through the same
+    scam checks. Fetches use strict size, timeout, and network-address limits.
+  </Accordion>
+  <Accordion title="Identity impersonation">
+    Join and rename checks look for suspicious names that imitate staff,
+    support, administrators, or known brands. Identity findings use hashed
+    evidence rather than retaining the screened name.
+  </Accordion>
+  <Accordion title="Server-local campaign behavior">
+    Repeated or structurally similar content across accounts and channels adds
+    campaign context over a 15-minute window. Three actors across two channels
+    form a suspected campaign; five actors across three channels form a
+    confirmed campaign. Campaign evidence alone is capped at log-only. It must
+    be corroborated before it can raise a message action, and it never makes
+    unrelated member activity punishable.
+  </Accordion>
+  <Accordion title="Tripwire evidence">
+    A regular member posting in a selected channel whose topic includes the
+    exact `[thea-tripwire]` marker creates high-confidence evidence. The
+    tripwire is capped at quarantine and cannot kick or ban by itself. See
+    [Set up a tripwire channel](/moderation/tripwire-channel).
+  </Accordion>
+  <Accordion title="Optional shared intelligence">
+    If network use is enabled and effective, Thea can compare keyed indicators
+    with quorum-backed evidence from other participating servers. Your own
+    contribution is removed from the lookup. See the
+    [Scam Defense Network](/moderation/scam-defense-network).
+  </Accordion>
+  <Accordion title="Optional AI classification">
+    Paid plans can send borderline content to the configured classifier after
+    deterministic evidence has been collected. Provider failure does not turn
+    into a guilty verdict. Thea continues with the evidence it already has and
+    records the degraded state.
+  </Accordion>
+</AccordionGroup>
+
+## Evidence and action ceilings
+
+Scam Defense does not add correlated signals as if they were independent votes.
+
+- Evidence from the same root cause is deduplicated.
+- Trust, freshness, provenance, and actor class are retained in the decision trace.
+- Each signal tier has a maximum action.
+- The configured severity action cannot raise a finding above its evidence ceiling.
+- Discord permissions and global safety limits can lower the action further.
+- Staff, bots, and webhooks cannot receive automated punishment.
+
+The result is the strongest action allowed by the evidence, your policy, current permissions, and active safety gates. A weak or unavailable source cannot silently turn into a ban.
+
+Per-message Scam Defense recommendations are limited to allow, log, quarantine, delete, or timeout. The fusion layer never recommends a kick or ban. Those actions exist only through separate manual moderation or repeat-offender escalation.
+
+## Staff, bots, webhooks, and exemptions
+
+Members with **Manage Messages**, **Manage Server**, or **Moderate Members** are treated as staff regardless of role name. Staff, bots, and webhooks can be assessed in observe-only mode so suspicious automation remains visible, but no automated punishment is executed against them.
+
+Configured exempt roles and channels are skipped. Use exemptions when trusted staff need to quote scam content or when a channel intentionally handles samples.
+
+The tripwire is stricter: observe-only actors do not trip it at all.
+
+## Threat feeds and local blocks
+
+Under **Settings → Scam defense**:
+
+- **Blocked domains** adds server-specific hosts. Their subdomains are blocked too.
+- **Community scam list** can ask before each update, update automatically, or remain off.
+
+**Ask before each update** does not use a newly fetched version until an admin explicitly applies it. The community list also needs the **Heuristics** layer.
+
+Feed updates are validated before activation. If a refresh fails or becomes stale, **Effective scam policy** reports the condition and Thea continues with healthy local layers.
+
+## Dashboard
+
+The **Scam defense** dashboard is a metadata-only operational view.
+
+Only dashboard collaborators with **Admin** or **Owner** access can open Scam Defense or run incident actions. A Discord moderator role by itself does not grant dashboard access.
+
+<Columns cols={2}>
+  <Card title="Posture and metrics" icon="chart-bar">
+    Findings, containment rate, review precision, source health, and effective
+    detection and enforcement state.
+  </Card>
+  <Card title="Recent detections" icon="shield-halved">
+    Severity, tier, confidence, action, related detections, member context, and
+    review outcome without exposing stored message content.
+  </Card>
+  <Card title="Campaign intelligence" icon="diagram-project">
+    Qualified network campaigns that touched this server, with local match and
+    account counts.
+  </Card>
+  <Card title="Incident response" icon="triangle-exclamation">
+    Local incident timelines, retro-hunt results, containment, exposure notices,
+    and false-positive resolution.
+  </Card>
+</Columns>
+
+The member risk profile shown on a detection is a deterministic context score based on account age and this server's own history. It is not an identity rating or a learned-model prediction.
+
+## Reviews and appeals
+
+Moderator review changes future automation:
+
+- Approving a quarantined finding removes it from incident and retro-hunt action.
+- Upholding or escalating a finding provides explicit positive evidence.
+- False-positive incident resolution feeds back into network suppression and shadow-learning labels.
+
+Members can use **Request review** from a punishment DM. Appeals return to your server's AutoMod review flow.
+
+## Incidents and response playbooks
+
+Confirmed network evidence can create a local incident when it matches your server's recent metadata. Thea can alert staff, recheck previously logged messages, and temporarily harden new-account link checks.
+
+Moderator-authorized playbooks can delete linked messages, apply bounded one-hour timeouts, or warn exposed channels. They recheck authorization immediately before each action and never ban. See [Review and contain scam incidents](/moderation/scam-incidents).
+
+## Troubleshooting
+
+| Symptom | Check |
+|---|---|
+| Nothing is scanned | Turn on **Settings → AutoMod → Enable AutoMod**. |
+| Findings appear but every effective action is log | Read the reason under **Effective scam policy**. Automated enforcement may be globally disabled or limited to a staged rollout. |
+| The network never affects a decision | Confirm network use is enabled. Network intelligence can remain disabled or shadow-only during rollout even while telemetry is visible. |
+| The community list contributes nothing | Keep **Heuristics** on. In **Ask before each update** mode, apply the pending version. |
+| AI never runs | Check the AI toggle, plan allowance, provider state, and whether the message was borderline. |
+| Review precision displays a dash | The dashboard waits for at least 10 human reviews before reporting the rate. |
+| A tripwire message does nothing | Follow the [tripwire health checklist](/moderation/tripwire-channel#troubleshooting). |
+| An incident playbook does not finish | Check the incident state and Thea's Discord permissions. See [Failed and partial actions](/moderation/scam-incidents#failed-and-partial-actions). |
+
+## Privacy
+
+Scam Defense processes server activity only. It does not monitor direct messages.
+
+Local AutoMod events retain bounded metadata such as event ID, severity, action, timestamps, Discord scope, content length, and a content hash. They do not retain the message body. Shared network observations use keyed indicator digests and rotating contributor pseudonyms instead of raw indicators or server, member, channel, and message IDs.
+
+Local AutoMod events are retained for up to 90 days. Shared network records use separate 14-, 90-, and 180-day limits described in the network guide.
+
+See [Scam Defense Network privacy](/moderation/scam-defense-network#what-leaves-your-server-boundary) for contribution, quorum, public statistics, and retention details.
+
+## Related
+
+<Columns cols={3}>
+  <Card title="Scam Defense Network" icon="network-wired" href="/moderation/scam-defense-network">
+    Understand contribution, consumption, quorum, adaptive hardening, and the
+    public Network Pulse.
+  </Card>
+  <Card title="Tripwire channel" icon="crosshairs" href="/moderation/tripwire-channel">
+    Arm a decoy channel and diagnose why a test did not trigger.
+  </Card>
+  <Card title="Incidents and playbooks" icon="shield-virus" href="/moderation/scam-incidents">
+    Review campaigns, retro-hunts, containment, notices, and false positives.
+  </Card>
+</Columns>
+
 <Warning>
-  Attempting to evade Scam Defense by creating new accounts or servers to bypass an active action is a violation of Thea's Acceptable Use Policy and may result in removal from the platform.
+  Attempting to evade Scam Defense by creating new accounts or servers to bypass
+  an active action violates Thea's Acceptable Use Policy and may result in
+  removal from the platform.
 </Warning>

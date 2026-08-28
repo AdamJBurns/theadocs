@@ -1,13 +1,18 @@
 ---
 title: "AutoMod"
 sidebarTitle: "AutoMod"
-description: "Layered detection — Discord rules, heuristics, moderation screen, images, names, and optional AI — with per-severity actions, quarantine, and appeals."
-keywords: ["automod", "heuristics", "quarantine", "appeals", "community scam list"]
+description: "Configure message scanning, moderation actions, exemptions, review logging, escalation, and optional AI classification."
+keywords: ["automod", "heuristics", "quarantine", "appeals", "moderation actions"]
 ---
 
-AutoMod scans member messages and acts on what it finds. Staff and exempt roles are never scanned. Message content is never stored — only a hash, used to correlate repeat offenders.
+AutoMod scans member messages and acts on what it finds. It skips configured exempt roles and channels. Staff, bots, and webhooks can be assessed for audit purposes, but they run in observe-only mode and cannot receive an automated punishment. Message content is never stored — only a hash used to correlate repeat offenders.
 
 Configure it in **Settings → AutoMod**. The master switch is **Enable AutoMod**. Until that is on, the other cards on the page have no effect.
+
+<Note>
+  Scam-specific controls now live under **Settings → Scam defense**. Use
+  **AutoMod** for the shared scanning pipeline and action policy.
+</Note>
 
 ## Detection layers
 
@@ -25,7 +30,7 @@ Layers run cheapest-first. Turn each one on independently.
 The first layers run on every plan at no extra cost. AI classification uses your monthly **AI AutoMod scans** (2,000 on Pro, 20,000 on Business, none on Free).
 
 <Note>
-  Edits are scanned again. Forwarded messages, embeds, and stickers are included. See [Scam defense](/moderation/scam-defense) for the dedicated scam view.
+  Edits are scanned again. Forwarded messages, embeds, polls, and stickers are included. See [Scam defense](/moderation/scam-defense) for the dedicated scam view.
 </Note>
 
 ## Rules for the AI
@@ -40,6 +45,8 @@ This card only matters if the AI layer is on.
 
 Each finding is Low, Medium, High, or Critical. You choose an action per severity, and you can override by category.
 
+The defaults are Low → log, Medium → quarantine, High → delete, and Critical → timeout. Scam-specific evidence ceilings and current runtime safety gates can lower these actions.
+
 | Action | What it does |
 |---|---|
 | **Log only** | Record in the log channel |
@@ -53,11 +60,11 @@ Deleting and timing out need **Manage Messages** and **Timeout Members**. Withou
 
 Kick and ban are not per-severity message actions. They show up on [repeat-offender escalation](#repeat-offenders) and in [moderator commands](/moderation/moderator-commands).
 
-## Exemptions, domains, and the community list
+## Exemptions
 
-- **Exemptions** — roles and channels AutoMod never scans. Bots and webhooks are always exempt. Put staff roles here so quoting a scam to warn about it is not itself actioned.
-- **Blocked domains** — extra hosts treated as scam links. Subdomains of a blocked domain are blocked too. You can pre-fill a set of known scam domains.
-- **Community scam list** — Discord-AntiScam phishing domains, checked weekly. Modes: ask before each update, update automatically, or do not use. Well-known domains such as `discord.com` are never blocked. Needs the Heuristics layer. See [Scam defense](/moderation/scam-defense).
+Configured exempt roles and channels are not scanned. Put staff roles here when moderators need to quote suspicious content without creating a finding. Bots and webhooks cannot receive automated actions even when they are assessed in observe-only mode.
+
+Blocked domains, the community scam list, the tripwire channel, and the Scam Defense Network are under **Settings → Scam defense**. See [Scam defense](/moderation/scam-defense).
 
 ## Log channel
 
@@ -90,6 +97,9 @@ The reply is a layer-by-layer breakdown of what the live ruleset would do. Same 
 ## Related
 
 - [Scam defense](/moderation/scam-defense)
+- [Scam Defense Network](/moderation/scam-defense-network)
+- [Tripwire channel](/moderation/tripwire-channel)
+- [Scam incidents](/moderation/scam-incidents)
 - [Global blacklist](/moderation/global-blacklist)
 - [Raid protection](/moderation/raid-protection)
 - [Moderator commands](/moderation/moderator-commands)

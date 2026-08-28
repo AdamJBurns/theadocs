@@ -65,7 +65,16 @@
             "group": "Moderation",
             "pages": [
               "moderation/automod",
-              "moderation/scam-defense",
+              {
+                "group": "Scam defense",
+                "root": "moderation/scam-defense",
+                "expanded": true,
+                "pages": [
+                  "moderation/scam-defense-network",
+                  "moderation/tripwire-channel",
+                  "moderation/scam-incidents"
+                ]
+              },
               "moderation/raid-protection",
               "moderation/global-blacklist",
               "moderation/moderator-commands",
@@ -141,6 +150,10 @@
         "href": "https://www.theabot.com/product#how-it-works"
       },
       {
+        "label": "Threat Network",
+        "href": "https://www.theabot.com/network"
+      },
+      {
         "label": "Pricing",
         "href": "https://www.theabot.com/pricing"
       }
@@ -160,6 +173,7 @@
         "header": "Product",
         "items": [
           { "label": "Pricing", "href": "https://www.theabot.com/pricing" },
+          { "label": "Threat Network", "href": "https://www.theabot.com/network" },
           { "label": "Status", "href": "https://www.theabot.com/status" },
           { "label": "Changelog", "href": "https://www.theabot.com/changelog" }
         ]

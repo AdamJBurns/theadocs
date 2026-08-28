@@ -1,0 +1,131 @@
+---
+title: "Review and contain scam incidents"
+sidebarTitle: "Incidents and playbooks"
+description: "Understand campaign and incident status, retro-hunts, containment playbooks, exposure notices, and false-positive resolution."
+keywords: ["scam incident", "campaign", "containment", "retro-hunt", "exposure notice"]
+---
+
+The **Scam defense** dashboard groups related findings into campaigns and local incidents. It gives moderators a bounded response workflow without exposing another server's identity or evidence.
+
+Opening Scam Defense and running playbooks requires **Admin** or **Owner** dashboard access. A Discord moderator role by itself does not grant this access.
+
+## Campaigns and incidents
+
+A **campaign** is network-wide correlation between qualified indicators. Its status can be:
+
+- **First seen** — qualified activity has started.
+- **Spreading** — recent activity is reaching more participating servers.
+- **Contained** — the campaign no longer needs an active response.
+- **Dormant** — no longer recently active.
+
+A **local incident** exists when a qualified campaign indicator matches your server's own AutoMod history. It shows:
+
+- Indicator type, without the raw shared indicator
+- Severity and status
+- Number of local matches
+- Distinct affected accounts and channels
+- Recent local event timeline
+- Notification and retro-hunt status
+
+Incident status is **Open**, **Investigating**, **Contained**, or **Dismissed**.
+
+<Note>
+  A campaign can be active without creating an incident for your server. Your
+  dashboard shows an incident only when tenant-isolated local events match.
+</Note>
+
+## Automatic incident handling
+
+When a confirmed network indicator matches recent local history, Thea can:
+
+1. Create or update the local incident.
+2. Alert the configured AutoMod log channel.
+3. Start a bounded retro-hunt for eligible messages that were previously logged.
+4. Activate temporary hardening if you enabled it.
+
+The retro-hunt looks back no more than seven days and considers at most 50 linked events per incident. It fetches a still-live Discord message, derives the indicator again, and deletes the message only when it still matches the current confirmed verdict.
+
+Retro-hunt never times out, kicks, or bans a member. It skips an event that a moderator approved and logs a completion notice when it deletes one or more messages.
+
+## Moderator playbooks
+
+Open an **Open** or **Investigating** incident to see its actions.
+
+### Contain now
+
+**Contain now** starts a background response job. It can:
+
+- Delete up to 50 linked, still-actionable messages.
+- Apply a one-hour timeout to up to 10 affected members.
+- Treat an already-deleted message or a member who already left as resolved.
+
+Thea rechecks each event immediately before the Discord action. If a moderator approved it, resolved the incident, or otherwise made it ineligible, the worker skips it.
+
+The playbook never bans a member and never searches unrelated server history. When every actionable target is resolved, Thea can mark the incident **Contained** automatically.
+
+<Warning>
+  **Contain now** performs Discord actions. Review the incident timeline first
+  and confirm Thea has **Manage Messages** and **Moderate Members**.
+</Warning>
+
+### Warn exposed channels
+
+**Warn exposed channels** posts a security notice to up to five distinct affected channels. The notice tells members who opened a link or downloaded a file to change the affected password, enable multi-factor authentication, and review active sessions.
+
+The action deduplicates channels. Running it again can post a new notice, so use it only when another reminder is needed.
+
+### Resolve contained
+
+Use **Resolve contained** when the required response has already happened or no further playbook action is needed. This changes incident state; it does not delete messages or time out members by itself.
+
+Thea will not resolve an incident while one of its playbooks is running. Pending work is cancelled after the incident is resolved so a worker cannot act on stale state.
+
+### False positive
+
+Use **False positive** only when the underlying detection was wrong.
+
+This resolution:
+
+- Dismisses the local incident.
+- Marks its linked network evidence as approved and cancels remaining retro-hunt or playbook work for that incident.
+- Labels eligible shadow-learning features as negative.
+- Recomputes the shared verdict so independent human corrections can suppress or retract it.
+
+One server's decision cannot suppress a network verdict by itself. Marking an incident false positive also cannot restore a message that Discord already deleted.
+
+## Failed and partial actions
+
+Response jobs record how many messages were deleted, members were timed out, and notices were posted.
+
+- Temporary Discord or rate-limit failures are retried.
+- Missing permissions or invalid Discord targets stop unsafe repeated attempts; the incident stays open instead of reporting success.
+- A resolved or no-longer-actionable incident cancels pending work.
+- Two workers cannot claim the same job at once.
+
+If a playbook does not finish, correct the listed Discord permission or target problem before trying again. Do not mark the incident contained merely to hide an incomplete response.
+
+## Review safety
+
+Human review always takes priority over queued automation:
+
+- **Approve** means the finding was a false positive; **Uphold** confirms the detection.
+- An approved finding is excluded from new retro-hunt and response targets.
+- The worker reauthorizes the event immediately before every delete, timeout, or notice.
+- Network consumption must still be enabled when network-owned background work is claimed.
+- A false-positive correction contributes only through the privacy-preserving verdict process.
+
+## Permissions
+
+| Operation | Discord permission |
+|---|---|
+| Delete incident messages | **Manage Messages** in each affected channel |
+| Apply the one-hour containment timeout | **Moderate Members**, with Thea's role above the affected member |
+| Post exposure notices | **View Channel** and **Send Messages** in each affected channel |
+| Alert staff and post completion results | **View Channel** and **Send Messages** in the AutoMod log channel |
+
+## Related
+
+- [Scam defense](/moderation/scam-defense)
+- [Scam Defense Network](/moderation/scam-defense-network)
+- [Tripwire channel](/moderation/tripwire-channel)
+- [AutoMod](/moderation/automod)
