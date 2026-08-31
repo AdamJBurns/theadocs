@@ -2,11 +2,11 @@
 title: "Actions"
 sidebarTitle: "Actions"
 description: "Every Thea Discord slash command, who can use it, and what it does."
-keywords: ["actions", "slash commands", "/help", "/setup", "/ask", "/ticket", "/automod", "/raid"]
+keywords: ["actions", "slash commands", "/help", "/setup", "/ask", "/ticket", "/automod", "/raid", "/invite"]
 mode: "wide"
 ---
 
-This page lists all **71 slash-command actions** currently registered by Thea. Discord uses the permissions below to control command visibility, and Thea checks access again when you run the command.
+This page lists all **77 slash-command actions** currently registered by Thea. Discord uses the permissions below to control command visibility, and Thea checks access again when you run the command.
 
 <Note>
   **Support team** means a member with **Manage Server** or the support role configured for your server. Ticket openers can close and reopen their own tickets.
@@ -39,6 +39,19 @@ All `/config` actions require **Manage Server**.
 | `/config logging show` | Shows enabled server events and their destination channels. |
 | `/config logging channel` | Sets or clears the channel for message, member, moderation, or ticket events. |
 | `/config logging event` | Turns one [server log event](/community/server-logs) on or off. |
+
+## Invite campaigns
+
+All `/invite` actions require **Manage Server**. See [Invite campaigns](/community/invite-campaigns) for attribution and retention details.
+
+| Action | What it does |
+| --- | --- |
+| `/invite create` | Creates a permanent, unlimited-use Discord invite and starts a named campaign. |
+| `/invite register` | Starts tracking an existing standard or vanity invite from its current use count. |
+| `/invite info` | Shows a tracked link's campaign, promoter, status, baseline, and latest counter. |
+| `/invite stats` | Shows campaign joins, attribution coverage, active members, and 7- and 30-day retention. |
+| `/invite close` | Stops tracking a link without disabling the Discord invite. |
+| `/invite revoke` | Deletes a standard Discord invite and stops tracking it. |
 
 ## AutoMod
 

@@ -98,6 +98,7 @@
             "pages": [
               "community/welcome",
               "dashboard/onboarding-forms",
+              "community/invite-campaigns",
               "community/announcements",
               "community/saved-replies",
               "community/server-logs"

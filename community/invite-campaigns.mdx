@@ -1,0 +1,106 @@
+---
+title: "Track Discord invite campaigns"
+sidebarTitle: "Invite campaigns"
+description: "Create or register Discord invites, attach them to promoters and promotions, and compare joins, attribution coverage, active members, and retention."
+keywords: ["invite tracking", "invite campaigns", "Discord invites", "retention", "/invite"]
+---
+
+Invite campaigns show which partners, promotions, and launches bring members to your server — and whether those members stay. Thea can create a new Discord invite or begin tracking a link your team already shares.
+
+Open **Invites** in the server sidebar.
+
+<Info>
+  Dashboard moderators can view invite campaigns. Dashboard admins and the server owner can manage them. Discord `/invite` actions require **Manage Server**.
+</Info>
+
+## Create a tracked invite
+
+Use **Create link** when you want a new link for one promoter or promotion.
+
+<Steps>
+  <Step title="Name the campaign">
+    Use a name your team will recognize, such as `Partner launch` or `September newsletter`.
+  </Step>
+  <Step title="Add a promoter">
+    Optionally enter the promoter's Discord user ID. The promoter cannot change after tracking begins.
+  </Step>
+  <Step title="Choose the landing channel">
+    Thea creates a permanent, unlimited-use Discord invite for that channel. Its campaign counter starts at zero.
+  </Step>
+  <Step title="Share the link">
+    Copy the link from the campaign. Enter the exact same campaign name later to add another link to the campaign.
+  </Step>
+</Steps>
+
+You can create the same link from Discord:
+
+```text
+/invite create campaign:Partner launch channel:#welcome promoter:@Maya
+```
+
+## Register an existing invite
+
+Use **Register link** for a standard or vanity invite that is already in circulation. Thea verifies that it belongs to your server and records its current use count as the baseline. Uses before registration are not credited to the campaign.
+
+```text
+/invite register link:https://discord.gg/example campaign:Conference promoter:@Maya
+```
+
+Expiring and use-limited invites can disappear before Thea reads their final counter. The dashboard marks these links as degraded so you do not mistake incomplete attribution for a complete result.
+
+## Read campaign performance
+
+Each campaign combines all links that share its name.
+
+| Metric | What it means |
+| --- | --- |
+| **Gross joins** | Growth in Discord's invite-use counters since each link was created or registered |
+| **Attributed** | Join sessions Thea could infer for this campaign |
+| **Unique members** | Distinct members among those attributed sessions |
+| **Qualified** | Attributed members who cleared Discord membership screening and any active Thea raid gate |
+| **Active** | Attributed members with no recorded departure from the server |
+| **Coverage** | Attributed sessions divided by gross counter growth |
+| **7-day retained** | Qualified members whose first attributed session lasted at least seven continuous days |
+| **30-day retained** | Qualified members whose first attributed session lasted at least 30 continuous days |
+
+Retention only uses mature cohorts. A seven-day result stays **Not mature** until at least one qualified member has had seven days to reach the milestone. The 30-day result works the same way.
+
+Use date filters to limit the dashboard to campaigns that started within a period. Run `/invite stats` for a campaign summary in Discord:
+
+```text
+/invite stats campaign:Partner launch
+```
+
+## Understand attribution coverage
+
+Discord increments invite counters, but it does not tell bots which invite a new member used. Thea compares the counters before and after joins:
+
+- **Inferred** — one invite increased by exactly the number of members in the join batch.
+- **Ambiguous** — several invites changed, a link disappeared, or the counter growth did not match the join batch.
+- **Unknown** — no readable tracked invite explains the join.
+
+Only inferred sessions are assigned to a campaign. Ambiguous and unknown joins remain unassigned, and **Coverage** shows how much of the gross counter growth Thea could explain.
+
+Invite campaigns measure joins and retention. Discord does not provide link-click analytics, so Thea does not report impressions, clicks, or click-through rates.
+
+## Inspect, close, or revoke a link
+
+Use `/invite info` to check a link's campaign, promoter, status, baseline, and latest counter.
+
+```text
+/invite info link:https://discord.gg/example
+```
+
+Choose the action that matches what should happen to the shared link:
+
+- **Close tracking** or `/invite close` stops future campaign measurement. The Discord invite keeps working.
+- **Revoke** or `/invite revoke` deletes a standard Discord invite and stops tracking it. Anyone holding the link loses access.
+
+Vanity invites can be closed but not revoked from Thea.
+
+## Related
+
+- [Activity, stats, and knowledge gaps](/dashboard/analytics)
+- [Raid protection](/moderation/raid-protection)
+- [Discord setup and permissions](/dashboard/discord-setup)
+- [All actions](/reference/actions)
