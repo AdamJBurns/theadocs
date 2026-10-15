@@ -10,7 +10,7 @@ When a member asks a question in a channel Thea watches, Thea searches the knowl
 
 <Steps>
   <Step title="A member asks a question">
-    Someone writes in a watched channel, @mentions Thea, or uses `/ask`. Thea also answers the first question in a ticket it created (and in Ticket Tool–style channels if you enabled that).
+    Someone writes in a watched channel, @mentions Thea, or uses `/ask`. Thea also answers in tickets it created, and in Ticket Tool–style channels if you enabled that, until your team takes over.
   </Step>
   <Step title="Thea searches your passages">
     Only passages indexed for this server are searched. Nothing from another community is used.
@@ -25,6 +25,8 @@ When a member asks a question in a channel Thea watches, Thea searches the knowl
     Thea tells the member it could not ground a reliable answer. If escalation is on, it offers a handoff that pings your support role. It does not invent a policy from general knowledge.
   </Step>
 </Steps>
+
+If Thea hits an internal error while answering, it says so instead of going quiet, and offers the same handoff when escalation is on.
 
 Near-duplicate questions can link to a recent answer instead of generating a new one. Those redirects do not count against your monthly quota. See [Answering settings](/answering/settings).
 
@@ -45,6 +47,6 @@ Near-duplicate questions can link to a recent answer instead of generating a new
 - Helpful / not helpful buttons
 - An optional **Get a human** button
 
-If a human (not Thea) replies in that thread, Thea steps back and stops contributing.
+After someone presses **Get a human**, Thea stops answering in that thread so your team can take over, including when staff reply. Mention Thea or reply to one of its messages to bring it back for that one message. See [Confidence and escalation](/answering/confidence-and-escalation#get-a-human).
 
 Playground questions use the same pipeline and do not post to Discord. See [Playground](/answering/playground).

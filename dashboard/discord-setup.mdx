@@ -26,7 +26,9 @@ Thea is a Discord bot plus a dashboard. The dashboard is where you manage knowle
     /setup channel:#support support_role:@Support
     ```
 
-    This writes the watched channel and the role pinged on escalations and tickets. You can change both later in **Settings → Answering** and **Settings → Handoff**.
+    This adds the watched channel and sets the role pinged on escalations and tickets. Passing a role also turns on the **Get a human** button. You can change both later in **Settings → Answering** and **Settings → Handoff**.
+
+    Run it again to watch another channel, up to 100. Leave out `support_role` to keep the current role. The support role cannot be `@everyone` or a role managed by a bot or integration.
   </Step>
 </Steps>
 

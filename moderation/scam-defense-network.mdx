@@ -41,6 +41,8 @@ Thea extracts only supported indicator types:
 - Attachment fingerprints
 - Destination hosts found in QR codes
 
+A link shortener's host, such as `bit.ly`, is never shared as a domain or QR destination host, because it names a public service rather than the scam. Thea shares only the specific short link.
+
 Before storage, each value is normalized and converted to a keyed HMAC-SHA256 digest. The shared observation contains the digest, a rotating server pseudonym, coarse timestamps, counts, and review outcomes.
 
 The shared network record does **not** contain:
@@ -59,11 +61,13 @@ Your own server keeps a separate, tenant-isolated AutoMod event so authorized st
 One server cannot create an actionable network verdict.
 
 1. A signal starts as an observation.
-2. At least three independent, qualified servers must report recent matching evidence before it can become suspected.
+2. At least three independent, qualified servers must report recent matching evidence before it can become suspected. At least one of them must have a moderator-upheld finding, or a separate threat provider must match it.
 3. Confirmation requires independent human-upheld evidence. Most indicators need two upheld servers, or one upheld server plus separate provider corroboration. Invite codes require three upheld servers. Established domains receive a higher confirmation floor.
 4. When Thea looks up a signal for your server, it removes your server's own contribution before checking quorum.
 
 Only current, unexpired verdicts can be used. Contributor identities and evidence from other servers are never returned to your dashboard.
+
+A network signal on a detection shows **Independent communities** as a privacy bucket. The number is rounded down to a multiple of three and never shows below 3, so it is not an exact count.
 
 ## Human correction and safety brakes
 
@@ -74,13 +78,14 @@ Moderator review is part of the network state:
 - Multiple independent false-positive reviews can suppress a verdict.
 - Evidence that no longer qualifies is retracted.
 
-A single server cannot globally suppress an indicator. Thea also limits how many new confirmations can become actionable in a short period. These controls reduce the damage from a poisoned feed, a compromised contributor, or a bad upstream update.
+A single server cannot globally suppress an indicator. Thea also limits how many new confirmations can become actionable in a short period. If a confirmed verdict suddenly drives an unusual volume of actions across several servers within an hour, Thea suppresses it for one hour. These controls reduce the damage from a poisoned feed, a compromised contributor, or a bad upstream update.
 
 ## How network intelligence affects action
 
 The network is an evidence source, not an action policy.
 
-- A suspected match is capped at log-only.
+- A suspected match is capped at log-only. Repeat-offender escalation cannot raise it.
+- If no moderator in another server upheld the evidence, Thea ignores a suspected match unless it found its own evidence in the same message.
 - A confirmed match can strengthen a local decision only when network use is enabled.
 - Thea still applies signal independence, action ceilings, staff observe-only rules, permissions, rollout gates, and global safety brakes.
 - A human-approved finding is excluded from retroactive deletion and incident response.
@@ -96,17 +101,19 @@ If you enable adaptive hardening, Thea temporarily tightens checks while either 
 
 The dashboard shows **Adaptive hardening is active** while the temporary window is in effect. The setting does not permanently change your action matrix.
 
-While active, links, domains, and invites from accounts younger than 30 days are routed into deeper review. Adaptive hardening does not delete, timeout, kick, or ban by itself.
+While active, links, domains, and invites from accounts younger than 30 days are routed into deeper review. Adaptive hardening does not delete, timeout, kick, or ban by itself. It does not activate while the network is in its observe-only rollout.
 
 ## Step-up verification
 
-Step-up verification is for a newly observed account's borderline first link. Thea:
+Step-up verification is for a borderline first link from an account younger than 7 days. Thea:
 
 1. Removes the message.
 2. Applies a temporary 10-minute posting pause when it has permission.
 3. Posts a **Verify** button in the channel.
 4. Uses the same two-step challenge system as raid protection.
 5. Lifts the pause after a successful challenge.
+
+Thea counts a message as the member's first only if it has seen every message they sent. If Thea restarted after the member joined, it skips the challenge rather than guess.
 
 If Thea cannot apply the temporary pause, it leaves no challenge pending. If it applies the pause but cannot deliver the prompt, it lifts the pause and expires the check. The removed message is not restored. Accounts already verified through the challenge system are not challenged again.
 
@@ -124,7 +131,7 @@ The public [Network Pulse](https://www.theabot.com/network) shows broad activity
 - A time or indicator bucket supported by fewer than three servers displays zero.
 - It contains no geographic map and does not collect or infer server locations.
 
-A displayed zero can mean no activity or activity below the public privacy threshold.
+A displayed zero can mean no activity or activity below the public privacy threshold. If the 24-hour totals meet the threshold but no three-hour window does, the chart stays at zero and shows **Daily total only**.
 
 If the snapshot is unavailable, the page displays dashes and an unavailable banner instead of stale or invented values.
 

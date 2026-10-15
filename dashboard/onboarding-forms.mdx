@@ -14,16 +14,20 @@ Configure this in **Settings → Onboarding**, or with `/onboarding` in Discord.
 |---|---|
 | **Onboarding** | **Ask new members to complete onboarding**, the panel channel, and **Post panel** |
 | **Reminders** | Tag new members when they arrive, where to tag, and how often: Off / 12h / 24h / 48h / 72h. Reminders stop after **7 days**. |
-| **The form** | Panel message and up to five questions (text, email, phone). Questions that ask for passwords, payment details, or identity documents are refused. |
+| **The form** | **What the panel says** (up to 1,866 characters, because Thea adds a fixed safety line to every panel) and up to five questions (text, email, phone). Questions that ask for passwords, payment details, or identity documents are refused. |
 | **Answers** | Staff-only answers channel. Optionally tell staff about members who never finish: Off / 6h / 24h / 72h / 7d |
-| **Completion role** | Role granted on finish. Re-checked at grant time; roles with moderator permissions are refused. |
+| **Completion role** | Role granted on finish. Re-checked at grant time. Roles with moderator permissions, including **Mute Members**, **Deafen Members**, and **Move Members**, are refused. Choose **No role — just collect the answers** to clear a role Thea can no longer grant. |
+
+If you move the panel to another channel, Thea posts it there and removes the old one.
+
+You can only pick a completion role you could assign yourself in Discord: you need **Manage Roles**, and the role must sit below your own highest role. The server owner can pick any role.
 
 You can run with **no questions** — the panel button is the whole flow (rules acknowledgment).
 
 ## Privacy
 
 - Answers are posted to the staff channel only. Thea does not store, log, or train on them after delivery.
-- If a question asks for email or phone, that staff channel must not be readable by `@everyone`. The dashboard warns if it is.
+- If a question asks for email or phone, that staff channel must not be readable by `@everyone`. The dashboard refuses to save the form if it is. Thea checks again on every submission and stops collecting answers if the channel has since become public.
 - Passwords, payment details, identity documents, and similar are blocked at save time.
 
 <Warning>
@@ -32,7 +36,7 @@ You can run with **no questions** — the panel button is the whole flow (rules 
 
 ## Reminders
 
-Reminders go to a channel you choose, not the panel channel. Thea batches members who have not finished rather than DMing each person. Completing the form removes them from later batches. Reminders run at most for 7 days after join.
+Reminders go to a channel you choose, not the panel channel. Thea batches members who have not finished rather than DMing each person. Each reminder tags up to 10 members; anyone else waiting is tagged in the next one. Completing the form removes them from later batches. Reminders run at most for 7 days after join.
 
 ## Raid mode and Discord screening
 

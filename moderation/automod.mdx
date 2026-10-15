@@ -20,7 +20,7 @@ Layers run cheapest-first. Turn each one on independently.
 
 | Layer | What it catches | Plan |
 |---|---|---|
-| **Discord's built-in AutoMod** | The rules you already set in Discord. Needs **Manage Server**. | All |
+| **Discord's built-in AutoMod** | Spam patterns blocked by Discord itself, through rules Thea manages in Discord (**Managed: scam links** and **Managed: mention spam**). Needs **Manage Server**. | All |
 | **Heuristics** | Floods, mention spam, invites, scam links (including bare hostnames and lookalike Unicode). Decodes QR codes on up to two Discord CDN images per message. | All |
 | **Moderation screen** | Harassment, hate, sexual content, violence | All |
 | **Image scanning** | NSFW, gore, self-harm in attachments. Needs the moderation screen on. | All |
@@ -28,6 +28,8 @@ Layers run cheapest-first. Turn each one on independently.
 | **AI classification** | Borderline messages judged against the rules you write | Pro and Business (metered) |
 
 The first layers run on every plan at no extra cost. AI classification uses your monthly **AI AutoMod scans** (2,000 on Pro, 20,000 on Business, none on Free).
+
+**Maximum scan length** (200–4,000 characters) limits how much of each message the moderation screen and the AI read. Longer costs more per AI classification. The free checks (links, invites, blocklists, and floods) always read the whole message.
 
 <Note>
   Edits are scanned again. Forwarded messages, embeds, polls, and stickers are included. See [Scam defense](/moderation/scam-defense) for the dedicated scam view.
@@ -37,32 +39,36 @@ The first layers run on every plan at no extra cost. AI classification uses your
 
 **Settings → AutoMod → Rules for the AI** is plain language: what counts as solicitation, off-topic, or a scam pitch *here*. On save, Thea compiles that into phrases members would actually type. A match is what sends the message to the AI.
 
-You can add per-channel rules on top. Where they disagree, the channel rules win — that is where "self-promo is fine here" goes.
+You can add per-channel rules on top, including for forum channels. A forum's rules apply to its posts. Where they disagree, the channel rules win — that is where "self-promo is fine here" goes.
 
-This card only matters if the AI layer is on.
+This card only matters if the AI layer is on. If your server has reached its monthly spend cap, the rules are saved but not turned into phrases. Save them again after the period resets.
 
 ## Actions by severity
 
 Each finding is Low, Medium, High, or Critical. You choose an action per severity, and you can override by category.
 
-The defaults are Low → log, Medium → quarantine, High → delete, and Critical → timeout. Scam-specific evidence ceilings and current runtime safety gates can lower these actions.
+The defaults are Low → log, Medium → quarantine, High → delete, and Critical → timeout. For scam findings, evidence ceilings and the staged-rollout safety gate can lower these actions. Invite links, mass mentions, dangerous attachments, floods, the moderation screen, and non-scam AI findings always use the action you set. See [Scam defense](/moderation/scam-defense).
 
 | Action | What it does |
 |---|---|
 | **Log only** | Record in the log channel |
 | **Warn in channel, keep the message** | Public warn, message stays |
-| **Quarantine for review** | Remove the message and repost it in the log channel with **Approve** / **Undo** |
+| **Quarantine for review** | Remove the message and repost it in the log channel with **Approve — restore message** / **Uphold removal** |
 | **Delete and DM the member** | Delete plus a DM |
 | **Delete and warn in channel** | Delete plus a public warn |
 | **Delete and time out** | 10 minutes, 1 hour, 24 hours, 7 days, or a duration that scales with severity |
 
 Deleting and timing out need **Manage Messages** and **Timeout Members**. Without a log channel, quarantine falls back to log-only.
 
+**Approve — restore message** reposts the message where it was sent, including threads, forum posts, announcement channels, and voice channel chat. If that channel no longer exists, the log says the restore failed.
+
 Kick and ban are not per-severity message actions. They show up on [repeat-offender escalation](#repeat-offenders) and in [moderator commands](/moderation/moderator-commands).
 
 ## Exemptions
 
 Configured exempt roles and channels are not scanned. Put staff roles here when moderators need to quote suspicious content without creating a finding. Bots and webhooks cannot receive automated actions even when they are assessed in observe-only mode.
+
+You can exempt up to 20 roles and 50 channels, the most Discord's AutoMod rules accept. Thea copies your exemptions to the Discord AutoMod rules it manages, from the dashboard or `/automod exempt`.
 
 Blocked domains, the community scam list, the tripwire channel, and the Scam Defense Network are under **Settings → Scam defense**. See [Scam defense](/moderation/scam-defense).
 
@@ -72,19 +78,45 @@ Pick a private staff channel. Quarantined content can be exactly what you did no
 
 ## Channel focus
 
-Declare what a channel is for (for example, `#help` is for support). Messages that clearly do not fit get a friendly warning pointing at the focus. Nothing is deleted for being off-topic. Uses the AI layer and counts against its monthly allowance.
+Declare what a channel is for (for example, `#help` is for support). Forum channels can have a focus too. Messages that clearly do not fit get a friendly warning pointing at the focus. Nothing is deleted for being off-topic. Off-topic warnings never count toward repeat offenders, and escalation never turns one into a stronger action. Uses the AI layer and counts against its monthly allowance.
 
 ## Repeat offenders
 
 After enough findings in a window, AutoMod responds more strongly than the per-severity action. The count uses AutoMod's event log. Also available as `/automod escalation`. Members can check their own record with [`/standing`](/moderation/standing).
 
+Escalation only raises an action. It skips findings that were only logged because the evidence was weak, such as a Scam Defense Network *suspected* match, and it skips off-topic warnings. A timeout step applies only when it is longer than the timeout the finding would already get.
+
 ## Auto-slowmode
 
 When a channel's rate spikes far above normal, Thea can apply a short slowmode and lift it when things calm down. Needs **Manage Channels**. It never touches a channel a moderator already put in slowmode.
 
+## Review findings in the dashboard
+
+Open **AutoMod** in the server sidebar. It needs Admin or Owner dashboard access and has three tabs:
+
+| Tab | What it shows |
+|---|---|
+| **Review** | Findings grouped into **Appealed**, **Not enforced**, and **Awaiting review** |
+| **Activity** | AutoMod trends by layer or category over 30 or 90 days |
+| **Members** | **Watched members** and **Moderator notes**. **Watch Member** and **Add Note** open a side sheet. A watch can last up to 365 days, and a note can be up to 1,000 characters. |
+
+**Coverage** lists which channels AutoMod scans and which it skips, with the exempt roles. **Export** downloads findings or review outcomes as CSV.
+
+Select a finding to open its details:
+
+- **A summary** of what happened. If the bot could not act, a red box titled **Why nothing happened** or **Why it was only partly enforced** names the cause and how to fix it. Causes include a missing permission in the channel, the member's role sitting above Thea's, a missing log channel, and a rate or safety limit. Findings Thea only observed, such as a staff message, are not treated as failures.
+- **Activity**, a timeline of the message, the flag, the action and the setting that chose it, the outcome, and any edit, appeal, or temporary-ban lift. Hover a time to see it in UTC and your local time.
+- **What the finding means**, with its evidence. A duplicate-flood finding shows how many identical messages triggered it. Older findings show only the confidence.
+- **The member's record**: their other findings, with each ruling.
+- **Details**, including account age when flagged, the configured action, and a **Jump to message** link.
+
+Rule on the finding with **Uphold**, **False positive**, or **Escalate…**, which sends it to Thea trust and safety with an optional note.
+
 ## Appeals
 
-Members who receive a punishment can press **Request review** on the DM Thea sent — including after a kick or ban. Your moderators review the appeal in the existing AutoMod queue, not Thea trust and safety (unless someone flags it). Caps: 3 appeals per member per week, 50 per server per day.
+Members who receive a punishment can press **Request review** on the DM Thea sent — including after a kick or ban. Your moderators review the appeal under **Appealed** on **AutoMod → Review**, not Thea trust and safety (unless someone escalates it). Caps: 3 appeals per member per week, 50 per server per day.
+
+If a moderator has already ruled on the finding, Thea tells the member it was already reviewed. That attempt does not count toward their weekly cap.
 
 ## Test before you ship a rule
 

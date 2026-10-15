@@ -25,14 +25,19 @@ Opening a conversation shows:
 - Citations and the passages retrieved
 - Confidence score
 - Helpful / not helpful votes from Discord
-- A **Correction** form
+- **Teach the correct answer**
 - **Flag to platform staff**
+
+Collaborators who can only view see the conversation without **Teach the correct answer** or the flag button.
 
 ## Save a verified answer
 
-If Thea got something wrong, or you want a stronger answer than the docs currently produce, write the correct reply in the correction form and save it.
+If Thea got something wrong, or you want a stronger answer than the docs currently produce, click **Teach the correct answer**. Fill in **Question** and **Correct answer**, and optionally **Other ways members ask this**, one phrasing per line. Then click **Save verified answer**.
 
 The correction becomes a **verified answer**. Future questions on the same topic prefer that reply over ordinary documentation passages, and Thea cites it.
+
+- A question that matches the saved question or one of its other phrasings word for word always gets the verified answer. Case, spacing, and trailing punctuation are ignored. Close variations match too.
+- Verified answers work even before you connect any knowledge source.
 
 <Tip>
   After you add or change a knowledge source, scan recent conversations for the topic and save a correction for any answer you would not want to go out again.
@@ -40,7 +45,7 @@ The correction becomes a **verified answer**. Future questions on the same topic
 
 ## Flag a conversation to Thea
 
-**Flag to platform staff** sends the conversation to Thea's trust-and-safety queue. Use this for product abuse, injection attempts, or answers that look like a platform problem — not for ordinary "the docs are wrong" fixes. Those belong in the correction form.
+**Flag to platform staff** sends the conversation to Thea's trust-and-safety queue. Use this for product abuse, injection attempts, or answers that look like a platform problem — not for ordinary "the docs are wrong" fixes. Those belong in **Teach the correct answer**.
 
 Members can also report a Discord message with the **Report to bot operator** context-menu command, or the **Report** button on a Thea answer. Those reports go to Thea staff, not your server moderators. A member can send up to 3 reports per 10 minutes per server.
 

@@ -9,7 +9,9 @@ Scam Defense is Thea's scam-specific detection and response system. It runs thro
 
 It covers phishing links, malicious invites, suspicious attachments, QR destinations, identity impersonation, tripwire activity, and coordinated posting patterns. Optional network intelligence can warn your server about infrastructure that qualified communities have already reviewed.
 
-During staged rollout, detection and review can be active while automated enforcement remains observe-only. Saving an action does not override that safety gate.
+During staged rollout, detection and review can be active while automated scam enforcement remains observe-only. Saving an action does not override that safety gate.
+
+The gate holds back only scam-specific actions, such as blocked and community-listed scam domains, the tripwire, and scam classifications. Invite links, mass mentions, dangerous attachments, duplicate floods, the moderation screen, and non-scam AI findings always use the action you set in **Settings → AutoMod**.
 
 ## Where to configure and review it
 
@@ -72,6 +74,8 @@ During staged rollout, detection and review can be active while automated enforc
 ## Detection pipeline
 
 Thea builds one scannable view from the member's message. It can include message text, forwarded snapshots, link-preview text, embed text, attachment names, sticker names, and poll text. Edits are scanned again.
+
+Link, invite, blocklist, and flood checks always read the whole message. **Settings → AutoMod → Maximum scan length** limits only how much the moderation screen and AI classification read.
 
 <AccordionGroup>
   <Accordion title="Links, domains, and invites">
@@ -147,7 +151,7 @@ The tripwire is stricter: observe-only actors do not trip it at all.
 
 Under **Settings → Scam defense**:
 
-- **Blocked domains** adds server-specific hosts. Their subdomains are blocked too.
+- **Blocked domains** adds server-specific hosts, up to 200. Their subdomains are blocked too. For broader coverage, use the community scam list.
 - **Community scam list** can ask before each update, update automatically, or remain off.
 
 **Ask before each update** does not use a newly fetched version until an admin explicitly applies it. The community list also needs the **Heuristics** layer.
@@ -202,7 +206,7 @@ Moderator-authorized playbooks can delete linked messages, apply bounded one-hou
 | Symptom | Check |
 |---|---|
 | Nothing is scanned | Turn on **Settings → AutoMod → Enable AutoMod**. |
-| Findings appear but every effective action is log | Read the reason under **Effective scam policy**. Automated enforcement may be globally disabled or limited to a staged rollout. |
+| Scam findings appear but every effective action is log | Read the reason under **Effective scam policy**. Automated scam enforcement may be globally disabled or limited to a staged rollout. Non-scam rules keep their configured actions. |
 | The network never affects a decision | Confirm network use is enabled. Network intelligence can remain disabled or shadow-only during rollout even while telemetry is visible. |
 | The community list contributes nothing | Keep **Heuristics** on. In **Ask before each update** mode, apply the pending version. |
 | AI never runs | Check the AI toggle, plan allowance, provider state, and whether the message was borderline. |

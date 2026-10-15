@@ -1,11 +1,11 @@
 ---
 title: "Member standing and the /standing command"
 sidebarTitle: "Member standing"
-description: "How Thea scores a member's AutoMod record on your server, how points decay, and what /standing shows."
+description: "What /standing shows a member about their AutoMod record on your server, and which findings count toward repeat-offender escalation."
 keywords: ["standing", "strikes", "repeat offenders", "/standing"]
 ---
 
-Every AutoMod finding and every manual `/warn` on a server writes to that member's **standing**. Members can look at their own record. Staff can look at anyone's.
+Every AutoMod finding on a server is recorded on that member's **standing**. So is every moderator action taken through Thea, such as `/warn`, `/timeout`, `/kick`, and `/ban`. Members can check their own record with `/standing`.
 
 This is per-server. It is not the same as [account standing](/account/standing), which is Thea's platform ledger for the person who signed in to the dashboard.
 
@@ -15,35 +15,33 @@ This is per-server. It is not the same as [account standing](/account/standing),
 /standing
 ```
 
-The reply is ephemeral. It shows the member's current tier, recent actions, and any active points.
+The reply is ephemeral and only ever describes the member who ran it. There is no option to look up someone else. Staff use [`/record`](/moderation/moderator-commands) for that.
 
-Staff with **Moderate Members** can pass a user:
+The reply shows:
 
-```
-/standing user:@member
-```
+- Findings from the escalation window, newest first, with the date, the category, and the action taken. The first eight are listed, then a count of the rest.
+- When the oldest counted finding stops counting.
+- If repeat-offender escalation is on, each step, with an arrow on the step the member has reached, and how many findings away the next step is.
 
-## Tiers
-
-| Tier | Meaning |
-|---|---|
-| **Good** | No meaningful recent record. |
-| **Limited** | Some findings; the member is not yet at risk of the strongest automatic actions. |
-| **At risk** | Enough points that repeat-offender escalation is likely to fire on the next finding. |
-| **Suspended** | The record is severe enough that the strongest configured actions are in play. |
-
-Thea does not show a raw score to members. It shows the tier and the actions that produced it.
+Findings a moderator approved on review are off the record and do not appear.
 
 ## What counts
 
-- AutoMod actions on this server (warns, quarantines, timeouts, and so on)
-- Manual `/warn` from a moderator
+`/standing` reads the record the same way repeat-offender escalation does.
+
+| Finding | Listed | Counts toward escalation |
+|---|---|---|
+| Warnings, held messages, removals, timeouts, kicks, and bans | Yes | Yes |
+| Findings that were only logged, with no action taken | Yes | No |
+| Off-topic warnings from [Channel focus](/moderation/automod#channel-focus) | Yes | No |
+
+When some listed findings do not count, the reply says how many of them count.
 
 Kicks and bans from other servers, global-blacklist listings, and platform account standing do **not** appear here.
 
-## Decay
+## How long findings count
 
-Points fall off over time. More severe actions take longer to decay (from about 90 days up to about 2 years). After the window, that action no longer holds the member in a worse tier.
+A finding counts for the escalation window you set, from 1 to 90 days. Without a repeat-offender rule, `/standing` looks back 30 days. After the window, that finding no longer counts toward escalation.
 
 ## Repeat offenders
 

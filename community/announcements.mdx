@@ -24,6 +24,14 @@ One-off announcements are available on every plan, including Free. Recurrence is
 | Pro | Yes | Daily, weekly, monthly |
 | Business | Yes | Daily, weekly, monthly |
 
+## Change a scheduled announcement
+
+- **Cancel** removes a scheduled one-off announcement before it posts.
+- **Skip next** skips one post of a repeating announcement. The series keeps running.
+- **Stop repeating** ends a repeating series. An occurrence that is already scheduled still posts.
+
+An announcement that is already queued or sent cannot be pulled back. Viewer collaborators see the list but not these controls or the composer.
+
 ## From Discord
 
 ```
@@ -39,7 +47,9 @@ Optional options:
 
 ## What members see
 
-Thea posts as itself, in the channel you chose. If output moderation blocks the text, the announcement is not sent and the dashboard records the failure.
+Thea posts as itself, in the channel you chose. If output moderation blocks the text, the announcement is not sent, a repeating announcement stops repeating, and the dashboard records the failure.
+
+If output moderation is temporarily unavailable, Thea retries. If every retry fails, it skips that post and records why. A repeating announcement keeps its schedule.
 
 ## Related
 

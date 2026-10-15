@@ -1,7 +1,7 @@
 ---
 title: "Audit log and exports"
 sidebarTitle: "Audit"
-description: "See every configuration change on a server, and export the audit log or moderation ledger."
+description: "See every configuration change on a server, and export the audit log or the AutoMod ledger."
 keywords: ["audit log", "export", "moderation export"]
 ---
 
@@ -13,14 +13,15 @@ The audit log is not automatically pruned.
 
 ## Exports
 
-From **Audit** you can download:
+| Export | Where | Contents |
+|---|---|---|
+| **Export audit log** | **Audit** | Configuration changes, exports, and enforcement recorded against this server |
+| **Export findings** | **AutoMod → Export** | Manual commands and AutoMod actions. This is the same ledger `/record` and `/standing` read from. |
+| **Export review outcomes** | **AutoMod → Export** | Moderator rulings on findings |
 
-| Export | Contents |
-|---|---|
-| **Audit log** | Configuration changes |
-| **Moderation export** | Manual commands and AutoMod actions — member, action, reason, actor, timestamp |
+Use the AutoMod exports for ban appeals, shift handoff, or an external compliance request.
 
-Use the moderation export for ban appeals, shift handoff, or an external compliance request. It is the same ledger `/record` and `/standing` read from.
+Each server can run 5 exports an hour, shared between the audit log and AutoMod exports. A date range can cover up to 366 days. If an export is refused, the page shows why instead of downloading a file.
 
 <Note>
   Message bodies are not in these exports. Server logs post content to Discord

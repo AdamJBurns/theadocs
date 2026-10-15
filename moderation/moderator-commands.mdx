@@ -4,7 +4,7 @@ sidebarTitle: "Mod commands"
 description: "Warn, timeout, kick, ban, watch, lock, and note — every action writes to the same ledger AutoMod uses."
 ---
 
-Manual commands and AutoMod write to one ledger. A `/timeout` and an AutoMod timeout both appear on the member's record, in `/standing`, and in the [moderation export](/dashboard/audit).
+Manual commands and AutoMod write to one ledger. A `/timeout` and an AutoMod timeout both appear on the member's record, in `/standing`, and in the [AutoMod findings export](/dashboard/audit#exports).
 
 Commands follow Discord permissions. Members who lack the permission do not see the command. Each handler still checks on the server.
 
@@ -16,21 +16,27 @@ Commands follow Discord permissions. Members who lack the permission do not see 
 | `/timeout @user duration: reason:` | Moderate Members | Examples: `10m`, `2h`, `3d`. Max 28 days.                                                       |
 | `/untimeout @user`                 | Moderate Members | Lift early                                                                                      |
 | `/kick @user reason:`              | Kick Members     | They can rejoin                                                                                 |
-| `/ban @user`                       | Ban Members      | Permanent or a number of days; optional message purge (1–365 days)                              |
+| `/ban @user`                       | Ban Members      | Permanent, or lifted after 1–365 days. Optionally deletes their messages from the last hour. A permanent ban replaces any temporary ban already running. |
 | `/unban`                           | Ban Members      |                                                                                                 |
 | `/softban @user`                   | Ban Members      | Ban then unban; deletes about a day of messages                                                 |
 | `/purge count:`                    | Manage Messages  | 2–100 messages; optional user filter. Discord will not bulk-delete messages older than 14 days. |
-| `/record @user`                    | Moderate Members | Full moderation record                                                                          |
-| `/delwarn @user`                   | Moderate Members | Remove the latest _manual_ warn                                                                 |
+| `/record @user`                    | Moderate Members | Full moderation record. Not for your own record.                                                |
+| `/delwarn @user`                   | Moderate Members | Remove the latest _manual_ warn from a member ranked below you                                  |
 | `/moderations`                     | Moderate Members | Temporary bans waiting to lift                                                                  |
 | `/note` / `/notes` / `/delnote`    | Moderate Members | Staff-only notes on a member. The member never sees them.                                       |
 | `/watch` / `/unwatch`              | Moderate Members | Closer scrutiny, optional expiry. Max **200** watches per server.                               |
 | `/lock` / `/unlock`                | Manage Roles     | Lock the current channel; optional notice                                                       |
-| `/standing`                        | Any member       | Own record. Staff can pass a user. See [Member standing](/moderation/standing).                 |
+| `/standing`                        | Any member       | Your own AutoMod record. See [Member standing](/moderation/standing).                           |
 | `/automod test`                    | Manage Server    | Simulate a message. See [AutoMod](/moderation/automod).                                         |
 | `/raid`                            | Manage Server    | See [Raid protection](/moderation/raid-protection).                                             |
 
-Reason text on warn, kick, and ban is shown to the member (up to 500 characters).
+Reason text on warn, kick, and ban is DMed to the member as plain text (up to 500 characters). Links and formatting in the reason are not clickable. Banning someone by user ID who is not in the server sends no DM.
+
+## Role order
+
+Thea applies Discord's role order to moderator actions. You can only act on a member whose highest role is below yours. The server owner can act on anyone, and nobody can act on the server owner.
+
+The same rule applies to clearing a record. `/delwarn`, `/delnote`, and `/unwatch` refuse when you target yourself or a member whose highest role is at or above yours. Ask another moderator instead. You also cannot read your own notes or record with `/notes` or `/record`; use `/standing`.
 
 ## Watchlist
 

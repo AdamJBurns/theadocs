@@ -9,7 +9,9 @@ keywords: ["backup", "export", "import", "clone"]
 
 ## Export
 
-Click **Export** to download a JSON file of this server's settings. The snapshot includes answering, handoff, welcome, tickets, AutoMod, raid protection, logging, saved replies, and related configuration.
+Under **Back up this configuration**, click **Download** to get a JSON file of this server's settings. The snapshot includes answering, handoff, tickets, welcome, notifications, AutoMod, raid protection, and server logs. It excludes credentials, API keys, member data, and moderation records. Saved replies are not included.
+
+If a saved setting holds a value the backup format no longer accepts, the export names the field to fix.
 
 You can also start an export from Discord:
 
@@ -28,17 +30,27 @@ That command gives you a link to the same dashboard download. It does not attach
 Import applies a previously exported file to this server.
 
 1. Open **Settings → Backup & clone**.
-2. Choose the JSON file.
-3. Review the preview of what will change.
-4. Apply.
+2. Under **Restore from a file**, choose the JSON file.
+3. Click **Preview changes** and review what will change.
+4. Click **Restore**.
 
-The preview is there so you can see every card that will be overwritten before you confirm.
+The preview is there so you can see every card that will be overwritten before you confirm. Changing **Leave unknown channels and roles unset** clears the preview, so preview again before you restore.
 
 ## Clone to another server
 
-If you manage more than one server with Thea, **Clone** copies this server's configuration to another server you have settings access on. Pick the target, review the preview, and apply.
+If you manage more than one server with Thea, **Copy to another server** copies this server's configuration to another server you have settings access on. Pick the **Destination server**, click **Preview changes**, then **Copy configuration**.
 
 You need **Settings** write permission on the destination. Billing, API keys, and the knowledge index are not cloned.
+
+## What an import or copy refuses
+
+Thea refuses an import or copy that would:
+
+- set `@everyone` as the support role;
+- change the join role to one you could not assign yourself in Discord (see [Welcome](/community/welcome#join-role-safety));
+- leave the AutoMod log channel empty while [global blacklist](/moderation/global-blacklist) review mode is on. A copy always clears the log channel, because channels belong to the source server, so turn review mode off on the destination before you copy.
+
+Status-page alerts arrive turned off when their channel does not exist on the destination.
 
 ## Related
 

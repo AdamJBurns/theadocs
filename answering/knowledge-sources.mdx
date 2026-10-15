@@ -13,10 +13,10 @@ Open **Knowledge** in the server sidebar. This is not under Settings.
 
 <CardGroup cols={2}>
   <Card title="Single page" icon="link">
-    Index one URL. Thea follows links from that page up to your plan's crawl depth.
+    Index one URL, right now. It must be a web page or text document. Upload PDFs as files instead.
   </Card>
   <Card title="Entire site" icon="sitemap">
-    Point at an XML sitemap. On re-sync, only changed pages are fetched.
+    Enter the site's URL. Thea uses its `sitemap.xml` when it exists, including gzipped sitemaps and sitemap indexes. Otherwise it follows same-site links up to your plan's crawl depth. On re-sync, only changed pages are re-embedded.
   </Card>
   <Card title="Status page" icon="signal">
     A status page that re-syncs on a schedule. Pair it with **Settings → General → Status page alerts** to post when an incident opens or resolves.
@@ -28,10 +28,10 @@ Open **Knowledge** in the server sidebar. This is not under Settings.
     Structured question-and-answer pairs. They get a retrieval boost because they look like how members ask.
   </Card>
   <Card title="Notion" icon="n">
-    Sync pages and databases. **Pro** and **Business**. Counts as one source for the whole connection.
+    Sync the pages you share with a Notion integration. **Pro** and **Business**. Counts as one source for the whole connection.
   </Card>
   <Card title="Zendesk" icon="headset">
-    Published help-center articles. **Pro** and **Business**.
+    Articles from a public Zendesk help center. **Pro** and **Business**.
   </Card>
   <Card title="Discord thread" icon="discord">
     Index a resolved thread so Thea can reuse an answer your team already wrote.
@@ -46,13 +46,17 @@ Open **Knowledge** in the server sidebar. This is not under Settings.
 
 ## Crawl depth
 
-When you add a page or site, Thea follows links up to:
+When you add an entire site without a sitemap, Thea follows links up to:
 
 | Plan | Depth |
 |---|---|
-| Free | 1 level (only the URL you enter) |
+| Free | 1 level |
 | Pro | 3 levels |
 | Business | 5 levels |
+
+Site crawls skip links to PDFs, images, archives, media, and fonts. To index a PDF, upload it as a file.
+
+Each page or sitemap Thea fetches has the same size limit as file uploads: 2 MB (Free), 20 MB (Pro), or 50 MB (Business).
 
 ## Add a source
 
@@ -64,14 +68,16 @@ When you add a page or site, Thea follows links up to:
     Choose the type.
   </Step>
   <Step title="Connect it">
-    Paste a URL, upload a file, or complete Notion / Zendesk OAuth.
+    Paste a URL, upload a file, or choose **Connect platform** for Notion or Zendesk.
   </Step>
   <Step title="Wait for Ready">
     Status moves through **Queued**, **Building**, **Ready**, or **Error**. **Stale** means a scheduled sync failed or the source changed out from under the index.
   </Step>
 </Steps>
 
-Paused sources keep serving whatever was last indexed. The dashboard warns collaborators so you do not forget a freeze.
+If Thea cannot read any pages from a sitemap, the source shows **Error** instead of indexing the sitemap file itself.
+
+**Paused** means scheduled syncing stopped after repeated failures. Fix the source, then choose **Resume syncing** from its menu. Paused sources keep serving whatever was last indexed. The dashboard warns collaborators so you do not forget a freeze.
 
 ## Sync
 
@@ -81,10 +87,12 @@ Paused sources keep serving whatever was last indexed. The dashboard warns colla
 | Pro | Every 24 hours |
 | Business | Every 6 hours |
 
-Trigger **Sync now** on a source at any time. Status-page alerts fire on that same cadence — see **Settings → General**.
+Choose **Re-sync** from a source's menu to fetch it now. This works for single pages, sites, status pages, and Notion or Zendesk connections. Status-page alerts post only from scheduled syncs (see **Settings → General**), so if a manual re-sync picks up a change first, no alert is posted for that change.
+
+A re-sync removes pages only after it reaches the whole site and confirms they are gone. If part of the site times out, is rate limited, or returns a server error, Thea keeps the pages it could not check and notes that on the source. A page that moved to a new address keeps its indexed copy.
 
 <Warning>
-  Document and passage limits apply across all sources combined. New content stops indexing when you hit the cap.
+  Document and passage limits apply across all sources combined. New content stops indexing when you hit the cap. Indexing also pauses when your server reaches its monthly spend cap. This applies to site crawls, re-syncs, file uploads, integrations, and Content API pushes. Content already indexed keeps serving.
 
   | Plan | Documents | Passages | Sources |
   |---|---|---|---|
@@ -93,9 +101,15 @@ Trigger **Sync now** on a source at any time. Status-page alerts fire on that sa
   | Business | 25,000 | 1,000,000 | 200 |
 </Warning>
 
+## Credentials in your docs
+
+Thea scans everything it indexes for values that look like credentials, such as API keys, tokens, private keys, database passwords, and lines like `DB_PASSWORD=`. It also catches a label and its value that sit in different table cells, paragraphs, or a heading. Thea replaces those values with a redaction marker before indexing, so answers never quote them.
+
+A source with redactions shows a **credentials** badge on **Knowledge**. This applies to every source type, including Notion, Zendesk, help-center articles, and Content API pages. Treat the badge as a published credential: rotate it, remove it from the page, then re-sync. The badge clears once no passage from that source still contains a redaction.
+
 ## Knowledge gaps
 
-On paid plans, Thea clusters questions it could not answer. Open the gaps from **Knowledge**, then draft a FAQ, add a source, or dismiss the cluster.
+On paid plans, Thea clusters questions it could not answer. Open the gaps from **Knowledge**. Each gap offers **Draft article**, **Addressed**, and **Dismiss**. **Draft article** adds a draft to your [help center](/help-center/overview), so create the help center first. Drafts count toward your plan's article limit.
 
 After you add or update a source, ask the same questions in the [Playground](/answering/playground) and confirm the new passages show up before members rely on them.
 

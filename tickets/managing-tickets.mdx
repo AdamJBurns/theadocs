@@ -11,18 +11,20 @@ Staff work tickets in the private Discord channel and in **Tickets** in the dash
 | Action | How |
 |---|---|
 | Claim | `/ticket claim` |
-| Assign | `/ticket assign` |
+| Assign | `/ticket assign` — only to staff who can see the ticket channel |
 | Release | `/ticket unclaim` |
 | Internal note | `/ticket note` — the member never sees this |
 | Saved reply | `/macro send` — see [Saved replies](/community/saved-replies) |
 | Close | `/ticket close` |
 | Reopen | `/ticket reopen` |
 
-Thea answers first from your docs. The first staff message in the channel makes it step back. Mention Thea if you want it to try again.
+Thea answers first from your docs. The first staff message in the channel makes it step back for the rest of the ticket. The member's later messages are kept in the transcript.
+
+Ticket channels are private, so `/ticket assign` refuses someone who cannot see the channel. **Manage Server** alone does not give access. Give the person your support role first.
 
 ## In the dashboard
 
-Open **Tickets**, pick a view (Active, Unassigned, Assigned to me, Escalated, Closed, **Rated poorly**, All), and open a ticket to:
+Open **Tickets**, pick a view (Active, Unassigned, Assigned to me, Escalated, Closed, **Rated poorly**, All), and open a ticket. Search by ticket number (`42` or `#0042`) or by what the member wrote. On a ticket you can:
 
 - Read the transcript and form answers
 - Add or read staff notes
@@ -41,6 +43,8 @@ On close, Thea:
 
 Ratings of 1 or 2 appear in **Rated poorly**. If you enabled the event, the rating also lands in the [ticket log](/community/server-logs).
 
+The closed channel stays in the **Tickets** category so the ticket can be reopened. Discord allows 50 channels per category, and closed tickets count until they are deleted. When the category is full, members cannot open a new ticket and Thea tells them why. Press **Delete ticket** on the close message once you no longer need a ticket.
+
 ## Response target
 
 If you set a response target and an *escalated* ticket sits without a reply to the member, Thea pings the support role **once** in that ticket channel. Claiming the ticket does not count as a reply. Raid mode suppresses the ping.
@@ -54,9 +58,9 @@ The download includes the opening form answers, Thea's first answer, the convers
 
 <AccordionGroup>
   <Accordion title="What happens when Thea answers in a ticket?">
-    Thea searches your knowledge base and posts a cited answer if confidence is high enough. When a staff member sends a message, Thea stops. Mention it to pull it back in. Everything stays in the transcript.
+    Thea searches your knowledge base and posts a cited answer if confidence is high enough. When a staff member sends a message, or the member presses **Get a human**, Thea stops answering in that ticket. Everything stays in the transcript.
   </Accordion>
   <Accordion title="Can I export moderation records from here?">
-    Moderation is a different export. Open [Audit](/dashboard/audit) and download the **Moderation export**.
+    Moderation is a different export. Open **AutoMod**, click **Export**, and choose **Export findings**. See [Audit and exports](/dashboard/audit#exports).
   </Accordion>
 </AccordionGroup>

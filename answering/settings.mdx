@@ -40,6 +40,8 @@ When a new question is nearly identical to one Thea already answered, it can lin
 - Redirects **do not** count against your monthly answer quota.
 - Similarity is a number from **0.5 to 1**. Higher is stricter.
 - Lookback is up to **90 days**.
+- Only the question that opens a new public conversation is checked, and only against earlier opening questions. Follow-ups in a thread, questions in tickets, and questions in private threads are always answered.
+- Thea links only to a thread the member can open. Otherwise it answers normally.
 
 Configure this under **Settings → Answering → Duplicate questions**.
 
@@ -56,6 +58,8 @@ These instructions cannot override grounding. If the sources do not contain the 
 ## Display name
 
 **Settings → General → Display name** is how Thea introduces itself in answers and its nickname in the server. Saving renames the bot in Discord. Thea needs the **Change Nickname** permission. The Discord application name itself is set in the Discord Developer Portal.
+
+Display names can be up to 64 characters. Discord nicknames hold 32, so a longer name is shortened in the member list, and the dashboard tells you what Discord will show.
 
 ## Safety
 
@@ -75,7 +79,7 @@ Any member can ask Thea a question without posting it in a channel:
 /ask question:How do I reset my password?
 ```
 
-The reply is ephemeral — only the asker sees it. It still uses your knowledge sources, confidence threshold, language matching, and monthly answer quota.
+The reply is ephemeral — only the asker sees it. It still uses your knowledge sources, confidence threshold, language matching, and monthly answer quota. When `/ask` reaches the answer limit, your staff get the same limit notice as for channel questions.
 
 ## Rate limits
 

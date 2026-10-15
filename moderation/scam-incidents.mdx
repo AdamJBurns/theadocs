@@ -14,9 +14,11 @@ Opening Scam Defense and running playbooks requires **Admin** or **Owner** dashb
 A **campaign** is network-wide correlation between qualified indicators. Its status can be:
 
 - **First seen** — qualified activity has started.
-- **Spreading** — recent activity is reaching more participating servers.
-- **Contained** — the campaign no longer needs an active response.
-- **Dormant** — no longer recently active.
+- **Spreading** — at least three participating servers reported it, with a sighting in the last 24 hours.
+- **Contained** — no new sighting for 3 days.
+- **Dormant** — no new sighting for 14 days.
+
+A new sighting makes a contained or dormant campaign active again.
 
 A **local incident** exists when a qualified campaign indicator matches your server's own AutoMod history. It shows:
 
@@ -43,9 +45,17 @@ When a confirmed network indicator matches recent local history, Thea can:
 3. Start a bounded retro-hunt for eligible messages that were previously logged.
 4. Activate temporary hardening if you enabled it.
 
-The retro-hunt looks back no more than seven days and considers at most 50 linked events per incident. It fetches a still-live Discord message, derives the indicator again, and deletes the message only when it still matches the current confirmed verdict.
+The retro-hunt looks back no more than seven days and considers at most 50 linked events per pass. It fetches a still-live Discord message, derives the indicator again, and deletes the message only when it still matches the current confirmed verdict.
 
-Retro-hunt never times out, kicks, or bans a member. It skips an event that a moderator approved and logs a completion notice when it deletes one or more messages.
+Retro-hunt never times out, kicks, or bans a member. It logs a completion notice when it deletes one or more messages. It skips:
+
+- events a moderator approved;
+- messages from staff, bots, and webhooks;
+- messages Thea only logged because automated enforcement was paused or your server was outside the staged rollout. These stay skipped after enforcement turns on.
+
+If Discord is temporarily unavailable, Thea retries the retro-hunt with a backoff for up to 24 hours after the incident opened. If Thea lacks a permission it needs, the incident shows **Retro-hunt: Failed**.
+
+During the network's observe-only rollout, incidents still appear on the dashboard and your moderator playbooks still work. Thea does not post incident alerts, run retro-hunts, or activate adaptive hardening until the rollout ends. It then alerts only for incidents that are still matching, not for everything recorded during the rollout.
 
 ## Moderator playbooks
 
@@ -61,7 +71,11 @@ Open an **Open** or **Investigating** incident to see its actions.
 
 Thea rechecks each event immediately before the Discord action. If a moderator approved it, resolved the incident, or otherwise made it ineligible, the worker skips it.
 
-The playbook never bans a member and never searches unrelated server history. When every actionable target is resolved, Thea can mark the incident **Contained** automatically.
+Containment never acts on messages from staff, bots, or webhooks. It never times out a member with **Administrator**, **Manage Server**, **Manage Messages**, or **Moderate Members**.
+
+If a member's existing timeout already lasts at least the containment hour, Thea leaves it unchanged, so it never shortens a longer timeout your staff set. When Thea retries a job, it skips members an earlier attempt already handled. A member you release stays released.
+
+The playbook never bans a member and never searches unrelated server history. When every actionable target is resolved, Thea marks the incident **Contained** automatically.
 
 <Warning>
   **Contain now** performs Discord actions. Review the incident timeline first
@@ -72,13 +86,15 @@ The playbook never bans a member and never searches unrelated server history. Wh
 
 **Warn exposed channels** posts a security notice to up to five distinct affected channels. The notice tells members who opened a link or downloaded a file to change the affected password, enable multi-factor authentication, and review active sessions.
 
-The action deduplicates channels. Running it again can post a new notice, so use it only when another reminder is needed.
+The action deduplicates channels. You can run it once per incident. If the warning fails or is cancelled, you can run it again.
 
 ### Resolve contained
 
 Use **Resolve contained** when the required response has already happened or no further playbook action is needed. This changes incident state; it does not delete messages or time out members by itself.
 
-Thea will not resolve an incident while one of its playbooks is running. Pending work is cancelled after the incident is resolved so a worker cannot act on stale state.
+While **Contain now** is queued, **Resolve contained** is unavailable, because containment marks the incident **Contained** itself when it finishes. Use **False positive** if you need to cancel queued containment. Neither resolution is available while a playbook is running.
+
+Resolving an incident cancels a queued exposure warning that has not been posted yet. The incident card says when a playbook is queued or running.
 
 ### False positive
 

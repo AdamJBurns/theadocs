@@ -1,7 +1,7 @@
 ---
 title: "Set up tickets"
 sidebarTitle: "Setup"
-description: "Enable member tickets, post a panel, add up to five form questions, and turn on triage, transcripts, and a response target."
+description: "Enable member tickets, post a panel, add up to five form questions, and turn on transcripts, a response target, and (on paid plans) triage."
 ---
 
 Ticket setup lives in **Settings → Tickets**. You can also run `/ticket setup` in Discord.
@@ -20,7 +20,7 @@ Ticket setup lives in **Settings → Tickets**. You can also run `/ticket setup`
     Under **Ticket form**, add up to five questions (free text, email, or phone). Answers are posted into the new ticket. Also available as `/ticket fields`.
   </Step>
   <Step title="Set the support role">
-    Escalations and SLA pings use the role on **Settings → Handoff**. The same role `/setup` sets.
+    Escalations and SLA pings use the role on **Settings → Handoff**. The same role `/setup` sets. The support role cannot be `@everyone` or a role managed by a bot or integration.
   </Step>
 </Steps>
 
@@ -30,8 +30,8 @@ Ticket setup lives in **Settings → Tickets**. You can also run `/ticket setup`
 |---|---|
 | **Transcript on close** | **DM the member a transcript** — on by default. Staff can still download from the dashboard. |
 | **Response target** | Minutes an escalated ticket may sit without a staff *reply*. One ping per ticket, ever. Off = silent. Nothing is sent while a raid is active. |
-| **Ticket triage** | AI category, urgency, and sentiment. Map categories to roles. Uses one AI AutoMod scan per ticket. |
-| **Other ticket bots** | Answer the first question in Ticket Tool–style channels. Add Thea's role to that bot's support team so it can see the channels. Match by category and/or name prefix (`ticket-` is the default). |
+| **Ticket triage** | AI category, urgency, and sentiment. Map categories to roles. Uses one AI AutoMod scan per ticket, so it is available on Pro and Business only. On Free the switch is unavailable. |
+| **Other ticket bots** | Answer members in Ticket Tool–style channels. Follow-ups in the same channel keep the earlier questions as context until the channel is quiet for 24 hours. Thea steps back once a team member posts; mention it to bring it back. Add Thea's role to that bot's support team so it can see the channels. Match by category and/or name prefix (`ticket-` is the default). |
 
 <Tip>
   Put common answers in [Knowledge](/answering/knowledge-sources) so the first message in the ticket resolves the request. The fewer tickets that need a human, the better your response times look.
