@@ -18,11 +18,11 @@ Tickets are private Discord channels. A member clicks **Open a ticket** on a pan
   <Step title="Thea answers from your docs">
     If confidence is high enough, Thea posts a cited answer before anyone is pinged.
   </Step>
-  <Step title="Optional AI triage">
-    When triage is on, Thea labels category, urgency, and sentiment. You can map categories to roles so the right team is pinged. Angry or urgent openers go to your support role immediately. Each classification counts against your **AI AutoMod scan** allowance.
+  <Step title="Optional AI triage (Pro and Business)">
+    When triage is on, Thea labels category, urgency, and sentiment. You can map categories to roles so the right team is pinged. Angry or urgent openers go to your support role immediately. Each classification counts against your **AI AutoMod scan** allowance, so triage is not available on Free.
   </Step>
   <Step title="Staff take over">
-    The first human reply in the channel makes Thea step back. Mentioning Thea pulls it back in. Use `/ticket claim`, `/ticket assign`, and `/ticket note` as needed.
+    The first staff reply in the channel, or the member pressing **Get a human**, makes Thea step back. From then on Thea keeps the transcript but does not answer. Use `/ticket claim`, `/ticket assign`, and `/ticket note` as needed.
   </Step>
   <Step title="Close, transcript, and CSAT">
     On close, Thea can DM the member a plain-text transcript, then remove their access to the channel. It also DMs a 1–5 satisfaction question plus an optional comment. Low scores (1–2) show up in the dashboard under **Rated poorly**.
@@ -56,7 +56,7 @@ Each ticket shows the transcript, staff notes, CSAT, SLA status, and a transcrip
     Send canned text with `/macro send`. There is no `/reply` command.
   </Card>
   <Card title="Other ticket bots" icon="puzzle-piece">
-    Thea can answer the first question in Ticket Tool–style channels, then step back.
+    Thea can answer the member in Ticket Tool–style channels, keeping earlier questions as context, then step back when your team posts.
   </Card>
 </CardGroup>
 

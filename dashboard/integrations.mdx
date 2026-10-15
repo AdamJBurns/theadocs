@@ -11,14 +11,14 @@ Upgrade from that server's **Billing** page.
 ## Connect Notion
 
 <Steps>
-  <Step title="Open Knowledge">
-    Go to **Knowledge → Add source** and choose **Notion**.
+  <Step title="Create a Notion integration">
+    In Notion, create an internal integration at [notion.so/my-integrations](https://www.notion.so/my-integrations) and copy its token (it starts with `ntn_`).
   </Step>
-  <Step title="Authorize">
-    Complete Notion OAuth with an account that can read the pages or databases you want indexed.
+  <Step title="Share pages with it">
+    Share the pages you want indexed with that integration. Thea can read only those pages. Share more pages later to add them.
   </Step>
-  <Step title="Pick pages">
-    Select the pages, databases, or sections to sync. You can change the selection later.
+  <Step title="Connect it in Thea">
+    Go to **Knowledge → Add source → Connect platform**, choose **Notion**, paste the token, and click **Connect and sync**.
   </Step>
   <Step title="Wait for Ready">
     The first index starts immediately. Later syncs follow your plan: every **24 hours** on Pro, every **6 hours** on Business.
@@ -29,18 +29,20 @@ Upgrade from that server's **Billing** page.
 
 <Steps>
   <Step title="Open Knowledge">
-    **Knowledge → Add source → Zendesk**.
+    **Knowledge → Add source → Connect platform**, then choose **Zendesk**.
   </Step>
   <Step title="Enter your subdomain">
-    The part before `.zendesk.com`.
+    The part before `.zendesk.com`. This works with any public Zendesk help center, so no credentials are needed.
   </Step>
-  <Step title="Authorize">
-    Use an admin or agent account that can read published help-center articles.
+  <Step title="Connect and sync">
+    Click **Connect and sync**.
   </Step>
   <Step title="Confirm the index">
     Check passage count and last sync on **Knowledge**.
   </Step>
 </Steps>
+
+Choose **Re-sync** from a connection's menu to sync it now. Thea redacts values that look like credentials from synced pages and shows a **credentials** badge on the source. See [Credentials in your docs](/answering/knowledge-sources#credentials-in-your-docs).
 
 ## Content API
 

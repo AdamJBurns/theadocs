@@ -30,7 +30,7 @@ Each detector operates in one of two modes:
     Thea sends a notification to your designated staff channel when a detector fires. The alert includes the triggering event, the current join or message rate, and quick-action buttons so staff can respond without leaving Discord. No automatic action is taken — your team decides what to do.
   </Tab>
   <Tab title="Auto Mode">
-    When a detector fires, Thea immediately executes the action you've configured: enabling the verification gate, locking channels, or restricting new-member permissions. The event is still logged and your team is notified, but the response is automatic.
+    When a detector fires, Thea turns raid mode on immediately: the challenge gate starts holding suspect members, and the raid-mode actions you chose (pausing invites or DMs, raising the verification level) take effect. The event is still logged and your team is notified, but the response is automatic.
   </Tab>
 </Tabs>
 
@@ -40,9 +40,11 @@ Each detector operates in one of two modes:
 
 ## Emoji-Captcha Verification Gate
 
-When the verification gate is active — either triggered automatically or enabled manually — every new member who joins must solve a short emoji-captcha challenge before gaining access to the rest of the server. The gate integrates with Discord's membership screening flow.
+When raid mode is active — either triggered automatically or enabled manually — the gate holds suspect members, such as recent joiners. Their messages are removed and Thea offers them a **Verify** button.
 
-The captcha presents a simple prompt (e.g., "React with 🛡️") and grants the configured member role only after a correct response. This gates out bots and raiders who join programmatically without human interaction.
+**Verify** opens a private prompt with five emoji buttons. The member picks the emoji Thea names, twice in a row. A wrong pick uses an attempt and reshuffles the options. Passing verifies the member permanently. This gates out bots and raiders who join programmatically without human interaction.
+
+Only members the gate is holding can take the challenge or receive its fail action. Anyone else who presses **Verify** is told they can chat normally.
 
 Welcome messages and onboarding forms remain quiet while raid mode is active, so raiders do not receive welcome pings or form prompts that could be used to flood staff channels.
 
@@ -58,7 +60,7 @@ Enables raid mode immediately, activating the verification gate and any configur
 ```
 /raid off
 ```
-Disables raid mode and restores normal access for new members.
+Disables raid mode and restores normal access for new members. Thea lifts only the invite and DM pauses it set itself, so a pause someone set in Discord stays in place.
 
 ```
 /raid status
@@ -95,15 +97,15 @@ While raid mode is active, messages from suspect members are removed and they ge
 - **Recent join window (hours)**
 - **Account age (days)** — `0` turns this test off
 - **Wrong answers allowed** — options reshuffle after every miss
-- Fail action: keep removing their messages, kick, or ban
+- Fail action: keep removing their messages, kick, or ban. It applies only to members the gate is holding.
 
 ### While raid mode is active
 
 - Pause invites (default on)
 - Pause DMs
-- Raise verification to High
+- Raise verification to High. When raid mode ends, Thea restores the previous level, including after a restart or when the raid lapses, unless someone changed the level during the raid.
 
-These use Discord incident actions. Discord lifts them after 24 hours regardless. Needs **Manage Server**. Ticket SLA pings are also suppressed during a raid.
+The two pauses use Discord incident actions, which Discord lifts after 24 hours regardless. Needs **Manage Server**. Ticket SLA pings are also suppressed during a raid.
 
 ### Exemptions and alerts
 

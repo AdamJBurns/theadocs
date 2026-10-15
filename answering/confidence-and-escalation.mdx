@@ -36,7 +36,15 @@ The same value is available as `/config set threshold`.
 
 **Settings → Handoff → Get a human button** adds an escalation button on answers. Members use it when the reply is not enough. Escalations ping the **Support role** on the same page (the role `/setup` sets).
 
-When confidence is below the threshold, Thea does not post a public answer. It tells the member it could not ground a reply and, if the button is on, offers that handoff.
+When confidence is below the threshold, Thea does not post a public answer. It tells the member it could not ground a reply and, if the button is on, offers the same handoff as a **Notify the support team** button. Thea offers it too if something goes wrong on its end.
+
+When someone presses the button:
+
+1. Thea confirms privately to the person who pressed it.
+2. Thea posts in the thread or ticket and pings your **Support role**. In a ticket, that message has a **Claim** button that only your support team can use.
+3. Thea stops answering in that thread so your team can take over. See [How it works](/answering/how-it-works).
+
+Only the member who asked, or your support team, can press the button. If no support role is set, nobody is pinged and Thea says so. Pressing it on a closed ticket is refused; reopen the ticket first.
 
 <Note>
   Escalations do **not** consume your monthly answer quota. Only answers Thea posts count. Duplicate-question redirects also do not count. See [Answering settings](/answering/settings).
@@ -44,7 +52,7 @@ When confidence is below the threshold, Thea does not post a public answer. It t
 
 ## Verified answers
 
-If a reply was wrong or thin, open the conversation in the dashboard and save a **verified answer** from the correction form. Future questions on that topic prefer the correction over ordinary documentation. See [Conversations](/answering/conversations).
+If a reply was wrong or thin, open the conversation in the dashboard and save a **verified answer** with **Teach the correct answer**. Future questions on that topic prefer the correction over ordinary documentation. See [Conversations](/answering/conversations).
 
 ## When answering is paused
 

@@ -121,9 +121,13 @@ Thea limits welcome posts to 10 per server per minute during a join surge. Addit
 
 ## Join role safety
 
-Choose an optional role to grant when a member joins. Thea needs **Manage Roles** and a role above the one it grants. It refuses `@everyone`, integration-managed roles, roles at or above its highest role, and roles with moderation permissions.
+Choose an optional role to grant when a member joins. Thea needs **Manage Roles** and a role above the one it grants. It refuses `@everyone`, integration-managed roles, roles at or above its highest role, and roles with moderation permissions. Those include the voice moderation permissions **Mute Members**, **Deafen Members**, and **Move Members**.
 
-The role is checked again on every join. If somebody later makes the role unsafe or moves it above Thea, it is not granted.
+You can only pick a role you could assign yourself in Discord. You need **Manage Roles**, and the role must sit below your own highest role. The server owner can pick any role. This applies in the dashboard, in `/config welcome set`, and when an import changes the join role, whatever your dashboard role.
+
+The role is checked again on every join. If somebody later makes the role unsafe or moves it above Thea, it is not granted. The dashboard marks a saved role that is no longer safe. Choose **No role — nothing is granted** to clear it.
+
+If your server uses Discord's membership screening, Thea waits until the member accepts your rules before it greets them or grants the join role.
 
 ## Raid protection
 
@@ -159,7 +163,8 @@ Confirm that:
 1. a welcome channel is selected;
 2. at least one of message content, Discord embed, or personalized image card is enabled;
 3. Thea can view and send messages in the channel;
-4. raid mode is not holding the member for verification.
+4. raid mode is not holding the member for verification;
+5. the member has accepted your Discord membership screening, if your server uses it.
 
 ### The embed or image is missing
 
@@ -167,7 +172,7 @@ Check **Embed Links** for embeds and **Attach Files** for generated cards. If yo
 
 ### The join role is not granted
 
-Confirm that Thea has **Manage Roles**, move its highest role above the join role, and remove moderation permissions from the join role. `/config welcome show` reports when the saved role is no longer safe.
+Confirm that Thea has **Manage Roles**, move its highest role above the join role, and remove moderation permissions from the join role, including **Mute Members**, **Deafen Members**, and **Move Members**. `/config welcome show` reports when the saved role is no longer safe. Members who have not yet accepted your membership screening get the role after they accept.
 
 ## Related
 

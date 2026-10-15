@@ -37,7 +37,7 @@ All pages on a server share one `api` knowledge source. That source counts as **
 GET /api/v1/external-pages
 ```
 
-Returns `externalId`, `title`, `url`, `contentHash`, `chunkCount`, and `updatedAt` for each page. Requires a key with read access.
+Returns `externalId`, `title`, `url`, `contentHash`, `chunkCount`, and `updatedAt` for each page.
 
 ## Upsert a page
 
@@ -64,6 +64,8 @@ Content-Type: application/json
 
 The request body must be under **512 KB**. Pushing the same `externalId` with unchanged Markdown does not re-embed.
 
+Thea redacts values that look like credentials before indexing a page. See [Credentials in your docs](/answering/knowledge-sources#credentials-in-your-docs).
+
 ## Delete a page
 
 ```http
@@ -72,15 +74,30 @@ DELETE /api/v1/external-pages/{externalId}
 
 `externalId` is URL-encoded if it contains reserved characters. Returns `{ "deleted": true, "externalId": "…" }` or `404` if that id was never pushed.
 
+## Rate limits
+
+Each key can make 120 reads and 30 writes per minute. Reads and writes have separate budgets, so a busy push never stops you reading your pages back.
+
 ## Errors
 
-| Status | When |
-|---|---|
-| `401` | Missing or unknown key |
-| `403` | Key cannot write, or the plan does not include the Content API |
-| `413` | Body larger than 512 KB |
-| `422` | Validation failed |
-| `429` | Rate limited — wait and retry, using `Retry-After` if present |
+Errors return a JSON body:
+
+```json
+{ "error": { "code": "quota_exceeded", "message": "…", "upgradeUrl": "…" } }
+```
+
+`upgradeUrl` is included only when upgrading the plan would help.
+
+| Status | Code | When |
+|---|---|---|
+| `400` | `invalid_request` | The body is not valid JSON |
+| `401` | `unauthorized` | Missing or unknown key |
+| `403` | `plan_required` | The plan does not include the Content API |
+| `403` | `quota_exceeded` | The push would exceed your document or passage limit, or your server has reached its monthly spend cap |
+| `413` | `payload_too_large` | Body larger than 512 KB |
+| `422` | `invalid_request` | Validation failed |
+| `429` | `rate_limited` | Rate limited — wait and retry, using `Retry-After` if present |
+| `500` | `internal_error` | The page could not be indexed. Try again. |
 
 ## Related
 

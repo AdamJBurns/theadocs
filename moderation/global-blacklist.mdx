@@ -37,7 +37,11 @@ Participating servers never see which other servers contributed, and they never 
 | **Review**        | Apply a 24-hour timeout and post **Allow** / **Ban** buttons in your AutoMod log channel. **Allow** creates a local exception for that listing. |
 | **Automatic ban** | Ban the account and record that the ban came from the global blacklist.                                                                         |
 
-Review mode needs an AutoMod [log channel](/moderation/automod). Without one, Thea cannot present the decision buttons.
+Review mode needs an AutoMod [log channel](/moderation/automod). Without one, Thea cannot present the decision buttons. [Backup and clone](/dashboard/backup-and-clone) refuses an import or copy that would leave the log channel empty while review mode is on.
+
+**Allow** needs **Moderate Members** and **Ban** needs **Ban Members**. As with acting by hand, your highest role must be above the member's. If Thea cannot confirm the role order, it refuses and asks you to try again.
+
+Thea never acts automatically on a member who holds moderation permissions in your server: **Administrator**, **Manage Server**, **Manage Messages**, **Moderate Members**, **Kick Members**, or **Ban Members**. It posts **Global blacklist action withheld** to your staff instead, so a moderator can review that member by hand.
 
 If Thea lacks **Ban Members** (or **Moderate Members** for the review timeout), it logs the failed action and alerts your staff instead of pretending it succeeded.
 
